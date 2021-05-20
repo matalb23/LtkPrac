@@ -1,0 +1,32 @@
+{
+  "appId": "com.latikait.ltkprac",
+  "appName": "ltkprac",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {},
+  "server": {
+    "allowNavigation": [
+          {
+            "url": "apptkapi.latikait.com.ar",
+            "injectJs": "true"
+          },
+          {
+            "url": "10.0.0.90",
+            "injectJs": "true"
+          },
+          {
+            "url": "apptkweb.latikait.com.ar",
+            "injectJs": "true"
+          }
+        ],
+    "cleartext": true,
+  
+    "androidScheme": "http"
+  }
+}

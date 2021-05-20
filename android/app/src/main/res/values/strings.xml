@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ltkprac</string>
+    <string name="title_activity_main">ltkprac</string>
+    <string name="package_name">com.latikait.ltkprac</string>
+    <string name="custom_url_scheme">com.latikait.ltkprac</string>
+</resources>

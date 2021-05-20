@@ -1,0 +1,36 @@
+ID : com.latikait.ltkprac
+
+https://capacitorjs.com/docs/getting-started/with-ionic
+npm install @ionic-native/core@latest
+
+signature
+https://enappd.com/blog/implement-signature-pad-in-ionic-apps/145/
+
+Push
+https://devdactic.com/push-notifications-ionic-capacitor/
+
+npm run build
+ionic build
+npx cap sync
+npx cap open android
+
+ESTE ME FUNCIONA
+ionic capacitor run android -l --external 
+
+
+chrome://inspect/#devices
+
+
+PROBLEMAS API
+
+            I add this line
+            android:usesCleartextTraffic="true"
+            to
+            platforms/android/app/src/main/AndroidManifest.xml
+
+            <application android:hardwareAccelerated="true" 
+            android:icon="@mipmap/icon" 
+            android:label="@string/app_name" 
+            android:supportsRtl="true" 
+            `android:usesCleartextTraffic="true"`>
+            It looks that way.

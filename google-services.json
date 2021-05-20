@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "408333691012",
+    "project_id": "ltkprac",
+    "storage_bucket": "ltkprac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408333691012:android:bd09c372b6e76a6c4a3ad1",
+        "android_client_info": {
+          "package_name": "com.latikait.ltkprac"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "408333691012-pbt94557td77a5ukouoljh1klo59idta.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhf2LRtQuLQdAdRPUsuI5mWBcv-iGZbg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "408333691012-pbt94557td77a5ukouoljh1klo59idta.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

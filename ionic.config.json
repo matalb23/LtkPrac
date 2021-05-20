@@ -1,0 +1,7 @@
+{
+  "name": "ltkprac",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mensajes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row *ngFor="let mensaje of mensajes" >
+  
+      <ion-col>
+        {{ mensaje.emisor_name}}
+      </ion-col>
+      <!-- ************DAMI SI ES UN MENSAJE SIN VER SE DESTACA ASI -->
+      <ion-col  [ngStyle]=" !mensaje.fechaVisto ?{'background-color': 'blue'} : {'background-color': 'white'} " >
+        {{ mensaje.titulo}}
+      </ion-col>
+      <ion-col>
+        {{ mensaje.descripcion}}
+      </ion-col>
+       <ion-col>
+        
+        {{ mensaje.fecha | date: 'dd/MM/yyyy H:mm' }} 
+      </ion-col> 
+      <!-- <ion-col >
+        {{ mensaje.fechaVisto}}
+      </ion-col>
+       -->
+      <ion-col >
+        <button  size="large" expand="block" (click)="opepdf(mensaje.tk_id)" class="btn-blue"     *ngIf= "mensaje.tk_id != 0"    >
+        Ver
+      </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
