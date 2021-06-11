@@ -13,12 +13,17 @@ import {SettingsService} from './service/settings.service';
 
 import { HttpConfigInterceptor } from './service/http-config.interceptor';
 import { HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
+import { FormsModule } from '@angular/forms'  
+import { ReactiveFormsModule} from '@angular/forms' 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,AuthModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,AuthModule, ReactiveFormsModule, 
+   FormsModule],
   providers: [AndroidPermissions,Base64ToGallery
-    ,SettingsService,   
+    ,SettingsService,SQLite, SQLitePorter,
     {
     provide: HTTP_INTERCEPTORS,
     useClass: HttpConfigInterceptor,

@@ -44,7 +44,7 @@ export class AppComponent {
           }
           else {
             this.auth.login(user).subscribe((res) => {
-              this.router.navigateByUrl('home');
+              this.router.navigateByUrl('tabs');
             }
               , error => {
                 this.router.navigateByUrl('login');

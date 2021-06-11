@@ -1,3 +1,4 @@
+Shift + Alt + F 
 ID : com.latikait.ltkprac
 
 https://capacitorjs.com/docs/getting-started/with-ionic
@@ -10,9 +11,12 @@ Push
 https://devdactic.com/push-notifications-ionic-capacitor/
 
 npm run build
+
 ionic build
 npx cap sync
 npx cap open android
+
+
 
 ESTE ME FUNCIONA
 ionic capacitor run android -l --external 
@@ -20,6 +24,10 @@ ionic capacitor run android -l --external
 
 chrome://inspect/#devices
 
+https://www.positronx.io/ionic-sqlite-database-crud-app-example-tutorial/
+https://devdactic.com/ionic-4-sqlite-queries/
+https://ionicframework.com/docs/native/sqlite
+npm install -g @ionic/cli@testing
 
 PROBLEMAS API
 
