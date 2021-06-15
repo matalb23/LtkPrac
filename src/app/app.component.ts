@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 import { SettingsService } from './service/settings.service';
 import { User } from './auth/user';
 import { FcmService } from './service/fcm.service';
-
+ import { DbService } from './service/db.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -19,8 +19,8 @@ export class AppComponent {
     private auth: AuthService,
     private router: Router
     , private settings: SettingsService,
-    private fcmService: FcmService
-
+    private fcmService: FcmService,
+     private db: DbService
   ) {
     this.initializeApp();
   }
@@ -57,6 +57,19 @@ export class AppComponent {
 
         }
       });
+
+
+      this.db.dbState().subscribe((res) => {
+        if (res) {
+          this.db.fetchServicios().subscribe(item => {
+            console.log("Init")
+            console.log("item " + item.length.toString())
+            console.log(item);          
+          })        
+        }
+      
+      });
+
 
 
     });

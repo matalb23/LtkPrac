@@ -22,4 +22,8 @@ export class Servicio {
     calado_Proa: number;
     calado_Popa: number;
     cabotaje: number;
+    observacion: string;
+    taraBruta: number;
+    taraNeta: number;
+    canal: string;
 }

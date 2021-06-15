@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS servicios(
-    codigo INTEGER primary key,
+    codigo INTEGER ,
     cliente INTEGER , 
     clienteRazonSocial TEXT,
     fechaPedido Datetime,
@@ -21,5 +21,9 @@ CREATE TABLE IF NOT EXISTS servicios(
     fechaFin datetime,    
     calado_Proa DECIMAL(10,2),
     calado_Popa DECIMAL(10,2),
-    cabotaje bit
+    cabotaje bit,
+    observacion TEXT,
+    taraBruta DECIMAL(10,2),
+    taraNeta DECIMAL(10,2),
+    canal TEXT    
 );

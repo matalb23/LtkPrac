@@ -7,6 +7,7 @@
 </ion-header>
 <ion-content [fullscreen]="true">
 <div *ngIf="mensajeSinServicio!='';then mensajeContent else formContent">here is ignored</div>    
+<!-- <div *ngIf="false;then mensajeContent else formContent">here is ignored</div>     -->
 <ng-template #mensajeContent>{{mensajeSinServicio}}</ng-template>
 <ng-template #formContent>
 
@@ -145,7 +146,7 @@
 
       <ion-item>
         <ion-label position="floating">calado_Popa</ion-label>
-        <ion-input formControlName="calado_Popa" type="text" required>
+        <ion-input formControlName="calado_Popa" type="number" required>
         </ion-input>
       </ion-item>
 
@@ -155,6 +156,30 @@
         </ion-input>
       </ion-item>
 
+      <ion-item>
+        <ion-label position="floating">observacion</ion-label>
+        <ion-input formControlName="observacion" type="text" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">taraBruta</ion-label>
+        <ion-input formControlName="taraBruta" type="number" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">taraNeta</ion-label>
+        <ion-input formControlName="taraNeta" type="number" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">canal</ion-label>
+        <ion-input formControlName="canal" type="text" required>
+        </ion-input>
+      </ion-item>
+      
       <ion-row>
         <ion-col>
           <ion-button type="submit" color="primary" shape="full" expand="block">
