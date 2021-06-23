@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS servicios(
-    codigo INTEGER ,
+    codigo INTEGER primary key ,
     cliente INTEGER , 
     clienteRazonSocial TEXT,
     fechaPedido Datetime,
@@ -26,4 +26,16 @@ CREATE TABLE IF NOT EXISTS servicios(
     taraBruta DECIMAL(10,2),
     taraNeta DECIMAL(10,2),
     canal TEXT    
+);
+
+
+CREATE TABLE IF NOT EXISTS firmas(
+   -- id integer primary key AUTOINCREMENT,
+    tipo TEXT primary key,    
+    codigo INTEGER ,        
+    firmante TEXT,    
+    firmaFecha datetime null,    
+    firma TEXT null,    
+    latitude DECIMAL(9,6) null,
+    longitude DECIMAL(9,6) null
 );

@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button color="light" expand="full" [disabled]="isCanvasBlank()" (click)="save()"> Guardar</ion-button>
+      <ion-button color="light" expand="full" (click)="undo()"> Deshacer</ion-button>
+      <ion-button color="light" expand="full" (click)="clear()"> Limpiar</ion-button>
+    </ion-buttons>
+    <ion-title>
+
+
+      
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="firma==null;then mensajeContent else formContent">here is ignored</div>    
+  <ng-template #mensajeContent>blanco</ng-template>
+  <ng-template #formContent>firma de {{firma.tipo}}</ng-template>
+
+  <div class="signature-pad">
+    <div>
+      <canvas class="signature-pad-canvas" #canvas width="900" height="400" style="touch-action: none;"></canvas>
+    </div>
+  </div>
+</ion-content>
