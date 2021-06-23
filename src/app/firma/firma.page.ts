@@ -52,37 +52,6 @@ export class FirmaPage implements OnInit, AfterViewInit {
     })
       
 
- 
-    
-    
-    
-   /* this.db.dbState().subscribe((res) => {
-      if (res) {
-        this.db.fetchFirmas().subscribe(item => {          
-          console.log(" fetchFirmasitem",item);
-          if(item.length>0)
-          {
-              for(let i=0;i< item.length;i++)
-              {
-                  
-                  if (item[i].firma == null )             
-                  { 
-                    console.log("value",item[i]);
-                    this.firma = <Firma>item[i];
-                    break;
-                  }
-              }
-              console.log("this.firma",this.firma);
-          }
-         if (this.firma==null)
-         {
-          this.router.navigate(['tabs/servicio']);
-         }
-        })
-      }
-    });*/
-    
-
   }
   @HostListener('window:resize', ['$event'])
   onResize(event) {
