@@ -42,3 +42,10 @@ PROBLEMAS API
             android:supportsRtl="true" 
             `android:usesCleartextTraffic="true"`>
             It looks that way.
+
+
+Background Services 
+
+https://dev.to/jscrambler/background-services-in-ionic-capacitor-37gi/comments
+
+https://como-programar.net/ionic/background-mode/
