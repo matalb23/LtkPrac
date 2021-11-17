@@ -10,8 +10,8 @@ import { templateJitUrl } from '@angular/compiler';
 export class ApiService {
 
  // url: string = "http://apptkapi.latikait.com.ar";
-  url: string = "http://10.0.0.90:45455";
-                 
+  //url: string = "http://10.0.0.90:45455";
+  url: string = "http://10.0.0.33:45455/";
   constructor(public http: HttpClient) { }
   
   get(endpoint: string, params?: any, reqOpts?: any) {

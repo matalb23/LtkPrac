@@ -1,3 +1,5 @@
+import { Firma } from "./firma";
+
 export class Servicio {
     codigo: number;
     cliente: number;
@@ -26,4 +28,7 @@ export class Servicio {
     taraBruta: number;
     taraNeta: number;
     canal: string;
+    propietario:string;
+    firmas?:Firma[];
+    transfirio?: boolean;
 }

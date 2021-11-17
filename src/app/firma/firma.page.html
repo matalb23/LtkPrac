@@ -15,7 +15,7 @@
 
 <ion-content class="ion-padding">
   <div *ngIf="firma==null;then mensajeContent else formContent">here is ignored</div>    
-  <ng-template #mensajeContent>blanco</ng-template>
+  <ng-template #mensajeContent></ng-template>
   <ng-template #formContent>firma de {{firma.tipo}}</ng-template>
 
   <div class="signature-pad">

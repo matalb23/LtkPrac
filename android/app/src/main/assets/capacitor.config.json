@@ -17,7 +17,7 @@
 				"injectJs": "true"
 			},
 			{
-				"url": "10.0.0.90",
+				"url": "10.0.0.33",
 				"injectJs": "true"
 			},
 			{
@@ -27,6 +27,6 @@
 		],
 		"cleartext": true,
 		"androidScheme": "http",
-		"url": "http://10.0.0.31:8100"
+		"url": "http://10.0.0.39:8100"
 	}
 }

@@ -10,13 +10,16 @@ https://enappd.com/blog/implement-signature-pad-in-ionic-apps/145/
 Push
 https://devdactic.com/push-notifications-ionic-capacitor/
 
-npm run build
-
 ionic build
+
+npm run build
 npx cap sync
 npx cap open android
 
 
+
+npm run android corre el build y sync y open android,  el script esta en el package.json
+npm run androidl 
 
 ESTE ME FUNCIONA
 ionic capacitor run android -l --external 
@@ -43,9 +46,15 @@ PROBLEMAS API
             `android:usesCleartextTraffic="true"`>
             It looks that way.
 
-
+npm install @capacitor/core @capacitor/cli
+npm install @capacitor/cli@latest @capacitor/core@latest
 Background Services 
 
 https://dev.to/jscrambler/background-services-in-ionic-capacitor-37gi/comments
 
 https://como-programar.net/ionic/background-mode/
+
+
+--de base:
+npm install --save-dev @angular-devkit/build-angular
+npm install @capacitor/network

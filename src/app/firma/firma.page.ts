@@ -87,13 +87,18 @@ export class FirmaPage implements OnInit, AfterViewInit {
       result => {
         if (result.hasPermission) {
           const img = this.signaturePad.toDataURL();
-          this.base64ToGallery.base64ToGallery(img).then(
+         
+          this.base64ToGallery.base64ToGallery(img).then(           
 
-            res => {console.log('Saved image to gallery ', res)
+            res => {console.log('Saved image to gallery, path ', res)
             this.firma.firma=res;
-            this.firma.firmaFecha= new Date();
+            this.firma.firma=this.firma.codigo+"_T" +this.firma.tipo+".png"//nuevo
+
+            this.firma.firmaFecha=  new Date().toLocaleString();//new Date();
             this.firma.latitude=0;
             this.firma.longitude=0;
+            this.firma.blob=img;
+            //console.log("blob",img)
 
              this.db.updateFirma(this.firma).then((res)=>{
                console.log("updatefirma res:",res);

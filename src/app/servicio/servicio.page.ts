@@ -1,20 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService } from '../service/db.service';
-import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { ToastController } from '@ionic/angular';
 import { Router } from "@angular/router";
 import { SettingsService } from '../service/settings.service';
 import { ApiService } from '../service/api.service';
 import { Servicio } from '../service/servicio';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-servicio',
   templateUrl: 'servicio.page.html',
   styleUrls: ['servicio.page.scss']
 })
 export class ServicioPage implements OnInit {
-
   constructor(private db: DbService,
     public formBuilder: FormBuilder,
     private toast: ToastController,
@@ -24,11 +21,11 @@ export class ServicioPage implements OnInit {
   ) { }
   mainForm: FormGroup;
   mostrarEliminarFirmas: Boolean = false;
+  mostrarActualizar: Boolean = false;
   serviciodesdeApi: Servicio
   mensajeSinServicio: string
   ngOnInit() {
     this.inicializarForm();
-
   }
   inicializarForm() {
     this.mainForm = this.formBuilder.group({
@@ -59,21 +56,18 @@ export class ServicioPage implements OnInit {
       taraBruta: [''],
       taraNeta: [''],
       canal: [''],
+      propietario: this.settings.getValue(SettingsService.setting_User)
     })
 
 
     this.buscarSinfirmar();
   }
 
-  async  buscarSinfirmar() {
-  
+  async buscarSinfirmar() {
+
     this.db.fetchSinFirmar().subscribe(res => {
       this.mostrarEliminarFirmas = res == null;
     })
-      
-
- 
-
   }
 
   setform() {
@@ -81,11 +75,13 @@ export class ServicioPage implements OnInit {
     let s: Servicio
 
     this.db.fetchServicios().subscribe(item => {
-      
+
 
       s = <Servicio>item[0];
+
+
       if (s != null) {
-     //   console.log("set form s:", s)
+        let propietario = s.propietario == null ? this.settings.getValue(SettingsService.setting_User) : s.propietario
 
 
         this.mainForm.setValue({
@@ -116,6 +112,7 @@ export class ServicioPage implements OnInit {
           taraBruta: s.taraBruta,
           taraNeta: s.taraNeta,
           canal: s.canal,
+          propietario: propietario
         })
       }
 
@@ -123,77 +120,150 @@ export class ServicioPage implements OnInit {
 
 
   }
-  storeData() {
+  dataURItoBlob(dataURI) {
 
-    this.db.updateServicio(this.mainForm.value)
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: 'image/png' });
+    return blob;
+  }
+  storeData() {
+    //this.serviciodesdeApi = <Servicio><unknown>this.mainForm.value;
+    this.serviciodesdeApi = <Servicio><unknown>this.mainForm.value;
+    this.db.updateServicio(this.serviciodesdeApi)
       .then((res) => {
-        console.log("res", res)
+        console.log("antes")
+        //guardo en la api
+        let postData = new FormData();
+
+
+        this.db.fetchFirmas().subscribe(res => {//sumo las fimas que hay al post
+          if (res.length) {
+
+            res.forEach(firma => {
+              if (firma.firma != null) {
+
+                const filename = "S" + firma.codigo + "_T" + firma.tipo + ".png"
+                //firma.firma=filename
+
+                const imageBlob = this.dataURItoBlob(firma.blob.substring(22));// con el substring saco data:image/png;base64,                
+                const imageFile = new File([imageBlob], filename, { type: 'image/png' });
+                // firma.blob=null;
+                postData.append(filename, imageFile);
+              }
+            })
+            //this.mainForm.value.firmas=res
+            this.serviciodesdeApi.firmas = res;
+
+          }
+        })
+
+
+        postData.append('servicio', JSON.stringify(this.serviciodesdeApi));
+        console.log("post this.serviciodesdeApi", this.serviciodesdeApi)
+
+        this.api.post("api/servicio/upload", postData).subscribe((result) => {
+          var respuesta = JSON.parse(JSON.stringify(result));
+          console.log("api/servicio/upload respuest,",respuesta)
+          //this.presentToast("Creo el tk " +respuesta.tk+ "!");
+          // this.router.navigateByUrl('home');
+          // this.cargarDatos();
+        });
+        // this.db.updateServicio(   this.serviciodesdeApi);
         if (!this.mostrarEliminarFirmas) {
           this.router.navigate(['/firma']);
         }
       })
 
   }
-  cargarDatos() {
+  async cargarDatos() {
 
-    
-    //this.db.deleteServicios();//PRUEBA
-    this.db.fetchServicios().subscribe(item => {
+    let s: Servicio[];
+    this.api.get("api/servicio?login=" + this.settings.getValue(SettingsService.setting_User)).subscribe((data) => {
 
-      console.log("this.Data.length " + item.length.toString() + " items bd:", item)
+      this.serviciodesdeApi = <Servicio><unknown>data;
+      console.log("api data", data);
+      if (data !== null) {//tengo que actualizar         
+        this.db.fetchServicios().subscribe(item => {
+          s = item;
+        })
 
-      if (item.length == 0) {
-
-        this.api.get("api/servicio?login=" + this.settings.getValue(SettingsService.setting_User)).subscribe((data) => {
-          console.log("api data", data);
-          this.serviciodesdeApi = <Servicio><unknown>data;
-          if (data !== null) {
-
-            if (item.length == 0) {
-
-              console.log("INSERT serviciodesdeApi", this.serviciodesdeApi)
-              this.db.addServicio(this.serviciodesdeApi);
-            }
-
-            console.log("serviciodesdeApi", this.serviciodesdeApi)
-            this.setform();
+        console.log("this.Data.length " + s.length.toString() + " items bd:", s)
+        if (this.serviciodesdeApi.propietario == this.settings.getValue(SettingsService.setting_User)
+          || this.serviciodesdeApi.propietario == null) {//solo si es propietario o no tiene proietario
+          this.mostrarActualizar = true;
+         
+          if (s.length == 0) {
+            this.serviciodesdeApi.transfirio=false;
+            this.db.addServicio(this.serviciodesdeApi);
           }
           else {
-            this.mensajeSinServicio = "No posee servicios asignados.";
+            console.log("this.db.updateServicio(", this.serviciodesdeApi);            
+            this.db.updateServicio(this.serviciodesdeApi);
           }
         }
-          ,
-          (err: any) => {
+        else {
+          this.mostrarActualizar = false;
+        }
 
-            var respuesta = JSON.parse(JSON.stringify(err));
-
-          }
-        );
+        console.log("serviciodesdeApi", this.serviciodesdeApi)
+        this.setform();//carga todo el formulario
       }
       else {
+        //limpiar bd
+        this.db.dropTable().then(
+          (data) => { console.log("data", data); },
+
+          (err) => { console.log("err", err); }
+        );;
+
+        this.db.fetchFirmas().subscribe(res => {
+          console.log("firmas", res);
+        })
+        this.mensajeSinServicio = "No posee servicios asignados.";
+      }
+    }
+      ,
+      (err: any) => {
+
+        var respuesta = JSON.parse(JSON.stringify(err));
 
       }
-      console.log("Esta en la bd, registro: ", item);
-
-
-      this.setform();
-
-    })
+    );
+    // }
 
   }
   LimpiarFirmas() {
     console.log("clean firmas")
-    this.mostrarEliminarFirmas=false;
+    // let postData = new FormData();
+
+    this.db.fetchFirmas().subscribe(res => {
+      // postData.append(res);
+      this.api.post("api/servicio/firmas/limpiar", res).subscribe((result) => {
+        var respuesta = JSON.parse(JSON.stringify(result));
+
+      });
+    })
+
+
+
+    this.mostrarEliminarFirmas = false;
     this.db.updateFirmasLimpiar().then(res => {
-      console.log("updateFirmasLimpiar res",res)
+      console.log("updateFirmasLimpiar res", res)
       this.buscarSinfirmar();
     })
 
   }
-drop()
-{
-  this.db.dropTable();//PRUEBA
-}
+  drop() {
+
+    this.db.dropTable().then((res) => {
+
+    });
+  }
   ionViewDidEnter() {
     this.db.dbState().subscribe((res) => {
       if (res) {

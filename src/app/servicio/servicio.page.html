@@ -7,7 +7,6 @@
 </ion-header>
 <ion-content [fullscreen]="true">
 <div *ngIf="mensajeSinServicio!='';then mensajeContent else formContent">here is ignored</div>    
-<!-- <div *ngIf="false;then mensajeContent else formContent">here is ignored</div>     -->
 <ng-template #mensajeContent>{{mensajeSinServicio}}</ng-template>
 <ng-template #formContent>
 
@@ -107,15 +106,12 @@
 
       <ion-item>
         <ion-label position="floating">fechaInicio</ion-label>
-        <!-- <ion-input formControlName="fechaInicio" type="date" required>        </ion-input> -->
         <ion-datetime  formControlName="fechaInicio" displayFormat="DD/MM/YYYY HH:mm" required></ion-datetime>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">fechaFin</ion-label>
-        <!-- <ion-input formControlName="fechaFin" type="date" required> </ion-input>--> 
-          <!-- <ion-datetime formControlName="fechaFin" display-timezone="utc"></ion-datetime> -->
-          <!-- <IonDatetime formControlName="fechaFin"displayFormat="MM DD YY" ></IonDatetime> -->
+        
           <ion-datetime formControlName="fechaFin" displayFormat="DD/MM/YYYY HH:mm" required></ion-datetime>
 
        
@@ -163,21 +159,23 @@
         <ion-input formControlName="canal" type="text" required>
         </ion-input>
       </ion-item>
-      
+      <ion-input type="hidden" formControlName="propietario" ></ion-input>
       <ion-row>
-        <ion-col>
-          <ion-button type="submit" color="primary" shape="full" expand="block">
+        <ion-col >
+          
+          <ion-button  *ngIf="mostrarActualizar"  type="submit" color="primary" shape="full" expand="block">
             Actualizar servicio
           </ion-button>
+        
         </ion-col>
       </ion-row>
     </form>
     <ion-button (click)="LimpiarFirmas();" color="primary" shape="full" expand="block">
       limpiar Firmas
     </ion-button>
-    <ion-button (click)="drop();" color="primary" shape="full" expand="block">
+    <!-- <ion-button (click)="drop();" color="primary" shape="full" expand="block">
       drop
-    </ion-button>
+    </ion-button> -->
   </ion-list>
 
 </ng-template>
