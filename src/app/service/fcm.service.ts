@@ -48,6 +48,7 @@ export class FcmService {
     PushNotifications.addListener(
       'registration',
       (token: PushNotificationToken) => {
+        this.settings.Interceptor_DontShowToast();
         this.settings.setValue(SettingsService.setting_TokenFCM,token);
 
         var data = '{ "login": "'+this.settings.getValue(SettingsService.setting_User) +'", "mobile_so": "'+ Capacitor.platform.substr(0) + '", "mobile_token": "'+token.value+'" }';

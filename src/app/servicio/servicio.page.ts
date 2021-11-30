@@ -21,7 +21,7 @@ export class ServicioPage implements OnInit {
   ) { }
   mainForm: FormGroup;
   mostrarEliminarFirmas: Boolean = false;
-  mostrarActualizar: Boolean = false;
+  EsPropietario: Boolean = false;
   serviciodesdeApi: Servicio
   mensajeSinServicio: string
   ngOnInit() {
@@ -60,13 +60,13 @@ export class ServicioPage implements OnInit {
     })
 
 
-    this.buscarSinfirmar();
+    this.buscarSinfirmar().then(res => { });;
   }
 
   async buscarSinfirmar() {
 
     this.db.fetchSinFirmar().subscribe(res => {
-      this.mostrarEliminarFirmas = res == null;
+      this.mostrarEliminarFirmas = res == null;//si hay sin firmar muestro el boton
     })
   }
 
@@ -75,13 +75,15 @@ export class ServicioPage implements OnInit {
     let s: Servicio
 
     this.db.fetchServicios().subscribe(item => {
-
-
       s = <Servicio>item[0];
-
-
       if (s != null) {
         let propietario = s.propietario == null ? this.settings.getValue(SettingsService.setting_User) : s.propietario
+
+        if (s.propietario == this.settings.getValue(SettingsService.setting_User)
+        || s.propietario == null) {//solo si es propietario o no tiene proietario
+        this.EsPropietario = true;
+        console.log("Es propietario")
+        }
 
 
         this.mainForm.setValue({
@@ -132,86 +134,96 @@ export class ServicioPage implements OnInit {
     return blob;
   }
   storeData() {
-    //this.serviciodesdeApi = <Servicio><unknown>this.mainForm.value;
+
     this.serviciodesdeApi = <Servicio><unknown>this.mainForm.value;
+    this.serviciodesdeApi.transfirio = 0;//no transfirio
     this.db.updateServicio(this.serviciodesdeApi)
       .then((res) => {
-        console.log("antes")
-        //guardo en la api
-        let postData = new FormData();
-
-
-        this.db.fetchFirmas().subscribe(res => {//sumo las fimas que hay al post
-          if (res.length) {
-
-            res.forEach(firma => {
-              if (firma.firma != null) {
-
-                const filename = "S" + firma.codigo + "_T" + firma.tipo + ".png"
-                //firma.firma=filename
-
-                const imageBlob = this.dataURItoBlob(firma.blob.substring(22));// con el substring saco data:image/png;base64,                
-                const imageFile = new File([imageBlob], filename, { type: 'image/png' });
-                // firma.blob=null;
-                postData.append(filename, imageFile);
-              }
-            })
-            //this.mainForm.value.firmas=res
-            this.serviciodesdeApi.firmas = res;
-
-          }
-        })
-
-
-        postData.append('servicio', JSON.stringify(this.serviciodesdeApi));
-        console.log("post this.serviciodesdeApi", this.serviciodesdeApi)
-
-        this.api.post("api/servicio/upload", postData).subscribe((result) => {
-          var respuesta = JSON.parse(JSON.stringify(result));
-          console.log("api/servicio/upload respuest,",respuesta)
-          //this.presentToast("Creo el tk " +respuesta.tk+ "!");
-          // this.router.navigateByUrl('home');
-          // this.cargarDatos();
-        });
-        // this.db.updateServicio(   this.serviciodesdeApi);
-        if (!this.mostrarEliminarFirmas) {
-          this.router.navigate(['/firma']);
-        }
+        this.EnviarAlaApi(this.serviciodesdeApi);
       })
 
   }
-  async cargarDatos() {
+  EnviarAlaApi(serviciodesdeApi: Servicio) {
+    //guardo en la api
+    let postData = new FormData();
+    this.db.fetchFirmas().subscribe(res => {//sumo las fimas que hay al post
+      if (res.length) {
 
-    let s: Servicio[];
+        res.forEach(firma => {
+          if (firma.firma != null) {
+
+            const filename = "S" + firma.codigo + "_T" + firma.tipo + ".png"
+            const imageBlob = this.dataURItoBlob(firma.blob.substring(22));// con el substring saco data:image/png;base64,                
+            const imageFile = new File([imageBlob], filename, { type: 'image/png' });
+
+            postData.append(filename, imageFile);
+          }
+        })
+
+        serviciodesdeApi.firmas = res;
+
+      }
+    })
+
+
+    postData.append('servicio', JSON.stringify(serviciodesdeApi));
+
+
+    this.api.post("api/servicio/upload", postData).subscribe((result) => {
+      var respuesta = JSON.parse(JSON.stringify(result));
+      console.log("api/servicio/upload respuest,", respuesta)
+
+      this.db.servicioTransferido(serviciodesdeApi.codigo).then(res => {
+ 
+      })
+
+    });
+
+    // if (!this.mostrarEliminarFirmas) 
+    //   this.router.navigate(['/firma']);
+
+
+  }
+  //async
+  cargarDatos() {
+
+
+    let s: Servicio[];//servicio en la bd
+    this.db.fetchServicios().subscribe(item => {//s solo para saber si esta en la bd
+      s = item;
+      if (item.length > 0 && !isNaN(item[0].transfirio)) {
+        var transfirio = item[0].transfirio;
+        if (transfirio==0) {
+          console.log("this.EnviarAlaApi(s[0])", transfirio)
+          this.EnviarAlaApi(item[0])
+        }
+      }
+    })
+
+
+
     this.api.get("api/servicio?login=" + this.settings.getValue(SettingsService.setting_User)).subscribe((data) => {
 
       this.serviciodesdeApi = <Servicio><unknown>data;
-      console.log("api data", data);
+      this.serviciodesdeApi.transfirio=1;
       if (data !== null) {//tengo que actualizar         
-        this.db.fetchServicios().subscribe(item => {
-          s = item;
-        })
-
-        console.log("this.Data.length " + s.length.toString() + " items bd:", s)
         if (this.serviciodesdeApi.propietario == this.settings.getValue(SettingsService.setting_User)
           || this.serviciodesdeApi.propietario == null) {//solo si es propietario o no tiene proietario
-          this.mostrarActualizar = true;
-         
+          this.EsPropietario = true;
+
           if (s.length == 0) {
-            this.serviciodesdeApi.transfirio=false;
-            this.db.addServicio(this.serviciodesdeApi);
+
+            this.db.addServicio(this.serviciodesdeApi).then(res => { });;
           }
           else {
-            console.log("this.db.updateServicio(", this.serviciodesdeApi);            
-            this.db.updateServicio(this.serviciodesdeApi);
+            this.db.updateServicio(this.serviciodesdeApi).then(res => { });;
           }
         }
         else {
-          this.mostrarActualizar = false;
+          this.EsPropietario = false;
         }
-
-        console.log("serviciodesdeApi", this.serviciodesdeApi)
         this.setform();//carga todo el formulario
+        console.log("Es propietario", this.EsPropietario )
       }
       else {
         //limpiar bd
@@ -222,7 +234,7 @@ export class ServicioPage implements OnInit {
         );;
 
         this.db.fetchFirmas().subscribe(res => {
-          console.log("firmas", res);
+     
         })
         this.mensajeSinServicio = "No posee servicios asignados.";
       }
@@ -231,37 +243,36 @@ export class ServicioPage implements OnInit {
       (err: any) => {
 
         var respuesta = JSON.parse(JSON.stringify(err));
+        console.log("Error ", respuesta)
+        if (s.length>0)
+        {
+          this.setform();//carga todo el formulario
+        }
 
       }
     );
-    // }
-
+  }
+  Firmar()
+  {
+    this.router.navigate(['/firma']);
   }
   LimpiarFirmas() {
-    console.log("clean firmas")
-    // let postData = new FormData();
-
     this.db.fetchFirmas().subscribe(res => {
-      // postData.append(res);
       this.api.post("api/servicio/firmas/limpiar", res).subscribe((result) => {
         var respuesta = JSON.parse(JSON.stringify(result));
 
       });
     })
 
-
-
     this.mostrarEliminarFirmas = false;
     this.db.updateFirmasLimpiar().then(res => {
-      console.log("updateFirmasLimpiar res", res)
-      this.buscarSinfirmar();
+      this.buscarSinfirmar().then(res => { });;
     })
 
   }
   drop() {
 
     this.db.dropTable().then((res) => {
-
     });
   }
   ionViewDidEnter() {

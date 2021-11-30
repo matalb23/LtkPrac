@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS servicios(
     observacion TEXT,
     taraBruta DECIMAL(10,2),
     taraNeta DECIMAL(10,2),
-    canal TEXT    ,
+    canal TEXT,
     propietario text,
     transfirio bit
 );

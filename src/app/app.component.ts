@@ -59,16 +59,16 @@ export class AppComponent {
       });
 
 
-      this.db.dbState().subscribe((res) => {
-        if (res) {
-          this.db.fetchServicios().subscribe(item => {
-            console.log("Init")
-            console.log("item " + item.length.toString())
-            console.log(item);          
-          })        
-        }
+      // this.db.dbState().subscribe((res) => {
+      //   if (res) {
+      //     this.db.fetchServicios().subscribe(item => {
+      //       // console.log("Init")
+      //       // console.log("item " + item.length.toString())
+      //       // console.log(item);          
+      //     })        
+      //   }
       
-      });
+     // });
 
 
 

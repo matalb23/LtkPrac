@@ -14,8 +14,7 @@ export class LoginPage     {
 
   login(form){
     
-    this.authService.login(form.value).subscribe((res)=>{
-    
+    this.authService.login(form.value).subscribe((res)=>{    
       this.router.navigateByUrl('');
     });
   }

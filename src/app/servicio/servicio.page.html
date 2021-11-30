@@ -132,8 +132,9 @@
 
       <ion-item>
         <ion-label position="floating">cabotaje</ion-label>
-        <ion-input formControlName="cabotaje" type="text" required>
-        </ion-input>
+        <!-- <ion-input formControlName="cabotaje" type="text" required>
+        </ion-input> -->
+        <ion-checkbox formControlName="cabotaje"></ion-checkbox>
       </ion-item>
 
       <ion-item>
@@ -163,20 +164,24 @@
       <ion-row>
         <ion-col >
           
-          <ion-button  *ngIf="mostrarActualizar"  type="submit" color="primary" shape="full" expand="block">
+          <ion-button  *ngIf="EsPropietario"  type="submit" color="primary" shape="full" expand="block">
             Actualizar servicio
           </ion-button>
         
         </ion-col>
       </ion-row>
     </form>
-    <ion-button (click)="LimpiarFirmas();" color="primary" shape="full" expand="block">
+    <ion-button *ngIf="!mostrarEliminarFirmas" (click)="Firmar();" color="primary" shape="full" expand="block">
+       Firmar
+    </ion-button>
+    <ion-button *ngIf="mostrarEliminarFirmas" (click)="LimpiarFirmas();" color="primary" shape="full" expand="block">
       limpiar Firmas
     </ion-button>
-    <!-- <ion-button (click)="drop();" color="primary" shape="full" expand="block">
+    <!-- NO VA EL BOTON DROP; ES PARA DESARROLLO -->
+     <!-- <ion-button (click)="drop();" color="primary" shape="full" expand="block">
       drop
-    </ion-button> -->
-  </ion-list>
+    </ion-button>  -->
+    </ion-list>
 
 </ng-template>
 </ion-content>

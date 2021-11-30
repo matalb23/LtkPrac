@@ -49,8 +49,7 @@ export class DbService {
 
     )
       .then(xx => {
-        this.create()
-        console.log("Elimino:", xx)
+        this.create()       
       });
 
   }
@@ -70,54 +69,17 @@ export class DbService {
   fetchSinFirmar(): Observable<Firma> {
     return this.Sinfirma.asObservable();
   }
-  /*
-    buscarSinfirmar():Promise<Firma>{
-      let firma:Firma=null;
-      this.dbState().subscribe((res) => {
-        if (res) {
-          console.log("buscarSinfirmar.dbState res",res)
-          this.fetchFirmas().subscribe(item => {          
-            //console.log(" fetchFirmasitem",item);
-            if(item.length>0)
-            {
-                for(let i=0;i< item.length;i++)
-                {
-                    
-                    if (item[i].firma == null )             //&& firma==null 
-                    { 
-                      console.log("value",item[i]);
-                      firma= <Firma>item[i];
-                      return new Promise(resolve=>{resolve(firma)});
-                      break;
-                    }
-                }
-                
-            }
-            console.log("buscarSinfirmar.item",item);
-            return new Promise(resolve=>{resolve(firma)});
-          })
-          
-        }
-        // console.log("buscarSinfirmar retorna ",firma);
-        // return new Promise(resolve=>{resolve(firma)});
-      });
-      console.log("buscarSinfirmar retorna firma",firma);
-      return new Promise(resolve=>{resolve(firma)});
-    }
-  */
+  
   buscarSinfirmar(): Promise<Firma> {
     let firma: Firma = null;
     this.dbState().subscribe((res) => {
-      if (res) {
-        console.log("buscarSinfirmar.dbState res", res)
-        this.fetchFirmas().subscribe(item => {
-          //console.log(" fetchFirmasitem",item);
+      if (res) {       
+        this.fetchFirmas().subscribe(item => {         
           if (item.length > 0) {
             for (let i = 0; i < item.length; i++) {
 
               if (item[i].firma == null && firma == null)             //
-              {
-                console.log("value", item[i]);
+              {               
                 firma = <Firma>item[i];
                 this.Sinfirma.next(firma)
                 break;
@@ -133,8 +95,7 @@ export class DbService {
       }
 
 
-    });
-    console.log("buscarSinfirmar retorna firma", firma);
+    });   
     return new Promise(resolve => { resolve(firma) });
   }
 
@@ -146,7 +107,7 @@ export class DbService {
     ).subscribe(data => {
       this.sqlPorter.importSqlToDb(this.storage, data)
         .then(_ => {
-          this.getServicios();
+          this.getServicios().then(res=>{});;
           this.isDbReady.next(true);
         })
         .catch(error => console.error(error));
@@ -156,7 +117,7 @@ export class DbService {
 
     return this.storage.executeSql('SELECT * FROM firmas order by tipo asc', []).then(res => {
       let items: Firma[] = [];
-      console.log("select RES:", res)
+     
       if (res != null) {
         if (res.rows.length > 0) {
           for (var i = 0; i < res.rows.length; i++) {
@@ -174,9 +135,9 @@ export class DbService {
           }
         }
       }
-      console.log("getFirmas", items)
+     
       this.firmasList.next(items);
-      this.buscarSinfirmar();
+      this.buscarSinfirmar().then(res=>{});
     });
 
   }
@@ -217,8 +178,8 @@ export class DbService {
             propietario: res.rows.item(i).propietario,
             transfirio: res.rows.item(i).transfirio
           });
-        }
-        this.getFirmas();
+        }    
+        this.getFirmas().then(res=>{});
 
       }
 
@@ -229,11 +190,10 @@ export class DbService {
 
   // Add
   addServicio(s: Servicio) {
-
+    s.transfirio=0;
     //     //28
     let data = [s.codigo, s.cliente, s.clienteRazonSocial, s.fechaPedido, s.buqueNombre, s.buqueCoeficiente, s.buqueEslora, s.buqueManga, s.buquePuntal, s.buqueSenial, s.buqueBandera, s.practico1, s.practico1Nombre, s.practico2, s.practico2Nombre, s.lugarDesde, s.lugarHasta, s.lugarKilometros, s.fechaInicio, s.fechaFin, s.calado_Proa, s.calado_Popa, s.cabotaje, s.observacion, s.taraBruta, s.taraNeta, s.canal, s.propietario, s.transfirio];
-    console.log("INSERT data:", data);
-
+   
     return this.storage.executeSql('INSERT OR REPLACE INTO  servicios (codigo, cliente, clienteRazonSocial, fechaPedido, buqueNombre, buqueCoeficiente, buqueEslora, buqueManga, buquePuntal, buqueSenial, buqueBandera, practico1, practico1Nombre, practico2, practico2Nombre, lugarDesde, lugarHasta, lugarKilometros, fechaInicio, fechaFin, calado_Proa, calado_Popa, cabotaje,observacion,taraBruta,taraNeta,canal,propietario,transfirio) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', data)
       .then(res => {
         data = [s.codigo, "Master", "Master"];
@@ -246,38 +206,14 @@ export class DbService {
           data = [s.codigo, "Practico2", s.practico2Nombre];
           this.storage.executeSql('INSERT OR REPLACE INTO firmas (codigo, tipo,firmante) VALUES (?,?,?)', data);
         }
-        console.log("ultima firma", data)
-
-        this.getServicios();
-        this.getFirmas();
+      
+        this.getServicios().then(res=>{});;
+        this.getFirmas().then(res=>{});;
 
       });
 
   }
 
-  // // Add
-  // updateServicio(s: Servicio) {
-
-  //   //     //23
-  //   let data = [s.codigo, s.cliente, s.clienteRazonSocial, s.fechaPedido, s.buqueNombre, s.buqueCoeficiente, s.buqueEslora, s.buqueManga, s.buquePuntal, s.buqueSenial, s.buqueBandera, s.practico1, s.practico1Nombre, s.practico2, s.practico2Nombre, s.lugarDesde, s.lugarHasta, s.lugarKilometros, s.fechaInicio, s.fechaFin, s.calado_Proa, s.calado_Popa, s.cabotaje,s.observacion,s.taraBruta,s.taraNeta,s.canal];
-  //   console.log("INSERT data:", data);
-
-  //   return this.storage.executeSql('INSERT OR REPLACE INTO  servicios (codigo, cliente,clienteRazonSocial,fechaPedido,buqueNombre,buqueCoeficiente,buqueEslora,buqueManga,buquePuntal,buqueSenial,buqueBandera,practico1,practico1Nombre,practico2,practico2Nombre,lugarDesde,lugarHasta,lugarKilometros,fechaInicio,fechaFin,calado_Proa,calado_Popa,cabotaje) VALUES (?, ?,?,?, ?,?,?, ?,?,?, ?,?,?, ?,?,?, ?,?,?, ?,?,?, ?,?,?,?,?)', data)
-  //     .then(res => {
-  //       data = [s.codigo, "Master", "Master"];
-  //       this.storage.executeSql('INSERT OR REPLACE INTO firmas (codigo, tipo,firmante) VALUES (?,?,?)', data).then(ri=>{ console.log("ri",ri)});
-  //       data = [s.codigo, "Practico1", s.practico1Nombre];
-  //       this.storage.executeSql('INSERT OR REPLACE INTO firmas (codigo, tipo,firmante) VALUES (?,?,?)', data);
-  //       data = [s.codigo, "Practico2", s.practico2Nombre];
-  //       this.storage.executeSql('INSERT OR REPLACE INTO firmas (codigo, tipo,firmante) VALUES (?,?,?)', data);
-  //       console.log("ultima firma", data)
-
-  //       this.getServicios();
-  //       this.getFirmas();
-
-  //     });
-
-  // }
 
   existServicio(codigo: number) {
 
@@ -301,19 +237,16 @@ export class DbService {
     return b;
   }
   updateServicio(s: Servicio) {
-
-    // let data = [s.fechaInicio, s.fechaFin, s.calado_Popa, s.calado_Proa, s.cabotaje, s.observacion, s.taraBruta, s.taraNeta, s.canal];
+    
     let data = [s.codigo, s.cliente, s.clienteRazonSocial, s.fechaPedido, s.buqueNombre, s.buqueCoeficiente, s.buqueEslora, s.buqueManga, s.buquePuntal, s.buqueSenial, s.buqueBandera, s.practico1, s.practico1Nombre, s.practico2, s.practico2Nombre, s.lugarDesde, s.lugarHasta, s.lugarKilometros, s.fechaInicio, s.fechaFin, s.calado_Proa, s.calado_Popa, s.cabotaje, s.observacion, s.taraBruta, s.taraNeta, s.canal, s.propietario, s.transfirio];
-    let sql: string = "";
-    console.log("updateServicio-data  ", s.codigo, data)
+    let sql: string = "";  
     sql += "UPDATE servicios SET codigo=?, ";
     sql += "  cliente=?, clienteRazonSocial=?, fechaPedido=?,  "
     sql += " buqueNombre=?, buqueCoeficiente=?, buqueEslora=?, buqueManga=?, buquePuntal=?, buqueSenial=?, buqueBandera=?,"
     sql += " practico1=?, practico1Nombre=?, practico2=?, practico2Nombre=?, "
     sql += " lugarDesde=?, lugarHasta=?, lugarKilometros=?,"
     sql += " fechaInicio=?, fechaFin=?, calado_Proa=?, calado_Popa=?, cabotaje=?,observacion=?,taraBruta=?,taraNeta=?,canal=?,propietario=?,transfirio=?"
-    //sql+=" WHERE codigo = '"+s.codigo+"'"
-    // `UPDATE servicios SET fechaInicio = ?, fechaFin = ?,calado_Popa = ?,calado_Proa = ?,cabotaje=?,observacion = ?,taraBruta= ?,taraNeta= ?,canal= ?  WHERE codigo = ${s.codigo}`
+    
     return this.storage.executeSql(sql, data)
       .then(data => {
 
@@ -321,34 +254,45 @@ export class DbService {
         if (s.firmas != null) {
           s.firmas.forEach(firma => {
             if (firma.firma != null)//con esto se da cuenta que esta firmado
-            {
-              console.log("updateServicio.s.firmas",s.firmas);
-              this.updateFirma(firma);
+            {            
+              this.updateFirma(firma).then(res=>{});;
             }
           });
         }
-        console.log("updateServicio.s.getServicios",s.firmas);
-        this.getServicios();
+         this.getServicios().then(res=>{});;
 
 
       })
   }
+  
+  servicioTransferido(codigo: number) {
+    
+    let sql: string = "";    
+    sql += "UPDATE servicios SET transfirio='1' "//where codigo="+codigo.toString();    
+    
+    return this.storage.executeSql(sql).then(data => {              
+         return this.getServicios().then((res) => {
+     
+         })
+      })
+  }
+
   updateFirma(f: Firma) {
 
     let data = [f.firma, f.firmaFecha, f.latitude, f.longitude, f.blob];
     f.tipo = f.tipo.trim();
-    console.log("update " + f.tipo, data);
+   
     return this.storage.executeSql(`UPDATE firmas SET firma = ?, firmaFecha = ?,latitude = ?,longitude = ?,blob=?  WHERE tipo = '${f.tipo}'`, data)
       .then(data => {
-        this.getFirmas();
+        this.getFirmas().then(res=>{});
         //  this.buscarSinfirmar();
       })
   }
   updateFirmasLimpiar() {
     return this.storage.executeSql(`UPDATE firmas SET firma = null, firmaFecha = null,latitude = null,longitude = null`)
       .then(data => {
-        console.log("updateFirmasLimpiar data:" + data);
-        this.getFirmas();
+       
+        this.getFirmas().then(res=>{});;
         //this.buscarSinfirmar();
 
 
@@ -370,9 +314,9 @@ export class DbService {
     // tienen que tener * o una condicion
     return this.storage.executeSql('DELETE FROM servicios WHERE codigo=' + codigo + ';').then(xx => {
       console.log("Limpia firmas");
-      this.getServicios();
+      this.getServicios().then(res=>{});;
       return this.storage.executeSql('DELETE FROM firmas WHERE codigo=' + codigo + ';').then(xx => {
-        this.getServicios();
+        this.getServicios().then(res=>{});;
         console.log("Limpia servicios");
         this.storage.executeSql('VACUUM;').then(xx => {
           console.log("VAcum");
@@ -390,7 +334,7 @@ export class DbService {
   dropTable() {
   // console.log("drop table firmas y servicios")
     let sql = " "    
-    sql += " Drop Table If Exists servicios;";
+    sql += " Drop Table If Exists 'servicios';";
     // sql += " Drop Table If Exists [dbo].[firmas];";
     
     return this.storage.executeSql(sql)
@@ -399,8 +343,8 @@ export class DbService {
         sql += " Drop Table If Exists firmas;";
         return this.storage.executeSql(sql)
         .then(_ => {
-          console.log("DROP table firmas", _)
-          this.getServicios();
+          console.log("DROP table 'firmas'", _)
+          this.getServicios().then(res=>{});;
           this.ExecuteInicial()
   
   

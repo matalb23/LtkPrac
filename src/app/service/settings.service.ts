@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
-
+import { ToastController  } from '@ionic/angular';
 @Injectable({
   providedIn: 'root'
 })
-export class SettingsService {
-  
+export class SettingsService  {constructor(
+  private toastCtrl: ToastController,
+) {}
+
   public static setting_Token="ACCESS_TOKEN";
   public static setting_TokenExpiresIn="EXPIRES_IN";
   public static setting_User="USER";
   public static setting_UserName="USERNAME";
   public static setting_UserPass="pass";
   public static setting_TokenFCM="setting_TokenFCM";
+  public static setting_Interceptor_ShowToast="setting_Interceptor_ShowToast";
+  public static setting_UserNameDateOfLogin="setting_UserNameDateOfLogin";
   public  templateForm :any;
-
-  
+ 
   logout()
   {
     
@@ -40,4 +43,22 @@ export class SettingsService {
   public GetUrlBackend(){
     return "http://apptkweb.latikait.com.ar"
   }
+
+  public Interceptor_DontShowToast() {
+    window.localStorage.removeItem(SettingsService.setting_Interceptor_ShowToast);
+    window.localStorage.setItem(SettingsService.setting_Interceptor_ShowToast, '0');
+  }
+
+  async Toast_presentError(msg) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'top',
+      color: 'danger',
+      cssClass: 'toast'
+       //showCloseButton: true,
+    //   closeButtonText: "OK",
+    });
+    toast.present();                     
+}   
 }

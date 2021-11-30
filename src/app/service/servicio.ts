@@ -30,5 +30,5 @@ export class Servicio {
     canal: string;
     propietario:string;
     firmas?:Firma[];
-    transfirio?: boolean;
+    transfirio?: number;
 }
