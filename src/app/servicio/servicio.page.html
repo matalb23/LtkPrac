@@ -101,7 +101,9 @@
         <ion-label position="floating">lugarKilometros</ion-label>
         <ion-input formControlName="lugarKilometros" type="text"  readonly='true' >
         </ion-input>
-      </ion-item> 
+      </ion-item>  
+
+      
 
       <ion-item>
         <ion-label position="floating">fechaInicio</ion-label>
@@ -160,22 +162,22 @@
         </ion-input>
       </ion-item>
       <ion-input type="hidden" formControlName="propietario" ></ion-input>
-      <ion-row>
+      <ion-row *ngIf="EsPropietario">
         <ion-col >
           
-          <ion-button  *ngIf="EsPropietario"  type="submit" color="primary" shape="full" expand="block">
+          <ion-button    type="submit" color="primary" shape="full" expand="block">
             Actualizar servicio
           </ion-button>
-        
+          <ion-button *ngIf="!mostrarEliminarFirmas" (click)="Firmar();" color="primary" shape="full" expand="block">
+            Firmar
+         </ion-button>
+         <ion-button *ngIf="mostrarEliminarFirmas" (click)="LimpiarFirmas();" color="primary" shape="full" expand="block">
+           limpiar Firmas
+         </ion-button>
         </ion-col>
       </ion-row>
     </form>
-    <ion-button *ngIf="!mostrarEliminarFirmas" (click)="Firmar();" color="primary" shape="full" expand="block">
-       Firmar
-    </ion-button>
-    <ion-button *ngIf="mostrarEliminarFirmas" (click)="LimpiarFirmas();" color="primary" shape="full" expand="block">
-      limpiar Firmas
-    </ion-button>
+  
     <!-- NO VA EL BOTON DROP; ES PARA DESARROLLO -->
      <!-- <ion-button (click)="drop();" color="primary" shape="full" expand="block">
       drop

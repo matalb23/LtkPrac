@@ -82,8 +82,9 @@ export class ServicioPage implements OnInit {
         if (s.propietario == this.settings.getValue(SettingsService.setting_User)
         || s.propietario == null) {//solo si es propietario o no tiene proietario
         this.EsPropietario = true;
-        console.log("Es propietario")
+        console.log("Es propietario setform")
         }
+        console.log("item.length",item.length)
 
 
         this.mainForm.setValue({
@@ -210,7 +211,10 @@ export class ServicioPage implements OnInit {
         if (this.serviciodesdeApi.propietario == this.settings.getValue(SettingsService.setting_User)
           || this.serviciodesdeApi.propietario == null) {//solo si es propietario o no tiene proietario
           this.EsPropietario = true;
-
+        }
+        else {
+          this.EsPropietario = false;
+        }
           if (s.length == 0) {
 
             this.db.addServicio(this.serviciodesdeApi).then(res => { });;
@@ -218,10 +222,7 @@ export class ServicioPage implements OnInit {
           else {
             this.db.updateServicio(this.serviciodesdeApi).then(res => { });;
           }
-        }
-        else {
-          this.EsPropietario = false;
-        }
+   
         this.setform();//carga todo el formulario
         console.log("Es propietario", this.EsPropietario )
       }
