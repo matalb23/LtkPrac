@@ -1,188 +1,238 @@
-<ion-header [translucent]="true">
+<!--<ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="assets/img/ico-back.svg" defaultHref="home">
+      </ion-back-button>
+    </ion-buttons>
     <ion-title>
-      Servicio
+      <p class="cab-line1">SERVICIO</p>
+      <p class="cab-line2">9434</p>
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
-<div *ngIf="mensajeSinServicio!='';then mensajeContent else formContent">here is ignored</div>    
-<ng-template #mensajeContent>{{mensajeSinServicio}}</ng-template>
-<ng-template #formContent>
+-->
 
 
-  <ion-list lines="full">
-    <form [formGroup]="mainForm" (ngSubmit)="storeData()">
-      <ion-item>
-        <ion-label position="floating">codigo</ion-label>
-        <ion-input formControlName="codigo" type="text" readonly='true' ></ion-input>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label position="floating">Razon Social</ion-label>
-        <ion-input formControlName="clienteRazonSocial" type="text"  readonly='true'>
-        </ion-input>
-      </ion-item>
-      
-      <ion-item>
-        <ion-label position="floating">fechaPedido</ion-label>
-        <ion-input formControlName="fechaPedido" type="text" readonly='true'>
-        </ion-input>
-      </ion-item>
+<ion-content>
 
-      <ion-item>
-        <ion-label position="floating">buqueNombre</ion-label>
-        <ion-input formControlName="buqueNombre" type="text"  readonly='true' >
-        </ion-input>
-      </ion-item>
+  <!-- // OPEN CABECERA \\ -->
+  <ion-grid class="ion-align-items-left grid-cabecera" slot="fixed">
+    <ion-row class="cabecera">
+      <ion-col size="2" size-sm style="margin-right: 0px;">
+        <ion-back-button class="boton-volver" icon="assets/img/chevron-compact-left.svg" defaultHref="home">
+        </ion-back-button>
+      </ion-col>
+      <ion-col size="10" size-lg>
+        <p class="cab-line1">SERVICIO</p>
+        <p class="cab-line2-servicio">9434<!--MA--></p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- \\ CLOSE CABECERA // -->
 
-      <ion-item>
-        <ion-label position="floating">buqueCoeficiente</ion-label>
-        <ion-input formControlName="buqueCoeficiente" type="text"  readonly='true' >
-        </ion-input>
-      </ion-item>
+  <div *ngIf="mensajeSinServicio!='';then mensajeContent else formContent">here is ignored</div>
+  <ng-template #mensajeContent>{{mensajeSinServicio}}</ng-template>
+  <ng-template #formContent>
 
-      <ion-item>
-        <ion-label position="floating">buqueEslora</ion-label>
-        <ion-input formControlName="buqueEslora" type="text"  readonly='true' >
-        </ion-input>
-      </ion-item>
+    <ion-list lines="full" style="padding-top: 100px;">
+      <form [formGroup]="mainForm" (ngSubmit)="storeData()">
 
-      <ion-item>
-        <ion-label position="floating">buqueManga</ion-label>
-        <ion-input formControlName="buqueManga" type="text"  readonly='true' >
-        </ion-input>
-      </ion-item>
+        <!-- // OPEN CARD \\ -->
+        <div id="card-servicio-interna">
+          <p class="labels">Buque</p>
+          <p class="card-buque-interna">
+            <ion-input formControlName="buqueNombre" type="text" readonly='true'></ion-input>
+          </p>
+          <p class="labels">Desde</p>
+          <p class="card-info-interna">
+            <ion-input formControlName="lugarDesde" type="text" readonly='true'>
+            </ion-input>
+          </p>
+          <p class="labels">Hasta</p>
+          <p class="card-info-interna">
+            <ion-input formControlName="lugarHasta" type="text" readonly='true'>
+            </ion-input>
+          </p>
+        </div>
+        <!-- \\ CLOSE CARD // -->
 
-      <ion-item>
-        <ion-label position="floating">buquePuntal</ion-label>
-        <ion-input formControlName="buquePuntal" type="text"  readonly='true' >
-        </ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">buqueSenial</ion-label>
-        <ion-input formControlName="buqueSenial" type="text"  readonly='true' >
-        </ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">buqueBandera</ion-label>
-        <ion-input formControlName="buqueBandera" type="text"  readonly='true' >
-        </ion-input>
-      </ion-item>
-
-     
-      <ion-item>
-        <ion-label position="floating">practico1Nombre</ion-label>
-        <ion-input formControlName="practico1Nombre" type="text"  readonly='true' >
-        </ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">practico2Nombre</ion-label>
-        <ion-input formControlName="practico2Nombre" type="text" readonly='true'>
-        </ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">lugarDesde</ion-label>
-        <ion-input formControlName="lugarDesde" type="text"  readonly='true' >
-        </ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">lugarHasta</ion-label>
-        <ion-input formControlName="lugarHasta" type="text"  readonly='true' >
-        </ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">lugarKilometros</ion-label>
-        <ion-input formControlName="lugarKilometros" type="text"  readonly='true' >
-        </ion-input>
-      </ion-item>  
-
-      
-
-      <ion-item>
-        <ion-label position="floating">fechaInicio</ion-label>
-        <ion-datetime  formControlName="fechaInicio" displayFormat="DD/MM/YYYY HH:mm" required></ion-datetime>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">fechaFin</ion-label>
+        <!-- // OPEN INFO GRID \\ -->
+        <!--
+        <ion-item>
+          <ion-label position="floating">codigo</ion-label>
+          <ion-input formControlName="codigo" type="text" readonly='true'></ion-input>
+        </ion-item>
+        -->
         
-          <ion-datetime formControlName="fechaFin" displayFormat="DD/MM/YYYY HH:mm" required></ion-datetime>
+        <p></p>
+        
+        <ion-item>
+          <ion-label position="floating" class="labels">Razón Social</ion-label>
+          <ion-input formControlName="clienteRazonSocial" type="text" readonly='true' class="info-grid">
+          </ion-input>
+        </ion-item>
 
-       
-      </ion-item>
+        <ion-item>
+          <ion-label position="floating" class="labels">Solicitado para</ion-label>
+          <ion-input formControlName="fechaPedido" type="text" readonly='true' class="info-grid">
+          </ion-input>
+        </ion-item>
 
+        <!--
+        <ion-item>
+          <ion-label position="floating">buqueNombre</ion-label>
+          <ion-input formControlName="buqueNombre" type="text" readonly='true'>
+          </ion-input>
+        </ion-item>
+        -->
 
-      <ion-item>
-        <ion-label position="floating">calado_Proa</ion-label>
-        <ion-input formControlName="calado_Proa" type="text" required>
-        </ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label position="floating" class="labels">Coeficiente</ion-label>
+          <ion-input formControlName="buqueCoeficiente" type="text" readonly='true' class="info-grid">
+          </ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">calado_Popa</ion-label>
-        <ion-input formControlName="calado_Popa" type="number" required>
-        </ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label position="floating" class="labels">Eslora</ion-label>
+          <ion-input formControlName="buqueEslora" type="text" readonly='true' class="info-grid">
+          </ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">cabotaje</ion-label>
-        <!-- <ion-input formControlName="cabotaje" type="text" required>
+        <ion-item>
+          <ion-label position="floating" class="labels">Manga</ion-label>
+          <ion-input formControlName="buqueManga" type="text" readonly='true' class="info-grid">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="labels">Puntal</ion-label>
+          <ion-input formControlName="buquePuntal" type="text" readonly='true' class="info-grid">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="labels">Señal</ion-label>
+          <ion-input formControlName="buqueSenial" type="text" readonly='true' class="info-grid">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="labels">Bandera</ion-label>
+          <ion-input formControlName="buqueBandera" type="text" readonly='true' class="info-grid">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="labels">Práctico 1</ion-label>
+          <ion-input formControlName="practico1Nombre" type="text" readonly='true' class="info-grid">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="labels">Práctico 2</ion-label>
+          <ion-input formControlName="practico2Nombre" type="text" readonly='true' class="info-grid">
+          </ion-input>
+        </ion-item>
+
+        <!--
+        <ion-item>
+          <ion-label position="floating">lugarDesde</ion-label>
+          <ion-input formControlName="lugarDesde" type="text" readonly='true'>
+          </ion-input>
+        </ion-item>
+      -->
+        <!--
+        <ion-item>
+          <ion-label position="floating">lugarHasta</ion-label>
+          <ion-input formControlName="lugarHasta" type="text" readonly='true'>
+          </ion-input>
+        </ion-item>
+      -->
+        <ion-item>
+          <ion-label position="floating" class="labels">Kilometros</ion-label>
+          <ion-input formControlName="lugarKilometros" type="text" readonly='true' class="info-grid">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="labels">Fecha de Inicio</ion-label>
+          <ion-datetime formControlName="fechaInicio" displayFormat="DD/MM/YYYY HH:mm" required class="info-grid"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="labels">Fecha de Fin</ion-label>
+          <ion-datetime formControlName="fechaFin" displayFormat="DD/MM/YYYY HH:mm" required class="info-grid"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="labels">Proa</ion-label>
+          <ion-input formControlName="calado_Proa" type="text" required class="info-grid">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="labels">Popa</ion-label>
+          <ion-input formControlName="calado_Popa" type="number" required class="info-grid">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="labels">Cabotaje</ion-label>
+          <!-- <ion-input formControlName="cabotaje" type="text" required>
         </ion-input> -->
-        <ion-checkbox formControlName="cabotaje"></ion-checkbox>
-      </ion-item>
+          <ion-checkbox formControlName="cabotaje"></ion-checkbox>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">observacion</ion-label>
-        <ion-input formControlName="observacion" type="text" required>
-        </ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label position="floating" class="labels">Observación</ion-label>
+          <ion-input formControlName="observacion" type="text" required class="info-grid">
+          </ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">taraBruta</ion-label>
-        <ion-input formControlName="taraBruta" type="number" required>
-        </ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label position="floating" class="labels">Tara Bruta</ion-label>
+          <ion-input formControlName="taraBruta" type="number" required class="info-grid">
+          </ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">taraNeta</ion-label>
-        <ion-input formControlName="taraNeta" type="number" required>
-        </ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label position="floating" class="labels">Tara Neta</ion-label>
+          <ion-input formControlName="taraNeta" type="number" required class="info-grid">
+          </ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">canal</ion-label>
-        <ion-input formControlName="canal" type="text" required>
-        </ion-input>
-      </ion-item>
-      <ion-input type="hidden" formControlName="propietario" ></ion-input>
-      <ion-row *ngIf="EsPropietario">
-        <ion-col >
-          
-          <ion-button    type="submit" color="primary" shape="full" expand="block">
-            Actualizar servicio
-          </ion-button>
-          <ion-button *ngIf="!mostrarEliminarFirmas" (click)="Firmar();" color="primary" shape="full" expand="block">
-            Firmar
-         </ion-button>
-         <ion-button *ngIf="mostrarEliminarFirmas" (click)="LimpiarFirmas();" color="primary" shape="full" expand="block">
-           limpiar Firmas
-         </ion-button>
-        </ion-col>
-      </ion-row>
-    </form>
-  
-    <!-- NO VA EL BOTON DROP; ES PARA DESARROLLO -->
-     <!-- <ion-button (click)="drop();" color="primary" shape="full" expand="block">
+        <ion-item>
+          <ion-label position="floating" class="labels">Canal</ion-label>
+          <ion-input formControlName="canal" type="text" required class="info-grid">
+          </ion-input>
+        </ion-item>
+        <ion-input type="hidden" formControlName="propietario"></ion-input>
+        <ion-row *ngIf="EsPropietario">
+          <ion-col>
+
+            <ion-button type="submit" class="bot-full">
+              Actualizar
+            </ion-button>
+            <!--
+            <ion-button type="submit" color="primary" shape="full" expand="block">
+              Actualizar servicio
+            </ion-button>
+            -->
+            <ion-button *ngIf="!mostrarEliminarFirmas" (click)="Firmar();" class="bot-full">
+              Firmar
+            </ion-button>
+            <ion-button *ngIf="mostrarEliminarFirmas" (click)="LimpiarFirmas();" class="bot-full">
+              Limpiar Firmas
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+
+      <!-- NO VA EL BOTON DROP; ES PARA DESARROLLO -->
+      <!-- <ion-button (click)="drop();" color="primary" shape="full" expand="block">
       drop
     </ion-button>  -->
     </ion-list>
 
-</ng-template>
+  </ng-template>
 </ion-content>

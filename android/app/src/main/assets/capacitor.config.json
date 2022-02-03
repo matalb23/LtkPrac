@@ -1,32 +1,32 @@
 {
-	"appId": "com.latikait.ltkprac",
-	"appName": "ltkprac",
-	"bundledWebRuntime": false,
-	"npmClient": "npm",
-	"webDir": "www",
-	"plugins": {
-		"SplashScreen": {
-			"launchShowDuration": 0
-		}
-	},
-	"cordova": {},
-	"server": {
-		"allowNavigation": [
-			{
-				"url": "apptkapi.latikait.com.ar",
-				"injectJs": "true"
-			},
-			{
-				"url": "10.0.0.33",
-				"injectJs": "true"
-			},
-			{
-				"url": "apptkweb.latikait.com.ar",
-				"injectJs": "true"
-			}
-		],
-		"cleartext": true,
-		"androidScheme": "http",
-		"url": "http://192.168.0.7:8100"
-	}
+  "appId": "com.latikait.ltkprac",
+  "appName": "ltkprac",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {},
+  "server": {
+    "allowNavigation": [
+      {
+        "url": "apptkapi.latikait.com.ar",
+        "injectJs": "true"
+      },
+      {
+        "url": "10.0.0.33",
+        "injectJs": "true"
+      },
+      {
+        "url": "apptkweb.latikait.com.ar",
+        "injectJs": "true"
+      }
+    ],
+    "cleartext": true,
+    "androidScheme": "http",
+    "url": "http://10.0.0.248:8100"
+  }
 }

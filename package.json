@@ -10,8 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "android":"npm run build && npx cap sync && npx cap open android",
-    "androidl":"npm run build && ionic capacitor run android -l --external --host=10.0.0.37"
+    "android": "npm run build && npx cap sync android && npx cap open android",
+    "androidl": "npm run build && ionic capacitor run android -l --external --host=10.0.0.37"
   },
   "private": true,
   "dependencies": {
@@ -50,6 +50,7 @@
     "@angular/language-service": "~11.2.0",
     "@capacitor/cli": "^2.4.7",
     "@ionic/angular-toolkit": "^3.1.1",
+    "@ionic/lab": "3.2.10",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",

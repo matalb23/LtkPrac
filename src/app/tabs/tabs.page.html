@@ -1,19 +1,26 @@
 <ion-tabs>
 
   <ion-tab-bar slot="bottom">
+    <ion-tab-button> <!-- tab="info" -->
+      <!--<ion-menu-button color="primary"></ion-menu-button>-->
+      <img src="assets/img/gear.svg"(click)="openMenu()">
+      <!--<ion-icon name="car-sport-outline" (click)="openFirst()"></ion-icon>-->
+<!--<ion-label>Home</ion-label>-->
+    </ion-tab-button>
+
     <ion-tab-button tab="home">
-      <ion-icon name="triangle"></ion-icon>
-      <ion-label>Home</ion-label>
+      <img src="assets/img/house.svg">
+      <!--<ion-label>Servicio</ion-label>-->
     </ion-tab-button>
 
     <ion-tab-button tab="servicio">
-      <ion-icon name="ellipse"></ion-icon>
-      <ion-label>Servicio</ion-label>
+      <img src="assets/img/cursor.svg">
+      <!--<ion-label>Mensajes</ion-label>-->
     </ion-tab-button>
 
     <ion-tab-button tab="mensaje">
-      <ion-icon name="square"></ion-icon>
-      <ion-label>Mensajes</ion-label>
+      <img src="assets/img/app-indicator.svg">
+      <!--<ion-label>Mensajes</ion-label>-->
     </ion-tab-button>
   </ion-tab-bar>
 

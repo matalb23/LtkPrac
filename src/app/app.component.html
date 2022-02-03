@@ -1,3 +1,48 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <!--<ion-router-outlet></ion-router-outlet>-->
+
+  <ion-menu type="overlay" side="start" menuId="first" contentId="main">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>LTKPrac</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item>
+            <ion-icon name="boat-outline" color="Primary" slot="start"></ion-icon>
+            <ion-label>Enviar Geolocalización</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">          
+          <ion-item>
+            <ion-icon name="notifications-outline" color="Primary" slot="start"></ion-icon>
+            <ion-label>Configurar Notificaciones</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">          
+          <ion-item>
+            <ion-icon name="partly-sunny-outline" color="Primary" slot="start"></ion-icon>
+            <ion-label>Clima</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">          
+          <ion-item>
+            <ion-icon name="exit-outline" color="Primary" slot="start"></ion-icon>
+            <ion-label>Cerrar Sesión</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+
+
+      </ion-list>
+      <div style="position: absolute; bottom: 0px;" class="version">
+        Versión 1.0.1
+      </div>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main"></ion-router-outlet>
+
 </ion-app>

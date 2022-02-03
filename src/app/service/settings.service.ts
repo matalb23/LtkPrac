@@ -15,6 +15,7 @@ export class SettingsService  {constructor(
   public static setting_TokenFCM="setting_TokenFCM";
   public static setting_Interceptor_ShowToast="setting_Interceptor_ShowToast";
   public static setting_UserNameDateOfLogin="setting_UserNameDateOfLogin";
+  public static setting_TokenExpiresTokenDate="EXPIRES_TokenDate";
   public  templateForm :any;
  
   logout()

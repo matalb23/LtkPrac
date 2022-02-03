@@ -20,8 +20,14 @@ export class AuthService {
 
 
     let sUserNameDateOfLogin = this.settings.getValue(SettingsService.setting_UserNameDateOfLogin)
-    console.log("setting_UserNameDateOfLogin", sUserNameDateOfLogin)
-    if (sUserNameDateOfLogin != null) {// se logueo aunque sea una vez previamente
+    let dateExpire = this.settings.getValue(SettingsService.setting_TokenExpiresTokenDate)
+    console.log("setting_TokenExpiresTokenDate", sUserNameDateOfLogin)
+    if (sUserNameDateOfLogin != null && dateExpire!=null) {// se logueo aunque sea una vez previamente
+      var now = new Date();
+      if (now>new Date(dateExpire))//expiro el token
+      {
+        return this.LoginWithApi(user);
+      }
      
 
       let date1: Date = new Date();
@@ -84,7 +90,13 @@ export class AuthService {
         if (res.access_token) {
           this.settings.setValue(SettingsService.setting_Token, res.access_token);
           this.settings.setValue(SettingsService.setting_TokenExpiresIn, res.expires_in);
+          var dateExpire = new Date();
+          dateExpire.setSeconds(dateExpire.getSeconds() + res.expires_in-10);
+          console.log(dateExpire,dateExpire);
+          this.settings.setValue(SettingsService.setting_TokenExpiresTokenDate, dateExpire);
+          
           this.settings.setValue(SettingsService.setting_User, user.login);
+
           this.settings.setValue(SettingsService.setting_UserPass, user.password);
           this.settings.setValue(SettingsService.setting_UserNameDateOfLogin, new Date())
           this.authSubject.next(true);

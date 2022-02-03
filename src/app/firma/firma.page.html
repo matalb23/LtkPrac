@@ -1,4 +1,4 @@
-<ion-header>
+<!--<ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="end">
       <ion-button color="light" expand="full" [disabled]="isCanvasBlank()" (click)="save()"> Guardar</ion-button>
@@ -11,12 +11,41 @@
       
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header>-->
 
 <ion-content class="ion-padding">
-  <div *ngIf="firma==null;then mensajeContent else formContent">here is ignored</div>    
+  <!-- // OPEN CABECERA \\ -->
+  <ion-grid class="ion-align-items-left grid-cabecera" slot="fixed">
+    <ion-row class="cabecera">
+      <ion-col size="2" size-sm style="margin-right: 0px;">
+        <ion-back-button class="boton-volver" icon="assets/img/chevron-compact-left.svg" defaultHref="home">
+        </ion-back-button>
+      </ion-col>
+      <ion-col size="10" size-lg>
+        <p class="cab-line1">MENSAJES Y</p>
+        <p class="cab-line2">NOTIFICACIONES</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- \\ CLOSE CABECERA // -->
+
+  <ion-toolbar color="primary" style="padding-top: 70px;">
+    <ion-buttons slot="end">
+      <ion-button color="light" expand="full" [disabled]="isCanvasBlank()" (click)="save()"> Guardar</ion-button>
+      <ion-button color="light" expand="full" (click)="undo()"> Deshacer</ion-button>
+      <ion-button color="light" expand="full" (click)="clear()"> Limpiar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <div *ngIf="firma==null;then mensajeContent else formContent">here is ignored</div>
   <ng-template #mensajeContent></ng-template>
-  <ng-template #formContent>firma de {{firma.tipo}}</ng-template>
+  <ng-template #formContent>
+    <div style="padding: 10px;">
+      <span class="card-notificaciones-det"> FIRMA DE </span>
+      <span class="card-notificaciones-det-user">{{firma.tipo}}</span>
+    </div>
+  </ng-template>
 
   <div class="signature-pad">
     <div>

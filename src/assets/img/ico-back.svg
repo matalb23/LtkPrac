@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="65" height="62" viewBox="0 0 65 62">
+  <g id="Grupo_37" data-name="Grupo 37" transform="translate(1 -68)">
+    <g id="Grupo_25" data-name="Grupo 25" transform="translate(-5 68)">
+      <path id="Trazado_12" data-name="Trazado 12" d="M24,0H76A13,13,0,0,1,89,13V49A13,13,0,0,1,76,62H24Z" transform="translate(-20)" fill="#1d2cff"/>
+    </g>
+    <path id="chevron-compact-left" d="M13.114,1.608a1.022,1.022,0,0,1,.456,1.37l-5.9,11.813L13.572,26.6a1.022,1.022,0,1,1-1.828.916L5.609,15.249a1.022,1.022,0,0,1,0-.916L11.744,2.064a1.022,1.022,0,0,1,1.37-.456Z" transform="translate(27.499 83.5)" fill="#fff" fill-rule="evenodd"/>
+  </g>
+</svg>
