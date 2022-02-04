@@ -15,6 +15,10 @@
         <p class="volanta">Bienvenido</p>
         <p class="nombre-usuario">CACERES, PEDRO<!--MA--></p>
       </div>
+
+   <div *ngIf="mensajeSinServicio!='';then mensajeContent else formContent">muestra elmensaje de no tiene servicio</div>
+  <ng-template #mensajeContent>{{mensajeSinServicio}}</ng-template>
+  <ng-template #formContent> 
       <div style="width: 100%;">
         <p class="volanta">Editor de Servicio</p>
         <p class="nombre-editor">CAMPETELLA, OSCAR<!--MA--></p>
@@ -22,18 +26,18 @@
 
       <div style="width: 100%;">
         <p class="volanta">Servicio Asignado</p>
-        <p class="numero-servicio">9434<!--MA--></p>
+         <p class="numero-servicio">{{serviciodesdeApi.codigo}}</p>
       </div>
 
       <div id="card-servicio">
         <p class="labels">Buque</p>
-        <p class="card-buque">Theodore jr <!--MA--></p>
+        <p class="card-buque">{{serviciodesdeApi.buqueNombre}}</p>
         <p class="labels">Desde</p>
-        <p class="card-info">RADA SAN LORENZO<!--MA--></p>
+        <p class="card-info">{{serviciodesdeApi.lugarDesde}}</p>
         <p class="labels">Hasta</p>
-        <p class="card-info">ZEYA<!--MA--></p>
+        <p class="card-info">{{serviciodesdeApi.lugarHasta}}</p>
       </div>
-
+      </ng-template>
       <div class="botones-home">
         <button class="bot-right"> GUARDIA </button>
         <br><br><br><br>

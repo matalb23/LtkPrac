@@ -1,19 +1,7 @@
-<!--<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button text="" icon="assets/img/ico-back.svg" defaultHref="home">
-      </ion-back-button>
-    </ion-buttons>
-    <ion-title>
-      <p class="cab-line1">SERVICIO</p>
-      <p class="cab-line2">9434</p>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
--->
-
-
 <ion-content>
+  <div *ngIf="mensajeSinServicio!='';then mensajeContent else formContent">here is ignored</div>
+  <ng-template #mensajeContent>{{mensajeSinServicio}}</ng-template>
+  <ng-template #formContent>
 
   <!-- // OPEN CABECERA \\ -->
   <ion-grid class="ion-align-items-left grid-cabecera" slot="fixed">
@@ -23,16 +11,14 @@
         </ion-back-button>
       </ion-col>
       <ion-col size="10" size-lg>
+      
         <p class="cab-line1">SERVICIO</p>
-        <p class="cab-line2-servicio">9434<!--MA--></p>
+        <p class="cab-line2-servicio">{{serviciodesdeApi.codigo}}</p>
       </ion-col>
     </ion-row>
   </ion-grid>
   <!-- \\ CLOSE CABECERA // -->
 
-  <div *ngIf="mensajeSinServicio!='';then mensajeContent else formContent">here is ignored</div>
-  <ng-template #mensajeContent>{{mensajeSinServicio}}</ng-template>
-  <ng-template #formContent>
 
     <ion-list lines="full" style="padding-top: 100px;">
       <form [formGroup]="mainForm" (ngSubmit)="storeData()">
@@ -54,17 +40,7 @@
             </ion-input>
           </p>
         </div>
-        <!-- \\ CLOSE CARD // -->
 
-        <!-- // OPEN INFO GRID \\ -->
-        <!--
-        <ion-item>
-          <ion-label position="floating">codigo</ion-label>
-          <ion-input formControlName="codigo" type="text" readonly='true'></ion-input>
-        </ion-item>
-        -->
-        
-        <p></p>
         
         <ion-item>
           <ion-label position="floating" class="labels">Razón Social</ion-label>
