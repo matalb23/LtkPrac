@@ -15,7 +15,7 @@ ionic build
 npm run build
 npx cap sync
 npx cap open android
-
+npx cap add android
 
 
 npm run android corre el build y sync y open android,  el script esta en el package.json
@@ -58,3 +58,9 @@ https://como-programar.net/ionic/background-mode/
 --de base:
 npm install --save-dev @angular-devkit/build-angular
 npm install @capacitor/network
+
+npm install @capacitor/cli@latest @capacitor/core@latest
+npm audit fix --force
+npm audit fix --force
+
+npx @angular/cli@13 update @angular/core@13 @angular/cli@13
