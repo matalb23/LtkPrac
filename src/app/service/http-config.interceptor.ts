@@ -25,8 +25,8 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     Observable<HttpEvent<any>> {
     let authReq = req;
     const token = this.settings.getValue(SettingsService.setting_Token);
-
-    if (!req.url.includes("/token")) {
+//&&  !req.url.includes("assets/dump.sql")
+    if (!req.url.includes("/token") ) {
       {
         console.log("HttpInterceptor_url:" + req.url + " Bearer");
         authReq = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
@@ -44,7 +44,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
 
-       // console.error(error);        
+        console.error("Interceptor catchError((error: HttpErrorResponse)",error);        
         this.dismissLoading();
         const ShowToast = this.settings.getValue(SettingsService.setting_Interceptor_ShowToast);
         if (ShowToast=='0')

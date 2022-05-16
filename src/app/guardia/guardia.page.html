@@ -1,0 +1,189 @@
+
+
+<div *ngIf="guardia==null;then mensajeContent else formContent">muestra elmensaje de no tiene servicio</div>
+<ng-template #mensajeContent>{{mensajeSinServicio}}</ng-template>
+<ng-template #formContent> 
+
+<ion-content >
+   <!-- // OPEN CABECERA \\ -->
+   <ion-grid class="ion-align-items-left grid-cabecera" slot="fixed">
+    <ion-row class="cabecera">
+      <ion-col size="2" size-sm style="margin-right: 0px;">
+        <ion-back-button class="boton-volver" icon="assets/img/chevron-compact-left.svg" defaultHref="tabs/home">
+        </ion-back-button>
+      </ion-col>
+      <ion-col size="10" size-lg>
+      
+        <p class="cab-line1">ESTADO DE LA</p>
+        <p class="cab-line2">GUARDIA</p>       
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- \\ CLOSE CABECERA // -->
+
+  
+  <!-- // ACORDEON  \\ -->
+<ion-accordion-group value="turno" style="margin-top: 100px; width: 95%; margin-left: 2%;">
+
+  <ion-accordion value="turno">
+    <ion-item slot="header" style="border-bottom: 1px solid rgb(153, 153, 153);">
+      <ion-label>
+        <h4 class="nombre-usuario" style="font-weight: 500;">Ingreso al turno</h4>
+      </ion-label>
+    </ion-item>
+
+    <ion-list slot="content">
+      <ion-grid>
+        <ion-row style="padding: 5px;"><!--  id="grid-heading" -->
+          <ion-col size="1" class="labels">  
+            Pos.      
+          </ion-col>
+          <ion-col size="4" class="labels">
+            Nombre
+          </ion-col>
+          <ion-col size="4" class="labels">
+            Turno
+          </ion-col>
+          <ion-col size="2" class="labels">
+            Est.
+          </ion-col>
+          <ion-col size="1" class="labels">
+            Des.
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let turno of guardia.practicosTurno index as i" style="padding: 5px;">
+          <ion-col size="1" class="grid-guardia">        
+            {{ turno.fila }}
+          </ion-col>
+          <ion-col size="4" class="grid-guardia">        
+            {{ turno.nombre }}
+          </ion-col>
+          <ion-col size="4" class="grid-guardia">        
+            {{ turno.ingresoAlTurno }}
+          </ion-col>
+          <ion-col size="2" class="grid-guardia">        
+            {{ turno.estado }}
+          </ion-col>
+          <ion-col size="1" class="grid-guardia">        
+            {{ turno.horasDescanso }}
+          </ion-col>
+      
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </ion-accordion>
+
+  <ion-accordion value="servicios">
+    <ion-item slot="header" style="border-bottom: 1px solid rgb(153, 153, 153);">
+      <ion-label>
+        <h4 class="nombre-usuario" style="font-weight: 500;">Servicios Activos</h4>
+      </ion-label>
+    </ion-item>
+
+    <ion-list slot="content">
+      <ion-grid *ngFor="let servicio of guardia.serviciosActivosPorTipo index as i" style="border:1px solid #dddddd; border-radius: 5px; margin:10px 10px 40px 10px; padding:0px">
+        <ion-row style="padding:0px; background-color: #dddddd; line-height: 30px;">
+          <ion-col size="12" class="grid-guardia" style="color:#000 !important; font-size: 14px; padding-left: 20px;">
+            SERVICIO N° {{ servicio.codigo }}
+          </ion-col>
+        </ion-row>
+    
+        <ion-row style="padding: 2px; border-top:1px solid #dddddd">
+          <ion-col size="3" class="labels">
+            Buque:
+          </ion-col>  
+          <ion-col size="9" class="grid-guardia">
+            {{ servicio.buque }}
+          </ion-col>
+        </ion-row>
+    
+        <ion-row style="padding: 2px; border-top:1px solid #dddddd">
+          <ion-col size="3" class="labels">
+            Bandera:
+          </ion-col>  
+          <ion-col size="9" class="grid-guardia">
+            {{ servicio.bandera }}
+          </ion-col>
+        </ion-row>
+    
+        <ion-row style="padding: 2px; border-top:1px solid #dddddd">
+          <ion-col size="3" class="labels">
+            Inicio:
+          </ion-col>  
+          <ion-col size="9" class="grid-guardia">
+            {{ servicio.fechaInicio }}
+          </ion-col>
+        </ion-row>
+    
+        <ion-row style="padding: 2px; border-top:1px solid #dddddd">
+          <ion-col size="3" class="labels">
+            Práctico 1:
+          </ion-col>  
+          <ion-col size="9" class="grid-guardia">
+            {{ servicio.practico1 }}
+          </ion-col>
+        </ion-row>
+    
+        <ion-row style="padding: 2px; border-top:1px solid #dddddd">
+          <ion-col size="3" class="labels">
+            Práctico 2:
+          </ion-col>  
+          <ion-col size="9" class="grid-guardia">
+            {{ servicio.practico2 }}
+          </ion-col>
+        </ion-row>
+    
+        <ion-row style="padding: 2px; border-top:1px solid #dddddd">
+          <ion-col size="3" class="labels">
+            Desde:
+          </ion-col>  
+          <ion-col size="9" class="grid-guardia">
+            {{ servicio.desde }}
+          </ion-col>
+        </ion-row>
+    
+        <ion-row style="padding: 2px; border-top:1px solid #dddddd">
+          <ion-col size="3" class="labels">
+            Hasta:
+          </ion-col>  
+          <ion-col size="9" class="grid-guardia">
+            {{ servicio.hasta }}
+          </ion-col>
+        </ion-row>
+    
+      </ion-grid>
+    </ion-list>
+  </ion-accordion>
+
+  <ion-accordion value="inactivos">
+    <ion-item slot="header" style="border-bottom: 1px solid rgb(153, 153, 153);">
+      <ion-label>
+        <h4 class="nombre-usuario" style="font-weight: 500;">Prácticos Inactivos</h4>
+      </ion-label>
+    </ion-item>
+
+    <ion-list slot="content">
+      <ion-grid>
+        <ion-row *ngFor="let Inactivos of guardia.practicosInactivos index as i" style="padding: 0px 10px 10px 10px">
+          <ion-col size="12">
+            <p class="grid-guardia">
+              {{ Inactivos.nombre }}
+            </p>
+            <p class="labels">
+            Desde: {{ Inactivos.desde | date :'dd/mm/yyyy'}} - {{ Inactivos.desdeHora }}
+            </p>
+            <p class="labels">
+              Hasta: {{ Inactivos.hasta | date :'dd/mm/yyyy'}} - {{ Inactivos.hastahora }}
+            </p>
+            <p class="labels">
+              Motivo: {{ Inactivos.motivo }}
+            </p>      
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </ion-accordion>
+</ion-accordion-group>
+ 
+</ion-content>
+</ng-template>

@@ -24,7 +24,6 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-
 /* Author: Damián Díaz - Latika IT - Copyright 2022  *//*
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&display=swap');*/
 @font-face {
@@ -50,11 +49,11 @@ p {
 }
 
 ion-row {
-    padding: 20px;
+    padding: 10px;
 }
 ion-tab-bar {
     background: linear-gradient(180deg, rgba(230,230,230,1) 0%, rgba(246,246,246,1) 100%);
-    min-height: 80px;
+    min-height: 60px;
 }
 ion-tab-button {
     background: none;
@@ -69,12 +68,12 @@ ion-card {
 .grid-cabecera {
     background-color: #fff; 
     width: 100%; 
-    height: 85px;    
+    height: 74px;    
     box-shadow: 0px 5px 20px rgb(230, 230, 230); /* offset-x | offset-y | blur-radius | color */
 }
 .boton-volver {
     background: #1D2CFF;
-    height: 65px; 
+    height: 55px; 
     border-radius: 14px; 
     margin-left: -14px;
     padding-left: 20px;
@@ -121,6 +120,13 @@ ion-card {
     font-size: 11px;
     color: #7D7D7D;
     font-weight: 400;
+    text-transform: uppercase;
+}
+.grid-guardia{
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    color: #000000;
+    font-weight: 600;
     text-transform: uppercase;
 }
 .version{
@@ -232,6 +238,16 @@ ion-card {
     height: 50px;
     border: 1px solid;
 }
+.bot-alt{
+    color: #ffffff;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 24px !important;
+    height: 50px;
+    border: 1px solid;
+}
 .cab-line1{
     font-family: 'Raleway', sans-serif;
     font-size: 15px;
@@ -240,7 +256,7 @@ ion-card {
 }
 .cab-line2-servicio{
     font-family: 'Raleway', sans-serif;
-    font-size: 35px;
+    font-size: 25px;
     color: #1D2CFF;
     text-transform: uppercase;
     font-weight: 700;
@@ -248,7 +264,7 @@ ion-card {
 }
 .cab-line2{
     font-family: 'Raleway', sans-serif;
-    font-size: 25px;
+    font-size: 20px;
     color: #1D2CFF;
     text-transform: uppercase;
     font-weight: 700;

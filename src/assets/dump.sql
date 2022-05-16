@@ -27,12 +27,14 @@ CREATE TABLE IF NOT EXISTS servicios(
     taraNeta DECIMAL(10,2),
     canal TEXT,
     propietario text,
-    transfirio bit
+    transfirio bit,
+    propietarioNombre text,
+     FechaInicioNavegacion datetime,
+      fechaABordo datetime
 );
 
 
 CREATE TABLE IF NOT EXISTS firmas(
-   -- id integer primary key AUTOINCREMENT,
     tipo TEXT primary key,    
     codigo INTEGER ,        
     firmante TEXT,    
@@ -40,5 +42,42 @@ CREATE TABLE IF NOT EXISTS firmas(
     firma TEXT null,    
     latitude DECIMAL(9,6) null,
     longitude DECIMAL(9,6) null,
-    blob BLOB null
+    blob TEXT null,
+    orden integer
+);
+
+CREATE TABLE IF NOT EXISTS demoras(
+    id integer null ,    
+    servicio INTEGER ,             
+    fecha datetime null,    
+    tipo int null,    
+    nota text null,
+    horasDeDemora DECIMAL(10,2) null, 
+    tipoDescripcion text null,
+    idInterno INTEGER PRIMARY KEY AutoIncrement,
+    transfirio bit
+);
+
+
+CREATE TABLE IF NOT EXISTS maniobras(
+    id integer null ,    
+    servicio INTEGER ,             
+    fecha datetime null,    
+    tipo int null,    
+    nota text null,
+    cantidad DECIMAL(10,2) null,   
+    tipoDescripcion text null,
+    idInterno INTEGER PRIMARY KEY AutoIncrement,
+    transfirio bit
+);
+
+
+CREATE TABLE IF NOT EXISTS tipoManiobra(
+    id integer null ,        
+    descripcion text null    
+);
+
+CREATE TABLE IF NOT EXISTS tipoDemora(
+    id integer null ,        
+    descripcion text null
 );

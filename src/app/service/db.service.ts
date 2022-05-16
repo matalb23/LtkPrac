@@ -5,18 +5,28 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { Servicio } from './servicio';
+import { Maniobra } from './maniobra';
+import { tipoDemora } from './tipoDemora';
+import { tipoManiobra } from './tipoManiobra';
+import { Demora } from './demora';
 import { Firma } from './firma';
-//import { promise } from 'protractor';
+import { SettingsService } from '../service/settings.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class DbService {
+  public TransferidoValor: number = 1;
+  public TransferidoNOValor: number = -1;
   private storage: SQLiteObject;
   serviciosList = new BehaviorSubject([]);
+  demorasList = new BehaviorSubject([]);
+  maniobrasList = new BehaviorSubject([]);
+  tipoDemoraList = new BehaviorSubject([]);
+  tipoManiobraList = new BehaviorSubject([]);
   firmasList = new BehaviorSubject([]);
-  Sinfirma: BehaviorSubject<Firma> = new BehaviorSubject(null);
+  // Sinfirma: BehaviorSubject<Firma> = new BehaviorSubject(null);
   private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
   configDatabase = {
     name: 'LtkPrac.db',
@@ -28,6 +38,7 @@ export class DbService {
     private sqlite: SQLite,
     private httpClient: HttpClient,
     private sqlPorter: SQLitePorter,
+    private settings: SettingsService,
   ) {
     this.platform.ready().then(() => {
       this.create();
@@ -49,56 +60,69 @@ export class DbService {
 
     )
       .then(xx => {
-        this.create()       
+        this.create()
       });
 
   }
 
   dbState() {
-
     return this.isDbReady.asObservable();
   }
 
-
   fetchServicios(): Observable<Servicio[]> {
+
     return this.serviciosList.asObservable();
   }
+  fetchDemoras(): Observable<Demora[]> {
+
+    return this.demorasList.asObservable();
+  }
+  fetchManiobras(): Observable<Maniobra[]> {
+    return this.maniobrasList.asObservable();
+  }
+
+  fetchTipoDemora(): Observable<tipoDemora[]> {
+    return this.tipoDemoraList.asObservable();
+  }
+  fetchTipoManiobra(): Observable<tipoManiobra[]> {
+    return this.tipoManiobraList.asObservable();
+  }
+
   fetchFirmas(): Observable<Firma[]> {
     return this.firmasList.asObservable();
   }
-  fetchSinFirmar(): Observable<Firma> {
-    return this.Sinfirma.asObservable();
-  }
-  
-  buscarSinfirmar(): Promise<Firma> {
-    let firma: Firma = null;
-    this.dbState().subscribe((res) => {
-      if (res) {       
-        this.fetchFirmas().subscribe(item => {         
-          if (item.length > 0) {
-            for (let i = 0; i < item.length; i++) {
+  // fetchSinFirmar(): Observable<Firma> {
+  //   return this.Sinfirma.asObservable();
+  // }
 
-              if (item[i].firma == null && firma == null)             //
-              {               
-                firma = <Firma>item[i];
-                this.Sinfirma.next(firma)
-                break;
-              }
-            }
-            if (firma == null)
-              this.Sinfirma.next(firma)
+  // buscarSinfirmar(): Promise<Firma> {
+  //   let firma: Firma = null;
+  //   this.dbState().subscribe((res) => {
+  //     if (res) {
+  //       this.fetchFirmas().subscribe(item => {
+  //         if (item.length > 0) {
+  //           for (let i = 0; i < item.length; i++) {
 
-          }
+  //             if (item[i].firma == null && firma == null)             //
+  //             {
+  //               firma = <Firma>item[i];
+  //               this.Sinfirma.next(firma)
+  //               break;
+  //             }
+  //           }
+  //           if (firma == null)
+  //             this.Sinfirma.next(firma)
 
-        })
-        //return new Promise(resolve=>{resolve(firma)});
-      }
+  //         }
+
+  //       })
+  //       //return new Promise(resolve=>{resolve(firma)});
+  //     }
 
 
-    });   
-    return new Promise(resolve => { resolve(firma) });
-  }
-
+  //   });
+  //   return new Promise(resolve => { resolve(firma) });
+  // }
 
   ExecuteInicial() {
     this.httpClient.get(
@@ -107,7 +131,12 @@ export class DbService {
     ).subscribe(data => {
       this.sqlPorter.importSqlToDb(this.storage, data)
         .then(_ => {
-          this.getServicios().then(res=>{});;
+          this.getServicios().then(res => { });;
+          this.getTipoDemora().then(res => { });;
+          this.getTipoManiobra().then(res => { });;
+          this.getDemoras().then(res => { });;
+          this.getManiobras().then(res => { });;
+          this.getFirmas().then(res => { });;
           this.isDbReady.next(true);
         })
         .catch(error => console.error(error));
@@ -115,9 +144,9 @@ export class DbService {
   }
   getFirmas() {
 
-    return this.storage.executeSql('SELECT * FROM firmas order by tipo asc', []).then(res => {
+    return this.storage.executeSql('SELECT * FROM firmas order by orden asc', []).then(res => {
       let items: Firma[] = [];
-     
+
       if (res != null) {
         if (res.rows.length > 0) {
           for (var i = 0; i < res.rows.length; i++) {
@@ -135,9 +164,9 @@ export class DbService {
           }
         }
       }
-     
+
       this.firmasList.next(items);
-      this.buscarSinfirmar().then(res=>{});
+      // this.buscarSinfirmar().then(res => { });//no sacar; pierde boton firma
     });
 
   }
@@ -176,39 +205,222 @@ export class DbService {
             taraNeta: res.rows.item(i).taraNeta,
             canal: res.rows.item(i).canal,
             propietario: res.rows.item(i).propietario,
-            transfirio: res.rows.item(i).transfirio
+            transfirio: res.rows.item(i).transfirio,
+            propietarioNombre: res.rows.item(i).propietarioNombre,
+            fechaInicioNavegacion: res.rows.item(i).FechaInicioNavegacion,
+            fechaABordo: res.rows.item(i).fechaABordo,
           });
-        }    
-        this.getFirmas().then(res=>{});
-
+        }
       }
-
+    
       this.serviciosList.next(items);
     });
   }
+  getDemoras() {
+    return this.storage.executeSql('SELECT * FROM demoras', []).then(res => {
+      let items: Demora[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          items.push({
+            fecha: res.rows.item(i).fecha,
+            horasDeDemora: res.rows.item(i).horasDeDemora,
+            id: res.rows.item(i).id,
+            servicio: res.rows.item(i).servicio,
+            nota: res.rows.item(i).nota,
+            tipo: res.rows.item(i).tipo,
+            tipoDescripcion: res.rows.item(i).tipoDescripcion,
+            idInterno: res.rows.item(i).idInterno,
+            transfirio: res.rows.item(i).transfirio
+          });
+        }
+      }
+      this.demorasList.next(items);
+    });
+  }
+  getManiobras() {
+    return this.storage.executeSql('SELECT * FROM maniobras', []).then(res => {
+      let items: Maniobra[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          items.push({
+            fecha: res.rows.item(i).fecha,
+            cantidad: res.rows.item(i).cantidad,
+            id: res.rows.item(i).id,
+            servicio: res.rows.item(i).servicio,
+            nota: res.rows.item(i).nota,
+            tipo: res.rows.item(i).tipo,
+            tipoDescripcion: res.rows.item(i).tipoDescripcion,
+            idInterno: res.rows.item(i).idInterno,
+            transfirio: res.rows.item(i).transfirio
+          });
+        }
+     
+      }
+      this.maniobrasList.next(items);
+    });
+  }
+
+  getTipoManiobra() {
+
+    return this.storage.executeSql('SELECT * FROM tipoManiobra', []).then(res => {
+      console.log("select tipomaniobra", res)
+      let items: tipoManiobra[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          items.push({
+            id: res.rows.item(i).id,
+            descripcion: res.rows.item(i).descripcion
+          });
+        }
+      }
+      this.tipoManiobraList.next(items);
+    });
+  }
+  getTipoDemora() {
+    return this.storage.executeSql('SELECT * FROM tipoDemora', []).then(res => {
+      let items: tipoDemora[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          items.push({
+            id: res.rows.item(i).id,
+            descripcion: res.rows.item(i).descripcion
+          });
+        }
+      }
+      this.tipoDemoraList.next(items);
+    });
+  }
+  addTipoDemora(s: tipoDemora) {
+
+    let data = [s.id, s.descripcion];//,s.idInterno
+    console.log("addTipoDemora", data)
+    return this.storage.executeSql('INSERT OR REPLACE INTO  tipoDemora (id,descripcion) VALUES (?,?)', data)
+      .then(res => {
+        console.log("addTipoDemora SUCCESS s:", s)
+        this.getTipoDemora().then(res => { });
+        //return s;
+      });
+
+  }
+
+  addTipoManiobra(s: tipoManiobra) {
+
+    let data = [s.id, s.descripcion];//,s.idInterno
+    console.log("addTipoManiobra", data)
+    return this.storage.executeSql('INSERT OR REPLACE INTO  tipoManiobra (id,descripcion) VALUES (?,?)', data)
+      .then(res => {
+        console.log("addTipoManiobra SUCCESS s:", s)
+        this.getTipoManiobra().then(res => { });
+        // return s;
+      });
+
+  }
+  deleteAllTipoDemora() {
+
+    return this.storage.executeSql("DELETE FROM tipoDemora;", [])
+      .then(xx => {
+        console.log("DELETE FROM tipoDemora", xx)
+        this.getTipoDemora();
+      }).catch(e => {
+        console.log("error deleteAllTipoDemora", e);
+      });;
+
+  }
+  deleteAllTipoManiobra() {
+
+    return this.storage.executeSql("DELETE FROM tipoManiobra;", [])
+      .then(xx => {
+        console.log("DELETE FROM tipoManiobra", xx)
+        this.getTipoManiobra();
+      }).catch(e => {
+        console.log("errordeleteAllTipoManiobra", e);
+      });;
+
+  }
+
+  addDemora(s: Demora) {
+
+    let data = [s.id, s.servicio, s.fecha, s.tipo, s.nota, s.horasDeDemora, s.tipoDescripcion, s.transfirio];//,s.idInterno
+    console.log("addDemora", data)
+    return this.storage.executeSql('INSERT OR REPLACE INTO  demoras (Id,Servicio,Fecha,Tipo,Nota,HorasDeDemora,tipoDescripcion,transfirio) VALUES (?,?,?,?,?,?,?,?)', data)
+      .then(res => {
+        this.storage.executeSql('select last_insert_rowid() as id', []).then(res => {
+          s.idInterno = res.rows.item(0).id;
+        })
+  
+
+        console.log("addDemora SUCCESS s:", s)
+        this.getDemoras().then(res => { });
+        return s;
+      });
+
+  }
+
+  addManiobra(s: Maniobra) {
+    s.transfirio = 0;
+    let data = [s.id, s.servicio, s.fecha, s.tipo, s.nota, s.cantidad, s.tipoDescripcion, s.transfirio];
+    console.log("addManiobra", data)
+    return this.storage.executeSql('INSERT OR REPLACE INTO  maniobras (id,servicio,fecha,tipo,nota,cantidad,tipoDescripcion,transfirio) VALUES (?,?,?,?,?,?,?,?)', data)
+      .then(res => {
+        this.storage.executeSql('select last_insert_rowid() as id', []).then(res => {
+          s.idInterno = res.rows.item(0).id;
+        })
+        
+        console.log("addManiobra SUCCESS")
+        this.getManiobras().then(res => { });
+      });
+  }
+
+  demoraTransferido(codigo: number) {
+
+    let sql: string = "";
+    sql += "UPDATE demoras SET transfirio='1',id=" + this.TransferidoValor.toString() + " where idInterno=" + codigo.toString();
+
+    return this.storage.executeSql(sql, []).then(data => {
+       console.log("demoraTransferido",sql)
+      return this.getDemoras().then((res) => {
+
+      })
+    })
+  }
+  maniobraTransferido(codigo: number) {
+
+    let sql: string = "";
+    sql += "UPDATE maniobras SET transfirio='1',id=" + this.TransferidoValor.toString() + " where idInterno=" + codigo.toString();
+
+    return this.storage.executeSql(sql, []).then(data => {
+      console.log("demoraTransferido",sql)
+      return this.getManiobras().then((res) => {
+
+      })
+    })
+  }
+
 
 
   // Add
   addServicio(s: Servicio) {
-    s.transfirio=0;
+    s.transfirio = 0;
     //     //28
-    let data = [s.codigo, s.cliente, s.clienteRazonSocial, s.fechaPedido, s.buqueNombre, s.buqueCoeficiente, s.buqueEslora, s.buqueManga, s.buquePuntal, s.buqueSenial, s.buqueBandera, s.practico1, s.practico1Nombre, s.practico2, s.practico2Nombre, s.lugarDesde, s.lugarHasta, s.lugarKilometros, s.fechaInicio, s.fechaFin, s.calado_Proa, s.calado_Popa, s.cabotaje, s.observacion, s.taraBruta, s.taraNeta, s.canal, s.propietario, s.transfirio];
-   
-    return this.storage.executeSql('INSERT OR REPLACE INTO  servicios (codigo, cliente, clienteRazonSocial, fechaPedido, buqueNombre, buqueCoeficiente, buqueEslora, buqueManga, buquePuntal, buqueSenial, buqueBandera, practico1, practico1Nombre, practico2, practico2Nombre, lugarDesde, lugarHasta, lugarKilometros, fechaInicio, fechaFin, calado_Proa, calado_Popa, cabotaje,observacion,taraBruta,taraNeta,canal,propietario,transfirio) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', data)
+    let data = [s.codigo, s.cliente, s.clienteRazonSocial, s.fechaPedido, s.buqueNombre, s.buqueCoeficiente, s.buqueEslora, s.buqueManga, s.buquePuntal, s.buqueSenial, s.buqueBandera, s.practico1, s.practico1Nombre, s.practico2, s.practico2Nombre, s.lugarDesde, s.lugarHasta, s.lugarKilometros, s.fechaInicio, s.fechaFin, s.calado_Proa, s.calado_Popa, s.cabotaje, s.observacion, s.taraBruta, s.taraNeta, s.canal, s.propietario, s.transfirio, s.propietarioNombre,s.fechaInicioNavegacion,s.fechaABordo];
+    console.log("addServicio")
+    return this.storage.executeSql('INSERT OR REPLACE INTO  servicios (codigo, cliente, clienteRazonSocial, fechaPedido, buqueNombre, buqueCoeficiente, buqueEslora, buqueManga, buquePuntal, buqueSenial, buqueBandera, practico1, practico1Nombre, practico2, practico2Nombre, lugarDesde, lugarHasta, lugarKilometros, fechaInicio, fechaFin, calado_Proa, calado_Popa, cabotaje,observacion,taraBruta,taraNeta,canal,propietario,transfirio,propietarioNombre,FechaInicioNavegacion,fechaABordo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', data)
       .then(res => {
-        data = [s.codigo, "Master", "Master"];
-        this.storage.executeSql('INSERT OR REPLACE INTO firmas (codigo, tipo,firmante) VALUES (?,?,?)', data).then(ri => { console.log("ri", ri) });
+        console.log("addServicio SUCCESS")
+
         if (s.practico1 > 0) {
-          data = [s.codigo, "Practico1", s.practico1Nombre];
-          this.storage.executeSql('INSERT OR REPLACE INTO firmas (codigo, tipo,firmante) VALUES (?,?,?)', data);
+          data = [s.codigo, "Practico1", s.practico1Nombre, 1];
+          this.storage.executeSql('INSERT OR REPLACE INTO firmas (codigo, tipo,firmante,orden) VALUES (?,?,?,?)', data);
         }
         if (s.practico2 > 0) {
-          data = [s.codigo, "Practico2", s.practico2Nombre];
-          this.storage.executeSql('INSERT OR REPLACE INTO firmas (codigo, tipo,firmante) VALUES (?,?,?)', data);
+          data = [s.codigo, "Practico2", s.practico2Nombre, 2];
+          this.storage.executeSql('INSERT OR REPLACE INTO firmas (codigo, tipo,firmante,orden) VALUES (?,?,?,?)', data);
         }
-      
-        this.getServicios().then(res=>{});;
-        this.getFirmas().then(res=>{});;
+        data = [s.codigo, "Master", "Master", 3];
+        this.storage.executeSql('INSERT OR REPLACE INTO firmas (codigo, tipo,firmante,orden) VALUES (?,?,?,?)', data).then(ri => { console.log("ri", ri) });
+
+        this.getServicios().then(res => { });;
+        this.getFirmas().then(res => { });;
 
       });
 
@@ -237,122 +449,110 @@ export class DbService {
     return b;
   }
   updateServicio(s: Servicio) {
-    
-    let data = [s.codigo, s.cliente, s.clienteRazonSocial, s.fechaPedido, s.buqueNombre, s.buqueCoeficiente, s.buqueEslora, s.buqueManga, s.buquePuntal, s.buqueSenial, s.buqueBandera, s.practico1, s.practico1Nombre, s.practico2, s.practico2Nombre, s.lugarDesde, s.lugarHasta, s.lugarKilometros, s.fechaInicio, s.fechaFin, s.calado_Proa, s.calado_Popa, s.cabotaje, s.observacion, s.taraBruta, s.taraNeta, s.canal, s.propietario, s.transfirio];
-    let sql: string = "";  
+
+    let data = [s.codigo, s.cliente, s.clienteRazonSocial, s.fechaPedido, s.buqueNombre, s.buqueCoeficiente, s.buqueEslora, s.buqueManga, s.buquePuntal, s.buqueSenial, s.buqueBandera, s.practico1, s.practico1Nombre, s.practico2, s.practico2Nombre, s.lugarDesde, s.lugarHasta, s.lugarKilometros, s.fechaInicio, s.fechaFin, s.calado_Proa, s.calado_Popa, s.cabotaje, s.observacion, s.taraBruta, s.taraNeta, s.canal, s.propietario, s.transfirio, s.propietarioNombre,s.fechaInicioNavegacion,s.fechaABordo];
+    let sql: string = "";
     sql += "UPDATE servicios SET codigo=?, ";
     sql += "  cliente=?, clienteRazonSocial=?, fechaPedido=?,  "
     sql += " buqueNombre=?, buqueCoeficiente=?, buqueEslora=?, buqueManga=?, buquePuntal=?, buqueSenial=?, buqueBandera=?,"
     sql += " practico1=?, practico1Nombre=?, practico2=?, practico2Nombre=?, "
     sql += " lugarDesde=?, lugarHasta=?, lugarKilometros=?,"
-    sql += " fechaInicio=?, fechaFin=?, calado_Proa=?, calado_Popa=?, cabotaje=?,observacion=?,taraBruta=?,taraNeta=?,canal=?,propietario=?,transfirio=?"
-    
+    sql += " fechaInicio=?, fechaFin=?, calado_Proa=?, calado_Popa=?, cabotaje=?,observacion=?,taraBruta=?,taraNeta=?,canal=?,propietario=?,transfirio=?,propietarioNombre=?,FechaInicioNavegacion=?,fechaABordo=?"
+
     return this.storage.executeSql(sql, data)
       .then(data => {
 
-       
+        //console.log("Actualiza servicio",data)
         if (s.firmas != null) {
           s.firmas.forEach(firma => {
             if (firma.firma != null)//con esto se da cuenta que esta firmado
-            {            
-              this.updateFirma(firma).then(res=>{});;
+            {
+              this.updateFirma(firma).then(res => { });;
             }
           });
         }
-         this.getServicios().then(res=>{});;
+        this.getServicios().then(res => { });;
 
 
       })
   }
-  
-  servicioTransferido(codigo: number) {
-    
-    let sql: string = "";    
-    sql += "UPDATE servicios SET transfirio='1' "//where codigo="+codigo.toString();    
-    
-    return this.storage.executeSql(sql).then(data => {              
-         return this.getServicios().then((res) => {
-     
-         })
+
+  servicioTransferido(s: Servicio) {
+
+    let sql: string = "";
+    sql += "UPDATE servicios SET transfirio='1' "
+    s.transfirio=1;
+    return this.storage.executeSql(sql,[]).then(data => {
+      
+       this.getServicios().then((res) => {
       })
+    })
   }
 
   updateFirma(f: Firma) {
 
     let data = [f.firma, f.firmaFecha, f.latitude, f.longitude, f.blob];
     f.tipo = f.tipo.trim();
-   
+
     return this.storage.executeSql(`UPDATE firmas SET firma = ?, firmaFecha = ?,latitude = ?,longitude = ?,blob=?  WHERE tipo = '${f.tipo}'`, data)
       .then(data => {
-        this.getFirmas().then(res=>{});
+        console.log("actualiza firmas", f)
+        this.getFirmas().then(res => { });
         //  this.buscarSinfirmar();
       })
   }
   updateFirmasLimpiar() {
-    return this.storage.executeSql(`UPDATE firmas SET firma = null, firmaFecha = null,latitude = null,longitude = null`)
+    return this.storage.executeSql(`UPDATE firmas SET firma = null, firmaFecha = null,latitude = null,longitude = null`,[])
       .then(data => {
-       
-        this.getFirmas().then(res=>{});;
+        console.log("Actualiza firma", data)
+        this.getFirmas().then(res => { });;
         //this.buscarSinfirmar();
 
 
       })
   }
-  // deleteServicio(Codigo) {
-  //   //DELETE FROM firmas;
+  deleteServicio() {
+    //DELETE FROM firmas;
 
-  //   this.storage.executeSql(' DELETE FROM firmas WHERE codigo = ?', [Codigo])
-  //     .then(xx => {
-  //       return this.storage.executeSql(' DELETE FROM servicios WHERE codigo = ?', [Codigo])
-  //         .then(_ => {
-  //           this.getServicios();
-  //         });
-  //     });
-
-  // }
-  deleteServicios(codigo) {
-    // tienen que tener * o una condicion
-    return this.storage.executeSql('DELETE FROM servicios WHERE codigo=' + codigo + ';').then(xx => {
-      console.log("Limpia firmas");
-      this.getServicios().then(res=>{});;
-      return this.storage.executeSql('DELETE FROM firmas WHERE codigo=' + codigo + ';').then(xx => {
-        this.getServicios().then(res=>{});;
-        console.log("Limpia servicios");
-        this.storage.executeSql('VACUUM;').then(xx => {
-          console.log("VAcum");
-        });
-
-
-        //console.log("deleteServicios elimino firmas",xx);
-
-      });
-
-    });
-
+    return this.storage.executeSql(' DELETE FROM firmas;', [])
+      .then(xx => {
+        console.log("xx", xx)
+        return  this.storage.executeSql(' DELETE FROM servicios;', [])
+          .then(xxx => {
+            console.log("xxx", xxx)
+            this.getServicios();
+          }).catch(e => {
+            console.log("error delete servicios", e);
+          });;
+      }).catch(e => {
+        console.log("error delete firmas", e);
+      });;
 
   }
-  dropTable() {
-  // console.log("drop table firmas y servicios")
-    let sql = " "    
-    sql += " Drop Table If Exists 'servicios';";
-    // sql += " Drop Table If Exists [dbo].[firmas];";
-    
-    return this.storage.executeSql(sql)
-      .then(_ => {
-        console.log("DROP table servicios", _)
-        sql += " Drop Table If Exists firmas;";
-        return this.storage.executeSql(sql)
-        .then(_ => {
-          console.log("DROP table 'firmas'", _)
-          this.getServicios().then(res=>{});;
-          this.ExecuteInicial()
-  
-  
-        });
-        
 
-      });
+
+  deleteAllDemoraIdNoCero() {
+
+    return this.storage.executeSql("DELETE FROM demoras where id>" + this.TransferidoNOValor + ";", [])//vienen de la api
+      .then(xx => {
+        console.log("xx", xx)
+        this.getDemoras();
+      }).catch(e => {
+        console.log("error delete demoras", e);
+      });;
+
   }
+  deleteAllManiobraIdNoCero() {
 
+    return this.storage.executeSql("DELETE FROM maniobras where id>" + this.TransferidoNOValor + ";", [])//vienen de la api
+      .then(xx => {
+        console.log("xx", xx)
+        this.getManiobras();
+      }).catch(e => {
+        console.log("error delete maniobras", e);
+      });;
+
+  }
+  
 
 }

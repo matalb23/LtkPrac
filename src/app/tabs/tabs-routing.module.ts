@@ -15,6 +15,14 @@ const routes: Routes = [
         path: 'servicio',
         loadChildren: () => import('../servicio/servicio.module').then(m => m.ServicioPageModule)
       },
+      {
+        path: 'historico',
+        loadChildren: () => import('../historico/historico.module').then(m => m.HistoricoPageModule)
+      },
+      {
+        path: 'guardia',
+        loadChildren: () => import('../guardia/guardia.module').then(m => m.GuardiaPageModule)
+      },
       // {
       //   path: 'tab3',
       //   loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)

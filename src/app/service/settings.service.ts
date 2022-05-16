@@ -11,12 +11,16 @@ export class SettingsService  {constructor(
   public static setting_TokenExpiresIn="EXPIRES_IN";
   public static setting_User="USER";
   public static setting_UserName="USERNAME";
+  public static setting_UserPracticoId="USER_PRACTICOID";
   public static setting_UserPass="pass";
   public static setting_TokenFCM="setting_TokenFCM";
   public static setting_Interceptor_ShowToast="setting_Interceptor_ShowToast";
   public static setting_UserNameDateOfLogin="setting_UserNameDateOfLogin";
   public static setting_TokenExpiresTokenDate="EXPIRES_TokenDate";
-  public  templateForm :any;
+  public static setting_PracticoConServicio="0";
+  public static setting_ServiciosCantidad="0";
+  public static setting_NetworkConnected="setting_NetworkConnected";
+  // public  templateForm :any;
  
   logout()
   {
@@ -35,15 +39,15 @@ export class SettingsService  {constructor(
   }
 
 
-  public SetTemplateForm(valor){
-    this.templateForm=valor;
-  }
-  public GetTemplateForm(){
-    return this.templateForm;
-  }
-  public GetUrlBackend(){
-    return "http://apptkweb.latikait.com.ar"
-  }
+  // public SetTemplateForm(valor){
+  //   this.templateForm=valor;
+  // }
+  // public GetTemplateForm(){
+  //   return this.templateForm;
+  // }
+  // public GetUrlBackend(){
+  //   return "http://apptkweb.latikait.com.ar"
+  // }
 
   public Interceptor_DontShowToast() {
     window.localStorage.removeItem(SettingsService.setting_Interceptor_ShowToast);
@@ -62,4 +66,17 @@ export class SettingsService  {constructor(
     });
     toast.present();                     
 }   
+async Toast_presentWarnig(msg) {
+  const toast = await this.toastCtrl.create({
+    message: msg,
+    duration: 3000,
+    position: 'top',
+    color: 'warning',
+    cssClass: 'toast'
+     //showCloseButton: true,
+  //   closeButtonText: "OK",
+  });
+  toast.present();                     
+}   
+
 }

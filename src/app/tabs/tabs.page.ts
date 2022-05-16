@@ -26,7 +26,14 @@ export class TabsPage {
 
   
     this.platform.ready().then(() => {
-   this.fcmService.initPush();
+      if (this.settings.getValue(SettingsService.setting_User)=="" ||  this.settings.getValue(SettingsService.setting_User)=="null" || this.settings.getValue(SettingsService.setting_User)==null)
+      {
+        this.settings.setValue(SettingsService.setting_User,null);
+        this.router.navigateByUrl("login");
+      }
+      else{
+          this.fcmService.initPushYGeo();
+        }
   });
    
   }

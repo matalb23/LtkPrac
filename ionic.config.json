@@ -1,6 +1,7 @@
 {
-  "name": "ltkprac",
+  "name": "LtkPrac",
   "integrations": {
+    "cordova": {},
     "capacitor": {}
   },
   "type": "angular"

@@ -1,4 +1,6 @@
+import { Demora } from "./demora";
 import { Firma } from "./firma";
+import { Maniobra } from "./maniobra";
 
 export class Servicio {
     codigo: number;
@@ -28,7 +30,12 @@ export class Servicio {
     taraBruta: number;
     taraNeta: number;
     canal: string;
-    propietario:string;
+    propietario:string;    
+    transfirio?: number;   
+    propietarioNombre?: string;
     firmas?:Firma[];
-    transfirio?: number;
+    demorasnuevas?:Demora[];
+    maniobrasnuevas?:Maniobra[];
+    fechaInicioNavegacion: Date;
+    fechaABordo: Date;
 }

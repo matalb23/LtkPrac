@@ -1,0 +1,84 @@
+<ion-content>
+<!-- // OPEN CABECERA \\ -->
+   <ion-grid class="ion-align-items-left grid-cabecera" slot="fixed">
+    <ion-row class="cabecera">
+      <ion-col size="2" size-sm style="margin-right: 0px;">
+        <ion-back-button class="boton-volver" icon="assets/img/chevron-compact-left.svg" defaultHref="tabs/home">
+        </ion-back-button>
+      </ion-col>
+      <ion-col size="10" size-lg>
+      
+        <p class="cab-line1">SERVICIOS</p>
+        <p class="cab-line2">HISTÓRICOS</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- \\ CLOSE CABECERA // -->
+
+<!-- // OPEN SPACER \\ -->
+  <div style="padding-top: 100px;">  </div>
+<!-- \\ CLOSE SPACER // -->
+
+  <ion-grid *ngFor="let servicio of servicios index as i" style="border:1px solid #dddddd; border-radius: 5px; margin:10px 10px 40px 10px; padding:0px 0px 0px 0px">
+    <ion-row style="padding:0px; background-color: #dddddd; line-height: 30px;">
+      <ion-col size="12" class="grid-guardia" style="color:#000 !important; font-size: 14px; padding-left: 20px;">
+       SERVICIO N° {{ servicio.codigo }}
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding:0px; background-color: #f1f1f1;">
+      <ion-col size="12" class="grid-guardia" style="color:#000 !important; padding-left: 20px;">
+        {{ servicio.cliente }} - {{ servicio.clienteRazonSocial }}
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding:0px; background-color: #fff;">
+      <ion-col size="12" class="grid-guardia" style="color:#000 !important; padding-left: 20px;">
+        <span style="font-weight: 300;"> Fecha de Incio: </span> <span style="font-weight: 600;">{{ servicio.fechaInicio | date :'dd/mm/yyyy'}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding:0px; background-color: #fff;">
+      <ion-col size="12" class="grid-guardia" style="color:#000 !important; padding-left: 20px;">
+        <span style="font-weight: 300;"> Fecha de Fin: </span> <span style="font-weight: 600;">{{ servicio.fechaFin | date :'dd/mm/yyyy'}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding:0px; background-color: #fff;">
+      <ion-col size="12" class="grid-guardia" style="color:#000 !important; padding-left: 20px;">
+        <span style="font-weight: 300;"> Buque: </span> <span style="font-weight: 600;">{{ servicio.buqueNombre }}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding:0px; background-color: #fff;">
+      <ion-col size="12" class="grid-guardia" style="color:#000 !important; padding-left: 20px;">
+        <span style="font-weight: 300;"> Bandera: </span> <span style="font-weight: 600;">{{ servicio.buqueBandera }}</span>
+      </ion-col>
+    </ion-row>    
+    <ion-row style="padding:0px; background-color: #fff;">
+      <ion-col size="12" class="grid-guardia" style="color:#000 !important; padding-left: 20px;">
+        <span style="font-weight: 300;"> Práctico 1: </span> <span style="font-weight: 600;">{{ servicio.practico1Nombre }}</span>
+      </ion-col>
+    </ion-row>    
+    <ion-row style="padding:0px; background-color: #fff;">
+      <ion-col size="12" class="grid-guardia" style="color:#000 !important; padding-left: 20px;">
+        <span style="font-weight: 300;"> Práctico 2: </span> <span style="font-weight: 600;">{{ servicio.practico2Nombre }}</span>
+      </ion-col>
+    </ion-row>    
+    <ion-row style="padding:0px; background-color: #fff;">
+      <ion-col size="12" class="grid-guardia" style="color:#000 !important; padding-left: 20px;">
+        <span style="font-weight: 300;"> Estado: </span> <span style="font-weight: 600;">{{ servicio.estadoDescripcion }}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding:0px; background-color: #fff;">
+      <ion-col size="12" class="grid-guardia" style="color:#000 !important; padding-left: 20px;">
+        <span style="font-weight: 300;"> Desde: </span> <span style="font-weight: 600;">{{ servicio.lugarDesde }}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding:0px; background-color: #fff;">
+      <ion-col size="12" class="grid-guardia" style="color:#000 !important; padding-left: 20px;">
+        <span style="font-weight: 300;"> Hasta: </span> <span style="font-weight: 600;">{{ servicio.lugarHasta }}</span>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+
+
+</ion-content>

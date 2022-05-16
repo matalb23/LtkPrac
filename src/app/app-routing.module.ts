@@ -22,6 +22,24 @@ const routes: Routes = [
     path: 'firma',
     loadChildren: () => import('./firma/firma.module').then( m => m.FirmaPageModule)
   },
+  {path:'', redirectTo:'login',pathMatch:'full'},
+  {
+    path: 'guardia',
+    loadChildren: () => import('./guardia/guardia.module').then( m => m.GuardiaPageModule)
+  },
+  {
+    path: 'historico',
+    loadChildren: () => import('./historico/historico.module').then( m => m.HistoricoPageModule)
+  },
+  {
+    path: 'servicio-maniobras',
+    loadChildren: () => import('./servicio-maniobras/servicio-maniobras.module').then( m => m.ServicioManiobrasPageModule)
+  },
+  {
+    path: 'servicio-demoras',
+    loadChildren: () => import('./servicio-demoras/servicio-demoras.module').then( m => m.ServicioDemorasPageModule)
+  }
+
 ];
 @NgModule({
   imports: [

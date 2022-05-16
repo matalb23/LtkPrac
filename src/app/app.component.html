@@ -9,36 +9,38 @@
     </ion-header>
     <ion-content>
       <ion-list>
+        <ion-menu-toggle auto-hide="true">          
+          <ion-item>
+            <ion-icon (click)="cerrarSesion()" name="exit-outline" color="Primary" slot="start"></ion-icon>
+            <ion-label  (click)="cerrarSesion()">Cerrar Sesión</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <div style="padding:50px 0px 20px 20px"> PROXIMAMENTE </div>
         <ion-menu-toggle auto-hide="true">
           <ion-item>
-            <ion-icon name="boat-outline" color="Primary" slot="start"></ion-icon>
-            <ion-label>Enviar Geolocalización</ion-label>
+            <ion-icon name="boat-outline" style="color: rgb(177, 177, 177)" slot="start"></ion-icon>
+            <ion-label  (click)="NoImplementado()" style="color: rgb(177, 177, 177)">Enviar Geolocalización</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="true">          
           <ion-item>
-            <ion-icon name="notifications-outline" color="Primary" slot="start"></ion-icon>
-            <ion-label>Configurar Notificaciones</ion-label>
+            <ion-icon name="notifications-outline" style="color: rgb(177, 177, 177)" slot="start"></ion-icon>
+            <ion-label  (click)="NoImplementado()" style="color: rgb(177, 177, 177)">Configurar Notificaciones</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="true">          
           <ion-item>
-            <ion-icon name="partly-sunny-outline" color="Primary" slot="start"></ion-icon>
-            <ion-label>Clima</ion-label>
+            <ion-icon name="partly-sunny-outline" style="color: rgb(177, 177, 177)" slot="start"></ion-icon>
+            <ion-label (click)="irClima()" style="color: rgb(177, 177, 177)">Clima</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="true">          
-          <ion-item>
-            <ion-icon name="exit-outline" color="Primary" slot="start"></ion-icon>
-            <ion-label>Cerrar Sesión</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
+       
 
 
 
       </ion-list>
       <div style="position: absolute; bottom: 0px;" class="version">
-        Versión 1.0.1
+        Versión 1.6
       </div>
     </ion-content>
   </ion-menu>

@@ -1,0 +1,77 @@
+<ion-content>
+  
+  <ion-list lines="full" style="padding: 10px 10px 10px 10px; background-color: rgb(46, 46, 46);">
+    <form [formGroup]="mainForm" (ngSubmit)="storeData()">        
+      <ion-item>
+        <p class="cab-line1">Maniobra para Servicio: </p>
+      <p class="cab-line2-servicio" style="margin-left: 10px;">  {{codigoservicio}}</p>
+      <ion-button (click)="close()" style="position: absolute; right: 5px;"><ion-icon name="close-outline"></ion-icon></ion-button>          
+      </ion-item>
+      
+     <ion-item button="true" id="open-date-input-Fecha">
+        <ion-label>Fecha </ion-label>
+        <ion-text slot="end">{{ fechaTemp }}</ion-text>
+        <ion-popover trigger="open-date-input-Fecha" show-backdrop="false">
+          <ng-template>
+            <ion-datetime  formControlName="fecha"  locale="es-AR" #popoverDatetimefechaInicioTemp presentation="time-date"
+              (ionChange)="fechaTemp = popoverDatetimefechaInicioTemp.value; popoverDatetimefechaInicioTemp.confirm(true);">
+            </ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Tipo</ion-label>
+        <ion-select #mySelect required [(ngModel)]="currentTipo" (ionChange)="selectChanged(mySelect.value)" name="tipo" formControlName="tipo">                  
+                       <ion-select-option *ngFor="let Item of tipos"  [value]="Item.id+'-/-'+Item.descripcion"  >
+                         {{Item.descripcion}}</ion-select-option>                                 
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" class="labels">Nota</ion-label>
+        <ion-input formControlName="nota" type="text" required class="info-grid"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" class="labels">Cantidad</ion-label>
+        <ion-input formControlName="cantidad" type="number" required class="info-grid"></ion-input>
+      </ion-item>
+      <ion-button type="submit" expand="full">
+        Guardar
+      </ion-button>
+          </form>
+
+  </ion-list>
+
+  <ion-grid  style="background-color: rgb(46, 46, 46); padding-top: 10px;">
+    <ion-row *ngFor="let maniobra of maniobras" class="card-mensajes">
+      <ion-col>
+      <ion-card>
+        <ion-card-content>
+          <ion-label class="card-notificaciones-tit">Tipo de Maniobra</ion-label>
+          <div class="card-notificaciones-txt card-notificaciones-div-footer" >
+            {{ maniobra.tipoDescripcion}}              
+          </div>
+          <ion-label class="card-notificaciones-tit">Nota</ion-label>
+          <div class="card-notificaciones-txt card-notificaciones-div-footer" >
+            {{ maniobra.nota}}              
+          </div>
+          <ion-label class="card-notificaciones-tit">Cantidad</ion-label>
+          <div class="card-notificaciones-txt card-notificaciones-div-footer" >
+            {{ maniobra.cantidad}}          
+                
+          </div>
+
+          <div class="card-notificaciones-det">
+            Fecha <span class="card-notificaciones-det-user"> {{ maniobra.fecha | date: 'dd/MM/yyyy H:mm' }}</span>
+          </div>
+
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+   
+    </ion-row>
+  </ion-grid>
+  <ion-button (click)="close()" class="bot-full" >cerrar</ion-button>
+</ion-content>

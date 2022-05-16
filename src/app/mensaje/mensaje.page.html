@@ -9,7 +9,7 @@
   <ion-grid class="ion-align-items-left grid-cabecera" slot="fixed">
     <ion-row class="cabecera">
       <ion-col size="2" size-sm style="margin-right: 0px;">
-        <ion-back-button class="boton-volver" icon="assets/img/chevron-compact-left.svg" defaultHref="home">
+        <ion-back-button class="boton-volver" icon="assets/img/chevron-compact-left.svg" defaultHref="tabs/home">
         </ion-back-button>
       </ion-col>
       <ion-col size="10" size-lg>
@@ -26,7 +26,7 @@
       <ion-card>
         <ion-card-content>
           <ion-label class="card-notificaciones-tit">{{ mensaje.titulo}}</ion-label>
-          <div class="card-notificaciones-txt card-notificaciones-div-footer" [ngStyle]=" !mensaje.fechaVisto ?{'background-color': 'blue'} : {'background-color': 'white'} ">
+          <div class="card-notificaciones-txt card-notificaciones-div-footer" [ngStyle]=" !mensaje.fechaVisto ?{'color': 'blue'} : {'background-color': 'white'} ">
             {{ mensaje.descripcion}}
             <!--<button (click)="opepdf(mensaje.tk_id)" class="bot-full" *ngIf="mensaje.tk_id != 0">
               Ver
@@ -40,35 +40,7 @@
         </ion-card-content>
       </ion-card>
     </ion-col>
-      <!--
-      <ion-col>
-        {{ mensaje.emisor_name}}
-      </ion-col>
-    -->
-      <!--     
-      <ion-col [ngStyle]=" !mensaje.fechaVisto ?{'background-color': 'blue'} : {'background-color': 'white'} ">
-        {{ mensaje.titulo}}
-      </ion-col>
-      <ion-col>
-        {{ mensaje.descripcion}}
-      </ion-col>
-    -->
-      <!--
-      <ion-col>
-
-        {{ mensaje.fecha | date: 'dd/MM/yyyy H:mm' }}
-      </ion-col>
-    -->
-      <!-- <ion-col >
-        {{ mensaje.fechaVisto}}
-      </ion-col>
-       -->
-      <!--  <ion-col>
-        <button size="large" expand="block" (click)="opepdf(mensaje.tk_id)" class="btn-blue" *ngIf="mensaje.tk_id != 0">
-          Ver
-        </button>
-      </ion-col>
-    -->
+   
     </ion-row>
   </ion-grid>
 </ion-content>

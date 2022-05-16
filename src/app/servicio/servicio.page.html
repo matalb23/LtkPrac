@@ -1,24 +1,29 @@
 <ion-content>
-  <div *ngIf="mensajeSinServicio!='';then mensajeContent else formContent">here is ignored</div>
-  <ng-template #mensajeContent>{{mensajeSinServicio}}</ng-template>
-  <ng-template #formContent>
+
 
   <!-- // OPEN CABECERA \\ -->
   <ion-grid class="ion-align-items-left grid-cabecera" slot="fixed">
     <ion-row class="cabecera">
       <ion-col size="2" size-sm style="margin-right: 0px;">
-        <ion-back-button class="boton-volver" icon="assets/img/chevron-compact-left.svg" defaultHref="home">
+        <ion-back-button class="boton-volver" icon="assets/img/chevron-compact-left.svg" defaultHref="tabs/home">
         </ion-back-button>
       </ion-col>
       <ion-col size="10" size-lg>
-      
+
         <p class="cab-line1">SERVICIO</p>
-        <p class="cab-line2-servicio">{{serviciodesdeApi.codigo}}</p>
+        <p class="cab-line2-servicio">{{ServicioCodigo}}</p>
       </ion-col>
     </ion-row>
   </ion-grid>
   <!-- \\ CLOSE CABECERA // -->
 
+  <div *ngIf="mensajeSinServicio!='';then mensajeContent else formContent">here is ignored</div>
+  <ng-template #mensajeContent>
+    <p
+      style="background-color:rgb(224, 224, 224); padding:20px; margin-top: 100px; border-radius: 20px; text-align: center; width: 100%;">
+      {{mensajeSinServicio}}</p>
+  </ng-template>
+  <ng-template #formContent>
 
     <ion-list lines="full" style="padding-top: 100px;">
       <form [formGroup]="mainForm" (ngSubmit)="storeData()">
@@ -41,7 +46,8 @@
           </p>
         </div>
 
-        
+        <br><br>
+
         <ion-item>
           <ion-label position="floating" class="labels">Razón Social</ion-label>
           <ion-input formControlName="clienteRazonSocial" type="text" readonly='true' class="info-grid">
@@ -130,19 +136,72 @@
           </ion-input>
         </ion-item>
 
-        <ion-item>
+        <!-- <ion-item>
           <ion-label position="floating" class="labels">Fecha de Inicio</ion-label>
-          <ion-datetime formControlName="fechaInicio" displayFormat="DD/MM/YYYY HH:mm" required class="info-grid"></ion-datetime>
-        </ion-item>
+          <ion-datetime  presentation="time-date" formControlName="fechaInicio" displayFormat="DD/MM/YYYY HH:mm" required class="info-grid"></ion-datetime>
+         
+          
+        </ion-item>  -->
+        <!-- formControlName="fechaInicio" -->
+        <!--<ion-item button="true" id="open-date-input-InicioFecha">
+          <ion-label>Fecha de Inicio</ion-label>
+          <ion-text slot="end">{{ fechaInicioTemp }}</ion-text>
+          <ion-popover trigger="open-date-input-InicioFecha" show-backdrop="false">
+            <ng-template>
+              <ion-datetime locale="es-AR" #popoverDatetimefechaInicioTemp presentation="time-date"
+                (ionChange)="fechaInicioTemp = popoverDatetimefechaInicioTemp.value; popoverDatetimefechaInicioTemp.confirm(true);">
+              </ion-datetime>
+            </ng-template>
+          </ion-popover>
+        </ion-item> -->
 
+        <!-- 
         <ion-item>
           <ion-label position="floating" class="labels">Fecha de Fin</ion-label>
           <ion-datetime formControlName="fechaFin" displayFormat="DD/MM/YYYY HH:mm" required class="info-grid"></ion-datetime>
+        </ion-item> 
+         formControlName="fechaFin"
+      -->
+        
+
+
+        <ion-item button="true" id="open-date-input-fechaABordo">
+          <ion-label>Práctico A Bordo</ion-label>
+          <ion-text slot="end">{{ fechaABordoTemp }}</ion-text>
+          <ion-popover trigger="open-date-input-fechaABordo" show-backdrop="false" [dismissOnSelect]="true">
+            <ng-template>
+              <ion-datetime locale="es-AR" #popoverDatetimefechaABordoTemp presentation="time-date"
+                (ionChange)="fechaABordoTemp = popoverDatetimefechaABordoTemp.value;"></ion-datetime>
+            </ng-template>
+          </ion-popover>
         </ion-item>
+
+        <ion-item button="true" id="open-date-input-FechaInicioNavegacionTemp">
+          <ion-label>Inicio de Navegación</ion-label>
+          <ion-text slot="end">{{ FechaInicioNavegacionTemp }}</ion-text>
+          <ion-popover trigger="open-date-input-FechaInicioNavegacionTemp" show-backdrop="false" [dismissOnSelect]="true">
+            <ng-template>
+              <ion-datetime locale="es-AR" #popoverDatetimeFechaInicioNavegacionTemp presentation="time-date"
+                (ionChange)="FechaInicioNavegacionTemp = popoverDatetimeFechaInicioNavegacionTemp.value;"></ion-datetime>
+            </ng-template>
+          </ion-popover>
+        </ion-item>
+
+        <ion-item button="true" id="open-date-input-FinFecha">
+          <ion-label>Fecha de Fin</ion-label>
+          <ion-text slot="end">{{ fechaFinTemp }}</ion-text>
+          <ion-popover trigger="open-date-input-FinFecha" show-backdrop="false" [dismissOnSelect]="true">
+            <ng-template>
+              <ion-datetime locale="es-AR" #popoverDatetimefechaFinTemp presentation="time-date"
+                (ionChange)="fechaFinTemp = popoverDatetimefechaFinTemp.value;"></ion-datetime>
+            </ng-template>
+          </ion-popover>
+        </ion-item>
+
 
         <ion-item>
           <ion-label position="floating" class="labels">Proa</ion-label>
-          <ion-input formControlName="calado_Proa" type="text" required class="info-grid">
+          <ion-input formControlName="calado_Proa" type="number" required class="info-grid">
           </ion-input>
         </ion-item>
 
@@ -183,25 +242,58 @@
           </ion-input>
         </ion-item>
         <ion-input type="hidden" formControlName="propietario"></ion-input>
+        
+        <ion-grid>
         <ion-row *ngIf="EsPropietario">
-          <ion-col>
+            <ion-col>
+              <div id="container">
+                <ion-button (click)="abrirDemora()" color="primary" class="bot-alt" size="full" style="" >Demoras</ion-button>
+                <br>
+                <p *ngIf="demoraDataResponse">{{demoraDataResponse}}</p>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div id="container">
+                <ion-button (click)="abrirManiobra()" color="primary" class="bot-alt" size="full" style="" >Maniobras</ion-button>
+                <br>
+                <p *ngIf="maniobraDataResponse">{{maniobraDataResponse}}</p>         
+                <!-- <ion-button color="medium" class="bot-alt" size="large" style="width: 48%;float: right;">Maniobras</ion-button> -->
+              </div>
+            </ion-col>
 
-            <ion-button type="submit" class="bot-full">
-              Actualizar
-            </ion-button>
+        </ion-row>    
+        </ion-grid>    
+        <ion-grid>          
+        <ion-row *ngIf="EsPropietario">
+
+          <ion-col>
             <!--
             <ion-button type="submit" color="primary" shape="full" expand="block">
               Actualizar servicio
             </ion-button>
             -->
-            <ion-button *ngIf="!mostrarEliminarFirmas" (click)="Firmar();" class="bot-full">
-              Firmar
+            
+            <ion-button *ngIf="!mostrarEliminarFirmas"  (click)="Firmar('Master');"  class="bot-full"  [color]="firmomaster?'medium':'primary'"  >
+              Firma Master
             </ion-button>
+            <ion-button *ngIf="!mostrarEliminarFirmas" (click)="Firmar('Practico1');" class="bot-full" [color]="firmopractico1?'medium':'primary'"  >
+              Firma Práctico 1
+            </ion-button>
+            <ion-button *ngIf="!mostrarEliminarFirmas" (click)="Firmar('Practico2');" class="bot-full"  [color]="firmopractico2?'medium':'primary'" >
+              Firma Práctico 2
+            </ion-button>
+
             <ion-button *ngIf="mostrarEliminarFirmas" (click)="LimpiarFirmas();" class="bot-full">
               Limpiar Firmas
             </ion-button>
+
+            <ion-button type="submit" class="bot-full" color="success">
+              Guardar y Sincronizar
+            </ion-button>
           </ion-col>
         </ion-row>
+  
+        </ion-grid>  
       </form>
 
       <!-- NO VA EL BOTON DROP; ES PARA DESARROLLO -->

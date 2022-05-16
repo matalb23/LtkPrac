@@ -13,35 +13,40 @@
 
       <div style="width: 100%;">
         <p class="volanta">Bienvenido</p>
-        <p class="nombre-usuario">CACERES, PEDRO<!--MA--></p>
+        <p class="nombre-usuario">{{UsuarioNombre}}</p>
       </div>
 
-   <div *ngIf="mensajeSinServicio!='';then mensajeContent else formContent">muestra elmensaje de no tiene servicio</div>
-  <ng-template #mensajeContent>{{mensajeSinServicio}}</ng-template>
+   <div *ngIf="mensajeSinServicio!='';then mensajeContent else formContent">muestra el mensaje de no tiene servicio</div>
+  <ng-template #mensajeContent> <p style="background-color:rgb(224, 224, 224); padding:20px; border-radius: 20px; text-align: center; width: 100%;">{{mensajeSinServicio}}</p></ng-template>
   <ng-template #formContent> 
       <div style="width: 100%;">
         <p class="volanta">Editor de Servicio</p>
-        <p class="nombre-editor">CAMPETELLA, OSCAR<!--MA--></p>
+        <p class="nombre-editor">{{PropietarioNombre}}</p>
       </div>
 
-      <div style="width: 100%;">
-        <p class="volanta">Servicio Asignado</p>
-         <p class="numero-servicio">{{serviciodesdeApi.codigo}}</p>
+      <div style="width: 100%; margin-bottom: -10px;">
+        <p class="volanta">Servicio Asignado</p>        
+        <button routerLink="/tabs/servicio" routerDirection="root" style="background: none;">
+          <p class="numero-servicio">{{serviciodesdeApi.codigo}}</p>
+        </button>
       </div>
 
       <div id="card-servicio">
-        <p class="labels">Buque</p>
-        <p class="card-buque">{{serviciodesdeApi.buqueNombre}}</p>
-        <p class="labels">Desde</p>
-        <p class="card-info">{{serviciodesdeApi.lugarDesde}}</p>
-        <p class="labels">Hasta</p>
-        <p class="card-info">{{serviciodesdeApi.lugarHasta}}</p>
+        <button routerLink="/tabs/servicio" routerDirection="root" style="background: none; width: 100%; text-align: left;">
+          <p class="labels">Buque</p>
+          <p class="card-buque">{{serviciodesdeApi.buqueNombre}}</p>
+          <p class="labels">Desde</p>
+          <p class="card-info">{{serviciodesdeApi.lugarDesde}}</p>
+          <p class="labels">Hasta</p>
+          <p class="card-info">{{serviciodesdeApi.lugarHasta}}</p>
+        </button>
       </div>
       </ng-template>
-      <div class="botones-home">
-        <button class="bot-right"> GUARDIA </button>
-        <br><br><br><br>
-        <button class="bot-right"> HISTÓRICO </button>
+      <div class="botones-home">  <!--class="botones-home"-->
+        <!-- <button class="bot-right" [navPush]="guardia"> GUARDIA </button> -->
+        <ion-button expand="block"  class="" routerLink="/tabs/guardia" routerDirection="root" style="margin-bottom: 10px;">GUARDIA</ion-button>
+        <!-- <button class="bot-right"(click)="irLink()"> HISTÓRICO </button> -->
+        <ion-button expand="block"  class="" routerLink="/tabs/historico" routerDirection="root">SERVICIOS HISTÓRICOS</ion-button>
       </div>
 
 

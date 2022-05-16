@@ -15,13 +15,14 @@ ionic build
 npm run build
 npx cap sync
 npx cap open android
+npm install @capacitor/android
 npx cap add android
 
 
 npm run android corre el build y sync y open android,  el script esta en el package.json
 npm run androidl 
 
-ESTE ME FUNCIONA
+ESTE ME FUNCIONAM
 ionic capacitor run android -l --external 
 
 
@@ -29,7 +30,7 @@ chrome://inspect/#devices
 
 https://www.positronx.io/ionic-sqlite-database-crud-app-example-tutorial/
 https://devdactic.com/ionic-4-sqlite-queries/
-https://ionicframework.com/docs/native/sqlite
+https://ionicframework.com/docs/native/sqlite //SE USO ESTE
 npm install -g @ionic/cli@testing
 
 PROBLEMAS API
@@ -64,3 +65,26 @@ npm audit fix --force
 npm audit fix --force
 
 npx @angular/cli@13 update @angular/core@13 @angular/cli@13
+
+
+Pluggins :
+npm install @capacitor/push-notifications
+npm install @ionic-native/sqlite @ionic-native/sqlite-porter
+ionic cordova plugin add cordova-sqlite-storage
+ionic cordova plugin add uk.co.workingedge.cordova.plugin.sqliteporter
+npm install --save signature_pad
+$ ionic cordova plugin add cordova-base64-to-gallery
+npm install @ionic-native/base64-to-gallery
+$ ionic cordova plugin add cordova-plugin-android-permissions
+$ npm install @ionic-native/android-permissions
+npm install @capacitor/browser
+npm install date-fns --save
+
+RECORDAR PONER BIEN LA URLEN EL BROWSER SINO FALLA http://capacitorjs.com/
+
+
+Tocar
+C:\Proyectos\LtkPrac\LtkPrac1\src\app\app.component.html
+
+y version real de android 
+android\app\build.gradle

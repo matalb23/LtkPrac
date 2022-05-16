@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, HostListener, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef, AfterViewInit, Input } from '@angular/core';
 import SignaturePad from 'signature_pad';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
-import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+//import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { DbService } from '../service/db.service';
-
+import { ActivatedRoute } from '@angular/router';
 import { Firma } from '../service/firma';
 import { ToastController } from '@ionic/angular';
 import { Router } from "@angular/router";
@@ -21,35 +21,47 @@ export class FirmaPage implements OnInit, AfterViewInit {
   signaturePad: any;
   canvasWidth: number;
   canvasHeight: number;
-
+  
+  firmanteTipo: string;
   constructor(private elementRef: ElementRef,
-    private base64ToGallery: Base64ToGallery, private androidPermissions: AndroidPermissions
+    private base64ToGallery: Base64ToGallery//, private androidPermissions: AndroidPermissions
     , private db: DbService,
     private toast: ToastController,
     private router: Router,
     private settings: SettingsService,
-    private api: ApiService
-  ) { }
+    private api: ApiService,
+    private route: ActivatedRoute
+  ) {
+     this.route.params.subscribe(params => {
+      this.firmanteTipo = params['firmanteTipo']; 
+ });
 
+
+   }
   ngOnInit(): void {
-
-  
-
-
     this.init();
   }
   ionViewDidEnter(){
    this.buscarfirma();
   }
    buscarfirma(){
-    
-    this.db.fetchSinFirmar().subscribe(res => {
-      this.firma=res
-      if (this.firma==null)
-      {
-        this.router.navigate(['tabs/servicio']);
-      }
+    this.db.fetchFirmas().subscribe(res => {
+      res.forEach(firma => {
+        if (firma.tipo ==this.firmanteTipo)
+        {
+          this.firma=firma
+        }
+      });
+      
     })
+
+    // this.db.fetchSinFirmar().subscribe(res => {
+    //   this.firma=res
+    //   if (this.firma==null)
+    //   {
+    //     this.router.navigate(['tabs/servicio']);
+    //   }
+    // })
       
 
   }
@@ -59,7 +71,7 @@ export class FirmaPage implements OnInit, AfterViewInit {
   }
 
   init() {
-    //this.buscarfirma();
+
 
     const canvas: any = this.elementRef.nativeElement.querySelector('canvas');
     canvas.width = window.innerWidth;
@@ -75,17 +87,10 @@ export class FirmaPage implements OnInit, AfterViewInit {
     this.signaturePad.penColor = 'rgb(56,128,255)';
   }
 
-  // save(): void {
-  //   const img = this.signaturePad.toDataURL();
-  //   this.base64ToGallery.base64ToGallery(img).then(
-  //     res => console.log('Saved image to gallery ', res),
-  //     err => console.log('Error saving image to gallery ', err)
-  //   );
-  // }
   save(): void {
-    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then(
-      result => {
-        if (result.hasPermission) {
+    // this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then(
+    //   result => {
+    //     if (result.hasPermission) {
           const img = this.signaturePad.toDataURL();
          
           this.base64ToGallery.base64ToGallery(img).then(           
@@ -98,46 +103,46 @@ export class FirmaPage implements OnInit, AfterViewInit {
             this.firma.latitude=0;
             this.firma.longitude=0;
             this.firma.blob=img;
-            //console.log("blob",img)
 
              this.db.updateFirma(this.firma).then((res)=>{
                console.log("updatefirma res:",res);
              
               this.clear();
               //this.buscarfirma();
-              this.router.navigate(['/firma']);
+             // this.router.navigate(['/firma']);
+             this.router.navigate(['/tabs/servicio']);
 
              });
              
             }
              
              ,
-            err => console.log('Error saving image to gallery ', err)
+            err => this.settings.Toast_presentError('Error saving image to gallery '+  err.error)
+
           );
-        }
-        else {
-          this.requestPermissions();
-        }
-      },
-      err => this.requestPermissions()
-    );
-    // this.clear();
-    // this.buscarfirma();  
-    // this.router.navigate(['/firma']);
+      //  }
+      //   else {
+      //     this.requestPermissions();
+      //   }
+      // }
+  //     ,
+    // err => this.requestPermissions()
+   //);
+
   }
 
-  requestPermissions() {
-    this.androidPermissions.requestPermissions([
-      this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
-      this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE])
-      .then(
-        res => {
-          console.log('Saved image to gallery ', res);
-          this.save();
-        },
-        err => console.log('Error saving image to gallery ', err)
-      );
-  }
+  // requestPermissions() {
+  //   this.androidPermissions.requestPermissions([
+  //     this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
+  //     this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE])
+  //     .then(
+  //       res => {
+  //         console.log('Saved image to gallery ', res);
+  //         this.save();
+  //       },
+  //       err => this.settings.Toast_presentError('Error saving image to gallery '+  err.error)
+  //     );
+  // }
 
   isCanvasBlank(): boolean {
     if (this.signaturePad) {
