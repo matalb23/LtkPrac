@@ -73,10 +73,10 @@ npm install @ionic-native/sqlite @ionic-native/sqlite-porter
 ionic cordova plugin add cordova-sqlite-storage
 ionic cordova plugin add uk.co.workingedge.cordova.plugin.sqliteporter
 npm install --save signature_pad
-$ ionic cordova plugin add cordova-base64-to-gallery
-npm install @ionic-native/base64-to-gallery
-$ ionic cordova plugin add cordova-plugin-android-permissions
-$ npm install @ionic-native/android-permissions
+//$ ionic cordova plugin add cordova-base64-to-gallery
+//npm install @ionic-native/base64-to-gallery
+//$ ionic cordova plugin add cordova-plugin-android-permissions
+//$ npm install @ionic-native/android-permissions
 npm install @capacitor/browser
 npm install date-fns --save
 

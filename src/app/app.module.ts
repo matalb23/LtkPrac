@@ -6,8 +6,8 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
-import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+// import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
+// import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import {AuthModule} from './auth/auth.module';
 import {SettingsService} from './service/settings.service';
 
@@ -22,7 +22,7 @@ import { ReactiveFormsModule} from '@angular/forms'
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,AuthModule, ReactiveFormsModule, 
    FormsModule],
-  providers: [AndroidPermissions,Base64ToGallery
+  providers: [//AndroidPermissions,Base64ToGallery
     ,SettingsService,SQLite, SQLitePorter,
     {
     provide: HTTP_INTERCEPTORS,
