@@ -81,24 +81,6 @@ this.mensajeSinServicio="";
     
      this.UsuarioNombre = this.settings.getValue(SettingsService.setting_UserName);
 
-
-  //    this.api.get("api/servicio/usuarioNombre?login=" + this.serviciodesdeApi.propietario).subscribe((data) => {
-  //      this.PropietarioNombre=data;       
-  //    }
-  //    ,
-  //    (err: any) => {
-
-  //      var respuesta = JSON.parse(JSON.stringify(err));
-  //      console.log("Error al buscar de la api ", respuesta)
-
-
-  //    }
-  //  );
-
-
-
-
-
   }
 
   
@@ -122,9 +104,7 @@ this.mensajeSinServicio="";
       if (item.length > 0 && !isNaN(item[0].transfirio)) {
         var transfirio = item[0].transfirio;
         console.log("Esta transferido?",transfirio)
-        // if (transfirio == 0) {
-        //   this.EnviarAlaApi(item[0])
-        // }
+  
       }
       if (item.length==0)
       {this.mensajeSinServicio=this.MENSAJESINSERVICIO}
@@ -132,110 +112,8 @@ this.mensajeSinServicio="";
       {this.PropietarioNombre=this.serviciodesdeApi.propietarioNombre;}
     })
 
-  //  if (this.NetworkConnected())//si esta conectado a la red
-//{
-  /*
-    this.api.get("api/servicio?login=" + this.settings.getValue(SettingsService.setting_User)).subscribe((data) => {
-      console.log("Busca servicio y actualiza bd local:",data)
-      this.serviciodesdeApi = <Servicio><unknown>data;
-      
-      if (data !== null) {//tengo que actualizar         
-        this.serviciodesdeApi.transfirio = 1;
-        if (this.serviciodesdeApi.propietario == this.settings.getValue(SettingsService.setting_User)
-          || this.serviciodesdeApi.propietario == null) {//solo si es propietario o no tiene proietario
-
-        }
-        else {
-
-        }
-        if (s.length == 0) {
-
-          this.db.addServicio(this.serviciodesdeApi).then(res => { });;
-        }
-        else {
-          this.db.updateServicio(this.serviciodesdeApi).then(res => { });;
-        }
-
-      }
-      else {
-        //limpiar bd
-        this.db.dropTable().then(
-          (data) => { console.log("data", data); },
-
-          (err) => { console.log("err", err); }
-        );;
-
-        this.db.fetchFirmas().subscribe(res => {
-
-        })
-        this.mensajeSinServicio = this.MENSAJESINSERVICIO;
-      }
-    }
-      ,
-      (err: any) => {
-
-        var respuesta = JSON.parse(JSON.stringify(err));
-        console.log("Error al buscar de la api ", respuesta)
-
-
-      }
-    );*///servicio
-  //}
-  // else
-  // {
-  //   console.log("no tiene red")
-  // }
 
   }
-//   EnviarAlaApi(serviciodesdeApi: Servicio) {
-//     //guardo en la api
-//     let postData = new FormData();
-//     this.db.fetchFirmas().subscribe(res => {//sumo las fimas que hay al post
-//       console.log(" this.db.fetchFirmas()",res);
-//       if (res.length) {
-
-//         res.forEach(firma => {
-//           if (firma.firma != null) {
-
-//             const filename = "S" + firma.codigo + "_T" + firma.tipo + ".png"
-//             const imageBlob = this.dataURItoBlob(firma.blob.substring(22));// con el substring saco data:image/png;base64,                
-//             const imageFile = new File([imageBlob], filename, { type: 'image/png' });
-
-//             postData.append(filename, imageFile);
-//           }
-//         })
-
-//         serviciodesdeApi.firmas = res;
-
-//       }
-//     })
-
-
-//     postData.append('servicio', JSON.stringify(serviciodesdeApi));
-
-
-//     this.api.post("api/servicio/upload", postData).subscribe((result) => {
-//       var respuesta = JSON.parse(JSON.stringify(result));
-//       console.log("api/servicio/upload respuest,", respuesta)
-// console.log("this.db.servicioTransferido(",serviciodesdeApi.codigo)
-//       this.db.servicioTransferido(serviciodesdeApi.codigo).then(res => {
-
-//       })
-
-//     });
-
-//   }
-  // dataURItoBlob(dataURI) {
-
-  //   const byteString = window.atob(dataURI);
-  //   const arrayBuffer = new ArrayBuffer(byteString.length);
-  //   const int8Array = new Uint8Array(arrayBuffer);
-  //   for (let i = 0; i < byteString.length; i++) {
-  //     int8Array[i] = byteString.charCodeAt(i);
-  //   }
-  //   const blob = new Blob([int8Array], { type: 'image/png' });
-  //   return blob;
-  // }
 
   
 }

@@ -39,15 +39,6 @@ export class SettingsService  {constructor(
   }
 
 
-  // public SetTemplateForm(valor){
-  //   this.templateForm=valor;
-  // }
-  // public GetTemplateForm(){
-  //   return this.templateForm;
-  // }
-  // public GetUrlBackend(){
-  //   return "http://apptkweb.latikait.com.ar"
-  // }
 
   public Interceptor_DontShowToast() {
     window.localStorage.removeItem(SettingsService.setting_Interceptor_ShowToast);

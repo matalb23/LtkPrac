@@ -2,7 +2,7 @@
 export class Demora {
     id: number;
     servicio: number;
-    fecha: Date;
+    fecha: string;
     tipo: number; 
     nota: string;
     horasDeDemora: number;

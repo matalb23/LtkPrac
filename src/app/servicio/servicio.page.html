@@ -60,14 +60,6 @@
           </ion-input>
         </ion-item>
 
-        <!--
-        <ion-item>
-          <ion-label position="floating">buqueNombre</ion-label>
-          <ion-input formControlName="buqueNombre" type="text" readonly='true'>
-          </ion-input>
-        </ion-item>
-        -->
-
         <ion-item>
           <ion-label position="floating" class="labels">Coeficiente</ion-label>
           <ion-input formControlName="buqueCoeficiente" type="text" readonly='true' class="info-grid">
@@ -116,88 +108,52 @@
           </ion-input>
         </ion-item>
 
-        <!--
-        <ion-item>
-          <ion-label position="floating">lugarDesde</ion-label>
-          <ion-input formControlName="lugarDesde" type="text" readonly='true'>
-          </ion-input>
-        </ion-item>
-      -->
-        <!--
-        <ion-item>
-          <ion-label position="floating">lugarHasta</ion-label>
-          <ion-input formControlName="lugarHasta" type="text" readonly='true'>
-          </ion-input>
-        </ion-item>
-      -->
+
         <ion-item>
           <ion-label position="floating" class="labels">Kilometros</ion-label>
           <ion-input formControlName="lugarKilometros" type="text" readonly='true' class="info-grid">
           </ion-input>
         </ion-item>
 
-        <!-- <ion-item>
-          <ion-label position="floating" class="labels">Fecha de Inicio</ion-label>
-          <ion-datetime  presentation="time-date" formControlName="fechaInicio" displayFormat="DD/MM/YYYY HH:mm" required class="info-grid"></ion-datetime>
-         
-          
-        </ion-item>  -->
-        <!-- formControlName="fechaInicio" -->
-        <!--<ion-item button="true" id="open-date-input-InicioFecha">
-          <ion-label>Fecha de Inicio</ion-label>
-          <ion-text slot="end">{{ fechaInicioTemp }}</ion-text>
-          <ion-popover trigger="open-date-input-InicioFecha" show-backdrop="false">
-            <ng-template>
-              <ion-datetime locale="es-AR" #popoverDatetimefechaInicioTemp presentation="time-date"
-                (ionChange)="fechaInicioTemp = popoverDatetimefechaInicioTemp.value; popoverDatetimefechaInicioTemp.confirm(true);">
-              </ion-datetime>
-            </ng-template>
-          </ion-popover>
-        </ion-item> -->
-
-        <!-- 
-        <ion-item>
-          <ion-label position="floating" class="labels">Fecha de Fin</ion-label>
-          <ion-datetime formControlName="fechaFin" displayFormat="DD/MM/YYYY HH:mm" required class="info-grid"></ion-datetime>
-        </ion-item> 
-         formControlName="fechaFin"
-      -->
-        
-
-
         <ion-item button="true" id="open-date-input-fechaABordo">
           <ion-label>Práctico A Bordo</ion-label>
-          <ion-text slot="end">{{ fechaABordoTemp }}</ion-text>
-          <ion-popover trigger="open-date-input-fechaABordo" show-backdrop="false" [dismissOnSelect]="true">
+          <ion-text slot="end">{{ fechaABordoTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
+          <ion-popover trigger="open-date-input-fechaABordo" show-backdrop="false">
             <ng-template>
-              <ion-datetime locale="es-AR" #popoverDatetimefechaABordoTemp presentation="time-date"
+              <ion-datetime    displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true  cancelText="cancelar" doneText="aceptar" locale="es-AR" #popoverDatetimefechaABordoTemp presentation="time-date"
                 (ionChange)="fechaABordoTemp = popoverDatetimefechaABordoTemp.value;"></ion-datetime>
             </ng-template>
           </ion-popover>
         </ion-item>
 
-        <ion-item button="true" id="open-date-input-FechaInicioNavegacionTemp">
-          <ion-label>Inicio de Navegación</ion-label>
-          <ion-text slot="end">{{ FechaInicioNavegacionTemp }}</ion-text>
-          <ion-popover trigger="open-date-input-FechaInicioNavegacionTemp" show-backdrop="false" [dismissOnSelect]="true">
-            <ng-template>
-              <ion-datetime locale="es-AR" #popoverDatetimeFechaInicioNavegacionTemp presentation="time-date"
-                (ionChange)="FechaInicioNavegacionTemp = popoverDatetimeFechaInicioNavegacionTemp.value;"></ion-datetime>
-            </ng-template>
-          </ion-popover>
-        </ion-item>
 
-        <ion-item button="true" id="open-date-input-FinFecha">
+      <ion-item button="true" id="open-date-input-FechaInicioNavegacionTemp">
+        <ion-label>Inicio de Navegación</ion-label>
+        <ion-text slot="end">{{ FechaInicioNavegacionTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
+        <ion-popover trigger="open-date-input-FechaInicioNavegacionTemp" show-backdrop="false">
+          <ng-template>
+            <ion-datetime    displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true 
+             cancelText="cancelar" doneText="aceptar" locale="es-AR"
+              #popoverDatetimeFechaInicioNavegacionTemp presentation="time-date"
+              (ionChange)="FechaInicioNavegacionTemp = popoverDatetimeFechaInicioNavegacionTemp.value;"></ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+      
+
+    
+        <ion-item button="true" id="open-date-input-fechaFinTemp">
           <ion-label>Fecha de Fin</ion-label>
-          <ion-text slot="end">{{ fechaFinTemp }}</ion-text>
-          <ion-popover trigger="open-date-input-FinFecha" show-backdrop="false" [dismissOnSelect]="true">
+          <ion-text slot="end">{{ fechaFinTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
+          <ion-popover trigger="open-date-input-fechaFinTemp" show-backdrop="false">
             <ng-template>
-              <ion-datetime locale="es-AR" #popoverDatetimefechaFinTemp presentation="time-date"
+              <ion-datetime displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true 
+               cancelText="cancelar" doneText="aceptar" locale="es-AR"
+                #popoverDatetimefechaFinTemp presentation="time-date"
                 (ionChange)="fechaFinTemp = popoverDatetimefechaFinTemp.value;"></ion-datetime>
             </ng-template>
           </ion-popover>
         </ion-item>
-
 
         <ion-item>
           <ion-label position="floating" class="labels">Proa</ion-label>
@@ -257,7 +213,6 @@
                 <ion-button (click)="abrirManiobra()" color="primary" class="bot-alt" size="full" style="" >Maniobras</ion-button>
                 <br>
                 <p *ngIf="maniobraDataResponse">{{maniobraDataResponse}}</p>         
-                <!-- <ion-button color="medium" class="bot-alt" size="large" style="width: 48%;float: right;">Maniobras</ion-button> -->
               </div>
             </ion-col>
 
@@ -267,11 +222,7 @@
         <ion-row *ngIf="EsPropietario">
 
           <ion-col>
-            <!--
-            <ion-button type="submit" color="primary" shape="full" expand="block">
-              Actualizar servicio
-            </ion-button>
-            -->
+      
             
             <ion-button *ngIf="!mostrarEliminarFirmas"  (click)="Firmar('Master');"  class="bot-full"  [color]="firmomaster?'medium':'primary'"  >
               Firma Master
@@ -296,10 +247,6 @@
         </ion-grid>  
       </form>
 
-      <!-- NO VA EL BOTON DROP; ES PARA DESARROLLO -->
-      <!-- <ion-button (click)="drop();" color="primary" shape="full" expand="block">
-      drop
-    </ion-button>  -->
     </ion-list>
 
   </ng-template>

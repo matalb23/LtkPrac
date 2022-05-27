@@ -22,7 +22,7 @@ export class Servicio {
     lugarHasta: string;
     lugarKilometros: number;
     fechaInicio: Date;
-    fechaFin: Date;
+    fechaFin: string;
     calado_Proa: number;
     calado_Popa: number;
     cabotaje: number;
@@ -36,6 +36,6 @@ export class Servicio {
     firmas?:Firma[];
     demorasnuevas?:Demora[];
     maniobrasnuevas?:Maniobra[];
-    fechaInicioNavegacion: Date;
-    fechaABordo: Date;
+    fechaInicioNavegacion: string;
+    fechaABordo: string;
 }

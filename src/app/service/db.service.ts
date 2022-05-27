@@ -26,8 +26,7 @@ export class DbService {
   tipoDemoraList = new BehaviorSubject([]);
   tipoManiobraList = new BehaviorSubject([]);
   firmasList = new BehaviorSubject([]);
-  // Sinfirma: BehaviorSubject<Firma> = new BehaviorSubject(null);
-  private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
   configDatabase = {
     name: 'LtkPrac.db',
     location: 'default',
@@ -91,38 +90,7 @@ export class DbService {
   fetchFirmas(): Observable<Firma[]> {
     return this.firmasList.asObservable();
   }
-  // fetchSinFirmar(): Observable<Firma> {
-  //   return this.Sinfirma.asObservable();
-  // }
-
-  // buscarSinfirmar(): Promise<Firma> {
-  //   let firma: Firma = null;
-  //   this.dbState().subscribe((res) => {
-  //     if (res) {
-  //       this.fetchFirmas().subscribe(item => {
-  //         if (item.length > 0) {
-  //           for (let i = 0; i < item.length; i++) {
-
-  //             if (item[i].firma == null && firma == null)             //
-  //             {
-  //               firma = <Firma>item[i];
-  //               this.Sinfirma.next(firma)
-  //               break;
-  //             }
-  //           }
-  //           if (firma == null)
-  //             this.Sinfirma.next(firma)
-
-  //         }
-
-  //       })
-  //       //return new Promise(resolve=>{resolve(firma)});
-  //     }
-
-
-  //   });
-  //   return new Promise(resolve => { resolve(firma) });
-  // }
+  
 
   ExecuteInicial() {
     this.httpClient.get(

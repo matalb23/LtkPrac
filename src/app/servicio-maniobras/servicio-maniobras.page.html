@@ -8,7 +8,7 @@
       <ion-button (click)="close()" style="position: absolute; right: 5px;"><ion-icon name="close-outline"></ion-icon></ion-button>          
       </ion-item>
       
-     <ion-item button="true" id="open-date-input-Fecha">
+     <!-- <ion-item button="true" id="open-date-input-Fecha">
         <ion-label>Fecha </ion-label>
         <ion-text slot="end">{{ fechaTemp }}</ion-text>
         <ion-popover trigger="open-date-input-Fecha" show-backdrop="false">
@@ -18,8 +18,19 @@
             </ion-datetime>
           </ng-template>
         </ion-popover>
+      </ion-item> -->
+      <ion-item button="true" id="open-date-input-fechaTemp">
+        <ion-label>Fecha</ion-label>
+        <ion-text slot="end">{{ fechaTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
+        <ion-popover trigger="open-date-input-fechaTemp" show-backdrop="false">
+          <ng-template>
+            <ion-datetime displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true 
+             cancelText="cancelar" doneText="aceptar" tlocale="es-AR"
+              #popoverDatetimefechaTemp presentation="time-date"
+              (ionChange)="fechaTemp = popoverDatetimefechaTemp.value;"></ion-datetime>
+          </ng-template>
+        </ion-popover>
       </ion-item>
-
       <ion-item>
         <ion-label>Tipo</ion-label>
         <ion-select #mySelect required [(ngModel)]="currentTipo" (ionChange)="selectChanged(mySelect.value)" name="tipo" formControlName="tipo">                  

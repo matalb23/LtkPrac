@@ -9,5 +9,5 @@ export class Firma {
     firma: string;
     latitude: number;
     longitude: number;    
-    blob:string;
+    blob:Blob;
 }

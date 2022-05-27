@@ -74,7 +74,7 @@ export class ServicioDemorasPage implements OnInit {
   }
   storeData() {
     let demora = <Demora><unknown>this.mainForm.value;
-    var tipo = this.selectedtipo.split('-/-');//(this.mainForm.value).toString().split('-/-')
+    var tipo = this.selectedtipo.split('-/-');
     demora.fecha = this.fechaTemp.replace("T", " ");
     demora.id = this.db.TransferidoNOValor; //para que se elimine cuando venga de la api
     demora.transfirio = 0;

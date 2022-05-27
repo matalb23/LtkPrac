@@ -9,19 +9,15 @@ import { SettingsService } from './settings.service'
 })
 export class ApiService {
 
-   //url: string = "http://10.0.0.33:45455"; desa 
-  
-  url: string = "https://constancias.riopar.com.ar";//multipar real
+   url: string = "http://10.0.0.33:45455"; //desarrollo
+  //url: string = "https://constancias.riopar.com.ar";//multipar real
 
   constructor(public http: HttpClient, public settings: SettingsService) { }
 
   NetworkConnected() {
     return 1;
   }
-  //  NetworkConnected() {
-  //   console.log(" this.settings.getValue(SettingsService.setting_NetworkConnected)", this.settings.getValue(SettingsService.setting_NetworkConnected));
-  //   return Number(this.settings.getValue(SettingsService.setting_NetworkConnected))
-  // }
+
 
   get(endpoint: string, params?: any, reqOpts?: any) {
     if (this.NetworkConnected()==1)//si esta conectado a la red
@@ -70,27 +66,5 @@ export class ApiService {
   post2(endpoint: string, body: any, reqOpts?: any) {
   return  this.post(endpoint,body,cabecera)
     }
-  // post2(endpoint: string, body: any, reqOpts?: any) {
-  //   if (this.NetworkConnected())//si esta conectado a la red
-  //   {
-  //     return this.http.post<any>(this.url + '/' + endpoint, body, cabecera);
-  //   }
-
-  //   else {
-  //     console.log("no tiene red")
-  //     return EMPTY;
-  //   }
-  // }
-
-  // put(endpoint: string, body: any, reqOpts?: any) {
-  //   return this.http.put(this.url + '/' + endpoint, body, reqOpts);
-  // }
-
-  // delete(endpoint: string, reqOpts?: any) {
-  //   return this.http.delete(this.url + '/' + endpoint, reqOpts);
-  // }
-
-  // patch(endpoint: string, body: any, reqOpts?: any) {
-  //   return this.http.patch(this.url + '/' + endpoint, body, reqOpts);
-  // }
+  
 }

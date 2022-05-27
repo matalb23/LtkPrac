@@ -276,10 +276,10 @@ export class ServicioPage implements OnInit {
         res.forEach(firma => {
           if (firma.firma != null && firma.blob != null) {
 
-            const filename = "S" + firma.codigo + "_T" + firma.tipo + ".png"
-            const imageBlob = this.dataURItoBlob(firma.blob.substring(22));// con el substring saco data:image/png;base64,                
+            const filename = "S" + firma.codigo + "_T" + firma.tipo + ".png"            
+            const imageBlob= this.dataURItoBlob(firma.blob)
+            console.log(firma.tipo,"blob",firma.blob,firma.blob.text)
             const imageFile = new File([imageBlob], filename, { type: 'image/png' });
-
             postData.append(filename, imageFile);
           }
         })
@@ -349,10 +349,9 @@ export class ServicioPage implements OnInit {
 
         if (item[0].transfirio == 0) {
           transfirio = false;
-          //     console.log("this.EnviarAlaApi(s[0])", transfirio)
-          //     this.EnviarAlaApi(item[0])
+   
         }
-        // else { transfirio = true; }
+   
       }
     })
     if (!transfirio) {
@@ -386,16 +385,6 @@ export class ServicioPage implements OnInit {
         console.log("Es propietario", this.EsPropietario)
       }
       else {
-        //limpiar bd
-        // this.db.dropTable().then(
-        //   (data) => { console.log("data", data); },
-
-        //   (err) => { console.log("err", err); }
-        // );;
-
-        // this.db.fetchFirmas().subscribe(res => {
-
-        // })
 
         this.db.deleteServicio().then(res => {
           console.log("res", res)
@@ -420,7 +409,7 @@ export class ServicioPage implements OnInit {
     );
   }
   Firmar(tipo) {
-    //this.router.navigate(['/firma',1]);
+    
     this.router.navigate(['/firma', { firmanteTipo: tipo }]);
   }
   LimpiarFirmas() {
@@ -440,10 +429,7 @@ export class ServicioPage implements OnInit {
 
   }
   cargarPropietario(PropietarioDelServicio) {
-    // if (s.propietario == this.settings.getValue(SettingsService.setting_User)
-    //       || s.propietario == null) {//solo si es propietario o no tiene proietario
-    //       this.EsPropietario = true;
-    //     }
+
     if (PropietarioDelServicio != null) {
       if (PropietarioDelServicio.toUpperCase() == this.settings.getValue(SettingsService.setting_User).toUpperCase()
         || PropietarioDelServicio == null) {//solo si es propietario o no tiene proietario

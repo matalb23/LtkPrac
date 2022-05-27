@@ -76,7 +76,7 @@ export class ServicioManiobrasPage implements OnInit {
   }
   storeData() {
     let maniobra = <Maniobra><unknown>this.mainForm.value;
-    var tipo = this.selectedtipo.split('-/-');//(this.mainForm.value).toString().split('-/-')
+    var tipo = this.selectedtipo.split('-/-');
     maniobra.fecha = this.fechaTemp.replace("T", " ");
     maniobra.id = this.db.TransferidoNOValor; //para que se elimine cuando venga de la api
     maniobra.transfirio = 0;
