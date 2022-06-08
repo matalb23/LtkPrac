@@ -57,6 +57,7 @@ public  geo:Position;
       });
     
       await PushNotifications.addListener('pushNotificationReceived', notification => {
+        this.settings.Toast_presentWarnig(notification.title+"<br>"+notification.body)
         console.log('Push notification received: ', notification);
       });
     

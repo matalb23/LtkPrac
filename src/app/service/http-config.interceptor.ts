@@ -15,6 +15,7 @@ import { LoadingController, ToastController } from '@ionic/angular';
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
   isLoading: boolean = false;
+  isUpload: boolean = false;
   constructor(
     private settings: SettingsService,
     public loadingCtrl: LoadingController,
@@ -25,18 +26,26 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     Observable<HttpEvent<any>> {
     let authReq = req;
     const token = this.settings.getValue(SettingsService.setting_Token);
-//&&  !req.url.includes("assets/dump.sql")
-    if (!req.url.includes("/token") ) {
+    //&&  !req.url.includes("assets/dump.sql")
+    if (!req.url.includes("/token")) {
       {
         console.log("HttpInterceptor_url:" + req.url + " Bearer");
         authReq = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
       }
     }
 
+    this.isUpload = req.url.includes("/servicio/upload");
+
     this.presentLoading();
     return next.handle(authReq).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
+
+          if (this.isUpload && this.settings.getValue(SettingsService.setting_Interceptor_ShowToast) == '1')
+            this.settings.Toast_presentSuccess("Guardo y Sincronizó con exito");
+
+          this.settings.setValue(SettingsService.setting_Interceptor_ShowToast, '1');
+
           // Cerramos el loading en el fin de la llamada
           this.dismissLoading();
         }
@@ -44,18 +53,19 @@ export class HttpConfigInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
 
-        console.error("Interceptor catchError((error: HttpErrorResponse)",error);        
+        console.error("Interceptor catchError((error: HttpErrorResponse)", error);
         this.dismissLoading();
         const ShowToast = this.settings.getValue(SettingsService.setting_Interceptor_ShowToast);
-        if (ShowToast=='0')
-        {
-          this.settings.setValue(SettingsService.setting_Interceptor_ShowToast,'1');
+        if (ShowToast == '0') {
+          this.settings.setValue(SettingsService.setting_Interceptor_ShowToast, '1');
         }
-        else
-        {
-          this.settings.Toast_presentError('Ups, ha habido un problema');
+        else {
+          if (this.isUpload)
+            this.settings.Toast_presentWarnig("Guardo con éxito, sin Sincronizar");
+          else
+            this.settings.Toast_presentError('Ups, ha habido un problema');
         }
-        
+
         return throwError(error);
       })
     );

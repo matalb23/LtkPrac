@@ -45,6 +45,7 @@ export class FirmaPage implements OnInit, AfterViewInit {
   buscarfirma() {
     this.db.fetchFirmas().subscribe(res => {
       res.forEach(firma => {
+        console.log("firmanteTipo",this.firmanteTipo)
         if (firma.tipo == this.firmanteTipo) {
           this.firma = firma
         }
@@ -117,8 +118,9 @@ export class FirmaPage implements OnInit, AfterViewInit {
   }
 
   clear() {
-    this.firma = null;
-    this.signaturePad.clear();
+    //this.firma = null;
+    this.signaturePad.clear();    
+    this.router.navigate(['/firma', { firmanteTipo: this.firmanteTipo }]);
   }
 
   undo() {

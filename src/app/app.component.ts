@@ -43,7 +43,7 @@ export class AppComponent {
       else {
         this.auth.login(user).subscribe((res) => {
           console.log("   this.auth.login(user).subscribe((res) => {")
-          this.router.navigateByUrl('tabs/home');
+          this.router.navigateByUrl('tabs/servicio');//home
 
           this.fcmService.getLocation();
         }

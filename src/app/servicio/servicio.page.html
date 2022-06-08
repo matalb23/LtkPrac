@@ -118,19 +118,24 @@
         <ion-item button="true" id="open-date-input-fechaABordo">
           <ion-label>Práctico A Bordo</ion-label>
           <ion-text slot="end">{{ fechaABordoTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
-          <ion-popover trigger="open-date-input-fechaABordo" show-backdrop="false">
+          <ion-popover trigger="open-date-input-fechaABordo" show-backdrop="true" class="dateTimePopover" side="top"  
+          style="background: #00000059;" > <!-- side="top" alignment="start" -->
             <ng-template>
-              <ion-datetime    displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true  cancelText="cancelar" doneText="aceptar" locale="es-AR" #popoverDatetimefechaABordoTemp presentation="time-date"
+              <ion-datetime    displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true  
+              cancelText="cancelar" doneText="aceptar" locale="es-AR" 
+              #popoverDatetimefechaABordoTemp presentation="time-date"
                 (ionChange)="fechaABordoTemp = popoverDatetimefechaABordoTemp.value;"></ion-datetime>
             </ng-template>
           </ion-popover>
         </ion-item>
 
+        
 
       <ion-item button="true" id="open-date-input-FechaInicioNavegacionTemp">
         <ion-label>Inicio de Navegación</ion-label>
         <ion-text slot="end">{{ FechaInicioNavegacionTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
-        <ion-popover trigger="open-date-input-FechaInicioNavegacionTemp" show-backdrop="false">
+        <ion-popover trigger="open-date-input-FechaInicioNavegacionTemp" show-backdrop="false" class="dateTimePopover" side="top" 
+        alignment="start" style="background: #00000059;" >
           <ng-template>
             <ion-datetime    displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true 
              cancelText="cancelar" doneText="aceptar" locale="es-AR"
@@ -145,9 +150,10 @@
         <ion-item button="true" id="open-date-input-fechaFinTemp">
           <ion-label>Fecha de Fin</ion-label>
           <ion-text slot="end">{{ fechaFinTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
-          <ion-popover trigger="open-date-input-fechaFinTemp" show-backdrop="false">
+          <ion-popover trigger="open-date-input-fechaFinTemp"  class="dateTimePopover" side="top" alignment="start"  
+          show-backdrop="false" style="background: #00000059;">
             <ng-template>
-              <ion-datetime displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true 
+              <ion-datetime displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true  
                cancelText="cancelar" doneText="aceptar" locale="es-AR"
                 #popoverDatetimefechaFinTemp presentation="time-date"
                 (ionChange)="fechaFinTemp = popoverDatetimefechaFinTemp.value;"></ion-datetime>
@@ -161,7 +167,7 @@
           </ion-input>
         </ion-item>
 
-        <ion-item>
+        <ion-item> 
           <ion-label position="floating" class="labels">Popa</ion-label>
           <ion-input formControlName="calado_Popa" type="number" required class="info-grid">
           </ion-input>
@@ -198,6 +204,8 @@
           </ion-input>
         </ion-item>
         <ion-input type="hidden" formControlName="propietario"></ion-input>
+        <ion-input type="hidden" formControlName="practico1"></ion-input>
+        <ion-input type="hidden" formControlName="practico2"></ion-input>
         
         <ion-grid>
         <ion-row *ngIf="EsPropietario">

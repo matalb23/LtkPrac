@@ -2,7 +2,7 @@
   <!-- // OPEN CABECERA \\ -->
   
   <div *ngIf="firma==null;then mensajeContent else formContent">here is ignored</div>
-  <ng-template #mensajeContent></ng-template>
+  <ng-template #mensajeContent> No se encuentra esta persona cargada en el sistema</ng-template>
   <ng-template #formContent>
     
   <ion-grid class="ion-align-items-left grid-cabecera" slot="fixed">
@@ -32,11 +32,12 @@
       <span class="card-notificaciones-det"> FIRMA DE </span>
       <span class="card-notificaciones-det-user">{{firma.tipo}}</span>
     </div>
+  
   </ng-template>
-
   <div class="signature-pad">
     <div>
       <canvas class="signature-pad-canvas" #canvas width="900" height="400" style="touch-action: none;"></canvas>
     </div>
   </div>
+
 </ion-content>

@@ -302,3 +302,7 @@ ion-card {
     margin-bottom: 10px;
     border-bottom: 1px solid rgb(151, 151, 151);
 }
+ion-popover.dateTimePopover {
+    --width: auto;
+    --offset-y: -100px;
+}

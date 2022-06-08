@@ -22,7 +22,7 @@
       <ion-item button="true" id="open-date-input-fechaTemp">
         <ion-label>Fecha</ion-label>
         <ion-text slot="end">{{ fechaTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
-        <ion-popover trigger="open-date-input-fechaTemp" show-backdrop="false">
+        <ion-popover trigger="open-date-input-fechaTemp" show-backdrop="false" class="dateTimePopover" side="top" alignment="start" size="cover" >
           <ng-template>
             <ion-datetime displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true 
              cancelText="cancelar" doneText="aceptar" tlocale="es-AR"
@@ -33,7 +33,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Tipo</ion-label>
-        <ion-select #mySelect required [(ngModel)]="currentTipo" (ionChange)="selectChanged(mySelect.value)" name="tipo" formControlName="tipo">                  
+        <ion-select cancelText="CANCELAR" interface="action-sheet" #mySelect required [(ngModel)]="currentTipo" (ionChange)="selectChanged(mySelect.value)" name="tipo" formControlName="tipo">                  
                        <ion-select-option *ngFor="let Item of tipos"  [value]="Item.id+'-/-'+Item.descripcion"  >
                          {{Item.descripcion}}</ion-select-option>                                 
         </ion-select>

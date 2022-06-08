@@ -1,0 +1,56 @@
+// ion-datetime {
+//     position: relative;
+//   }
+
+// .item-datetime ion-datetime {
+//     position: relative;
+//   }
+
+// ion-datetime {
+//     button {
+//       position: relative !important;
+//     }
+  
+//     .datetime-text {
+//       overflow: visible;
+//     }
+  
+//     flex: 1;
+//   }
+// ion-popover#popover-bottom::part(content) {
+//     top: unset !important;
+//     left: 0 !important;
+//     bottom: 0;
+//     width: 100vw;
+//     border-radius: 0;
+//   }
+
+// ion-popover.popover-bottom ion-datetime {
+//     margin-left: auto;
+//     margin-right: auto;
+//     --background: white;
+//   }
+
+// .picker-wrapper.sc-ion-picker-md {
+//     bottom: auto;
+//     top: 0;
+// //   }
+// ion-popover#popover-bottom {
+//     &::part(content) {
+//       top: unset !important;
+//       left: 0 !important;
+//       bottom: 0;
+//       width: 100vw;
+//       border-radius: 0;
+//     }
+  
+//     ion-datetime {
+//       margin-left: auto;
+//       margin-right: auto;
+//       --background: white;
+//     }
+//   }
+
+// ion-popover.dateTimePopover {
+//     --offset-y: -500px !important;
+//     }

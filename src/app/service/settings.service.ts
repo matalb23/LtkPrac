@@ -68,6 +68,18 @@ async Toast_presentWarnig(msg) {
   //   closeButtonText: "OK",
   });
   toast.present();                     
-}   
+}  
+async Toast_presentSuccess(msg) {
+  const toast = await this.toastCtrl.create({
+    message: msg,
+    duration: 3000,
+    position: 'top',
+    color: 'success',
+    cssClass: 'toast'
+     //showCloseButton: true,
+  //   closeButtonText: "OK",
+  });
+  toast.present();                     
+}  
 
 }

@@ -59,6 +59,7 @@ export class DbService {
 
     )
       .then(xx => {
+        console.log("deleteDatabase-Create bd")
         this.create()
       });
 
@@ -134,7 +135,7 @@ export class DbService {
       }
 
       this.firmasList.next(items);
-      // this.buscarSinfirmar().then(res => { });//no sacar; pierde boton firma
+    
     });
 
   }
@@ -283,6 +284,30 @@ export class DbService {
       });
 
   }
+  deleteDemoras() {
+
+    return this.storage.executeSql("DELETE FROM demoras;", [])
+      .then(xx => {
+        console.log("DELETE FROM demoras", xx)
+        this.getDemoras();
+      }).catch(e => {
+        console.log("error deleteAlldemoras", e);
+      });;
+
+  }
+  deleteManiobras() {
+
+    return this.storage.executeSql("DELETE FROM maniobras;", [])
+      .then(xx => {
+        console.log("DELETE FROM maniobras", xx)
+        this.getManiobras();
+      }).catch(e => {
+        console.log("error deleteAllManiobras", e);
+      });;
+
+  }
+
+
   deleteAllTipoDemora() {
 
     return this.storage.executeSql("DELETE FROM tipoDemora;", [])
@@ -368,6 +393,7 @@ export class DbService {
 
   // Add
   addServicio(s: Servicio) {
+   // this.deleteServicio();;
     s.transfirio = 0;
     //     //28
     let data = [s.codigo, s.cliente, s.clienteRazonSocial, s.fechaPedido, s.buqueNombre, s.buqueCoeficiente, s.buqueEslora, s.buqueManga, s.buquePuntal, s.buqueSenial, s.buqueBandera, s.practico1, s.practico1Nombre, s.practico2, s.practico2Nombre, s.lugarDesde, s.lugarHasta, s.lugarKilometros, s.fechaInicio, s.fechaFin, s.calado_Proa, s.calado_Popa, s.cabotaje, s.observacion, s.taraBruta, s.taraNeta, s.canal, s.propietario, s.transfirio, s.propietarioNombre,s.fechaInicioNavegacion,s.fechaABordo];
@@ -417,7 +443,7 @@ export class DbService {
     return b;
   }
   updateServicio(s: Servicio) {
-
+console.log("updateServicio",s);
     let data = [s.codigo, s.cliente, s.clienteRazonSocial, s.fechaPedido, s.buqueNombre, s.buqueCoeficiente, s.buqueEslora, s.buqueManga, s.buquePuntal, s.buqueSenial, s.buqueBandera, s.practico1, s.practico1Nombre, s.practico2, s.practico2Nombre, s.lugarDesde, s.lugarHasta, s.lugarKilometros, s.fechaInicio, s.fechaFin, s.calado_Proa, s.calado_Popa, s.cabotaje, s.observacion, s.taraBruta, s.taraNeta, s.canal, s.propietario, s.transfirio, s.propietarioNombre,s.fechaInicioNavegacion,s.fechaABordo];
     let sql: string = "";
     sql += "UPDATE servicios SET codigo=?, ";
@@ -484,10 +510,15 @@ export class DbService {
 
     return this.storage.executeSql(' DELETE FROM firmas;', [])
       .then(xx => {
-        console.log("xx", xx)
+        
+        this.getFirmas().then(res => { });;
+        console.log("elimino firmas", xx)
         return  this.storage.executeSql(' DELETE FROM servicios;', [])
           .then(xxx => {
-            console.log("xxx", xxx)
+            this.deleteDemoras();
+            this.deleteManiobras();
+            
+            console.log("Limpio, firmas, servicios, demoras, maniobras ", xxx)
             this.getServicios();
           }).catch(e => {
             console.log("error delete servicios", e);

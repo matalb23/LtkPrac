@@ -24,7 +24,7 @@ export class ApiService {
   get(endpoint: string, params?: any, reqOpts?: any) {
     if (this.NetworkConnected()==1)//si esta conectado a la red
     {
-      console.log("get ")
+      console.log("get ",endpoint,params,reqOpts)
       if (!reqOpts) {
         reqOpts = {
           params: new HttpParams()
@@ -42,7 +42,7 @@ export class ApiService {
       return this.http.get(this.url + '/' + endpoint, reqOpts);
     }
     else {
-      console.log("GET no tiene red")
+      console.log("GET no tiene red",endpoint)
       this.settings.Toast_presentWarnig("No posee red para poder traer la informacion del servidor")
       return EMPTY;
     }

@@ -19,7 +19,7 @@ export class TabsPage {
  
    }
    openMenu() {
-    this.menu.enable(true, 'first');
+    this.menu.enable(true, 'first'); 
     this.menu.open('first');
   }
   async ionViewDidEnter(){
