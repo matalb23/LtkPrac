@@ -9,4 +9,5 @@ export class Demora {
     tipoDescripcion: string;
     idInterno:number;
     transfirio?: number;
+    eliminado?: number;
 }

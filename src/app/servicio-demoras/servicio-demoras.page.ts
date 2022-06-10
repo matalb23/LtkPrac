@@ -129,6 +129,9 @@ export class ServicioDemorasPage implements OnInit {
     });
 
   }
+  eliminar(id,idInterno){//idInterno
+    this.db.demoraBajaLogica(id,idInterno).then(res=>{});
+  }
 
 
   cargarDatos() {

@@ -115,6 +115,9 @@ export class ServicioManiobrasPage implements OnInit {
     })
     
   }
+  eliminar(id,idInterno){
+    this.db.maniobraBajaLogica(id,idInterno).then(res=>{});
+  }
   selectChanged(tipo) {
     this.selectedtipo = tipo;
     console.log("selectedgrupo:" + tipo);

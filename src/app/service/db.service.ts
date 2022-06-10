@@ -186,7 +186,7 @@ export class DbService {
     });
   }
   getDemoras() {
-    return this.storage.executeSql('SELECT * FROM demoras', []).then(res => {
+    return this.storage.executeSql('SELECT * FROM demoras where eliminado=0', []).then(res => {
       let items: Demora[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) {
@@ -199,7 +199,8 @@ export class DbService {
             tipo: res.rows.item(i).tipo,
             tipoDescripcion: res.rows.item(i).tipoDescripcion,
             idInterno: res.rows.item(i).idInterno,
-            transfirio: res.rows.item(i).transfirio
+            transfirio: res.rows.item(i).transfirio,
+            eliminado: res.rows.item(i).eliminado
           });
         }
       }
@@ -207,7 +208,7 @@ export class DbService {
     });
   }
   getManiobras() {
-    return this.storage.executeSql('SELECT * FROM maniobras', []).then(res => {
+    return this.storage.executeSql('SELECT * FROM maniobras where eliminado=0', []).then(res => {
       let items: Maniobra[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) {
@@ -220,7 +221,8 @@ export class DbService {
             tipo: res.rows.item(i).tipo,
             tipoDescripcion: res.rows.item(i).tipoDescripcion,
             idInterno: res.rows.item(i).idInterno,
-            transfirio: res.rows.item(i).transfirio
+            transfirio: res.rows.item(i).transfirio,
+            eliminado: res.rows.item(i).eliminado
           });
         }
      
@@ -333,9 +335,9 @@ export class DbService {
 
   addDemora(s: Demora) {
 
-    let data = [s.id, s.servicio, s.fecha, s.tipo, s.nota, s.horasDeDemora, s.tipoDescripcion, s.transfirio];//,s.idInterno
+    let data = [s.id, s.servicio, s.fecha, s.tipo, s.nota, s.horasDeDemora, s.tipoDescripcion, s.transfirio,0];//eliminado=0
     console.log("addDemora", data)
-    return this.storage.executeSql('INSERT OR REPLACE INTO  demoras (Id,Servicio,Fecha,Tipo,Nota,HorasDeDemora,tipoDescripcion,transfirio) VALUES (?,?,?,?,?,?,?,?)', data)
+    return this.storage.executeSql('INSERT OR REPLACE INTO  demoras (Id,Servicio,Fecha,Tipo,Nota,HorasDeDemora,tipoDescripcion,transfirio,eliminado) VALUES (?,?,?,?,?,?,?,?,?)', data)
       .then(res => {
         this.storage.executeSql('select last_insert_rowid() as id', []).then(res => {
           s.idInterno = res.rows.item(0).id;
@@ -351,9 +353,9 @@ export class DbService {
 
   addManiobra(s: Maniobra) {
     s.transfirio = 0;
-    let data = [s.id, s.servicio, s.fecha, s.tipo, s.nota, s.cantidad, s.tipoDescripcion, s.transfirio];
+    let data = [s.id, s.servicio, s.fecha, s.tipo, s.nota, s.cantidad, s.tipoDescripcion, s.transfirio,0];//eliminado=0
     console.log("addManiobra", data)
-    return this.storage.executeSql('INSERT OR REPLACE INTO  maniobras (id,servicio,fecha,tipo,nota,cantidad,tipoDescripcion,transfirio) VALUES (?,?,?,?,?,?,?,?)', data)
+    return this.storage.executeSql('INSERT OR REPLACE INTO  maniobras (id,servicio,fecha,tipo,nota,cantidad,tipoDescripcion,transfirio,eliminado) VALUES (?,?,?,?,?,?,?,?,?)', data)
       .then(res => {
         this.storage.executeSql('select last_insert_rowid() as id', []).then(res => {
           s.idInterno = res.rows.item(0).id;
@@ -495,6 +497,47 @@ console.log("updateServicio",s);
         //  this.buscarSinfirmar();
       })
   }
+  
+  demoraBajaLogica(id,idInterno) {//si no transfirio eliminino , sino actualizo
+    console.log("update demoras",id,idInterno)
+    return this.storage.executeSql(`UPDATE demoras SET eliminado = 1,transfirio=0  WHERE idInterno = '${idInterno}'`, [])
+      .then(data => {        
+        this.getDemoras().then(res => { });        
+      })
+    // if (id == this.TransferidoNOValor) {
+      
+    // }
+    // else
+    // {
+    //   console.log("delete demoras",id,idInterno)
+    //   return this.storage.executeSql(`DELETE FROM demoras WHERE idInterno = '${idInterno}'`, [])
+    //   .then(data => {        
+
+    //     this.getDemoras().then(res => { });        
+    //   })
+
+    // }
+  }
+  maniobraBajaLogica(id,idInterno) {//si no transfirio eliminino , sino actualizo
+    console.log("update maniobra",id,idInterno)
+    return this.storage.executeSql(`UPDATE maniobras SET eliminado = 1,transfirio=0   WHERE idInterno = '${idInterno}'`, [])
+      .then(data => {        
+        this.getManiobras().then(res => { });        
+      })
+    // if (id == this.TransferidoNOValor) {
+ 
+    // }
+    // else
+    // { 
+    //   return this.storage.executeSql(`DELETE FROM maniobras WHERE idInterno = '${idInterno}'`, [])
+    //   .then(data => {        
+    //     console.log("delete maniobra",id,idInterno)
+    //     this.getManiobras().then(res => { });        
+    //   })
+
+    // }
+  }
+
   updateFirmasLimpiar() {
     return this.storage.executeSql(`UPDATE firmas SET firma = null, firmaFecha = null,latitude = null,longitude = null`,[])
       .then(data => {

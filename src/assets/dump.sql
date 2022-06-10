@@ -55,7 +55,9 @@ CREATE TABLE IF NOT EXISTS demoras(
     horasDeDemora DECIMAL(10,2) null, 
     tipoDescripcion text null,
     idInterno INTEGER PRIMARY KEY AutoIncrement,
-    transfirio bit
+    transfirio bit,
+    eliminado bit
+    
 );
 
 
@@ -68,7 +70,8 @@ CREATE TABLE IF NOT EXISTS maniobras(
     cantidad DECIMAL(10,2) null,   
     tipoDescripcion text null,
     idInterno INTEGER PRIMARY KEY AutoIncrement,
-    transfirio bit
+    transfirio bit,
+    eliminado bit
 );
 
 

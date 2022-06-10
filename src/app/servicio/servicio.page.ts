@@ -264,14 +264,14 @@ export class ServicioPage implements OnInit {
       .then((res) => {
         //let sincronizo:boolean=false;
        
-      this.EnviarAlaApi(this.serviciodesdeApi).then((sincronizo) => {
+      this.EnviarAlaApi(this.serviciodesdeApi)//.then((sincronizo) => {
         
         //   if (sincronizo)
         //   this.settings.Toast_presentSuccess("Guardo y Sincronizó con exito");
         // else
         //   this.settings.Toast_presentWarnig("Guardo con éxito");
 
-        });
+      //  });
       
         
       })
@@ -282,7 +282,7 @@ export class ServicioPage implements OnInit {
 
 
   }
-  async EnviarAlaApi(serviciodesdeApi: Servicio) {
+   EnviarAlaApi(serviciodesdeApi: Servicio) {
     //guardo en la api
     let postData = new FormData();
     let demorasnuevas: Demora[] = [];
@@ -336,9 +336,9 @@ export class ServicioPage implements OnInit {
     postData.append('servicio', JSON.stringify(serviciodesdeApi));
     console.log("postData:", postData)
     console.log("json a la api:", JSON.stringify(serviciodesdeApi))
-    const test = await  this.api.post("api/servicio/upload", postData).subscribe(async (result) => {
+      this.api.post("api/servicio/upload", postData).subscribe( (result) => {
       serviciodesdeApi.transfirio=1;
-      await this.db.servicioTransferido(serviciodesdeApi).then(() => {
+       this.db.servicioTransferido(serviciodesdeApi).then(() => {
       })
         .catch(e => {
           console.log("error this.db.servicioTransferido", e);
@@ -351,11 +351,16 @@ export class ServicioPage implements OnInit {
         this.db.maniobraTransferido(maniobra.idInterno)
       })
 console.log(" sincronizo true");
-return true;
-     
+//return true;
+let s: Servicio[];//servicio en la bd
+
+this.db.fetchServicios().subscribe(item => {//s solo para saber si esta en la bd
+  s = item;
+})
+    this.getApi(s);
    });
-    console.log(" sincronizo false",test);
-    return false;
+   
+  //  return false;
  //   return test;
   
   }
@@ -376,15 +381,24 @@ return true;
       }
     })
     if (!transfirio) {
-      console.log("this.EnviarAlaApi(s[0])", transfirio)
+      console.log("this.EnviarAlaApi(s[0]),, va a transferir", transfirio)
       
       this.settings.setValue(SettingsService.setting_Interceptor_ShowToast, '0');
-      this.EnviarAlaApi(s[0]).then((sincronizo) => {
+      this.EnviarAlaApi(s[0])//hace getpi
         this.settings.setValue(SettingsService.setting_Interceptor_ShowToast, '1');
-      })
+        console.log("transfirio y hace get", transfirio)
+       
+      //})
 
     }
+    else
+        this.getApi(s);
 
+  
+  }
+  getApi(s: Servicio[])
+  {
+    let NuevoServicio: boolean = false;
     this.api.get("api/servicio?login=" + this.settings.getValue(SettingsService.setting_User)).subscribe((data) => {
       console.log("Busca servicio y actualiza bd local:", data)
       this.serviciodesdeApi = <Servicio><unknown>data;
@@ -444,6 +458,7 @@ return true;
 
       }
     );
+
   }
   Firmar(tipo) {
     

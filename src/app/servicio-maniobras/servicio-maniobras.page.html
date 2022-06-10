@@ -70,13 +70,17 @@
           </div>
           <ion-label class="card-notificaciones-tit">Cantidad</ion-label>
           <div class="card-notificaciones-txt card-notificaciones-div-footer" >
-            {{ maniobra.cantidad}}          
-                
+            {{ maniobra.cantidad}}                
           </div>
 
           <div class="card-notificaciones-det">
             Fecha <span class="card-notificaciones-det-user"> {{ maniobra.fecha | date: 'dd/MM/yyyy H:mm' }}</span>
           </div>
+
+          <!-- <ion-label class="card-notificaciones-tit">Eliminado</ion-label>
+          <div class="card-notificaciones-txt card-notificaciones-div-footer" (click)="eliminar(maniobra.id,maniobra.idInterno)" >
+            {{ maniobra.idInterno}}                
+          </div> -->
 
         </ion-card-content>
       </ion-card>

@@ -50,6 +50,10 @@
           <ion-label position="floating" class="labels">Horas de Demora</ion-label>
           <ion-input formControlName="horasDeDemora" type="number" required class="info-grid"></ion-input>
         </ion-item>
+
+  
+
+
         <ion-button type="submit" expand="full">
           Guardar
         </ion-button>
@@ -79,6 +83,11 @@
             <div class="card-notificaciones-det">
               Fecha <span class="card-notificaciones-det-user"> {{ demora.fecha | date: 'dd/MM/yyyy H:mm' }}</span>
             </div>
+
+            <!-- <ion-label class="card-notificaciones-tit">Eliminado</ion-label>
+            <div class="card-notificaciones-txt card-notificaciones-div-footer" (click)="eliminar(demora.id,demora.idInterno)" >
+              {{ demora.idInterno}}                
+            </div> -->
 
           </ion-card-content>
         </ion-card>

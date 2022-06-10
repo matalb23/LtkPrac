@@ -15,6 +15,8 @@ import { Browser } from '@capacitor/browser';
 })
 export class AppComponent {
 
+  UsuarioNombre;
+
   constructor(
     private platform: Platform,
     private auth: AuthService,
@@ -30,7 +32,7 @@ export class AppComponent {
     // })
 
     this.platform.ready().then(() => {
-      
+      this.UsuarioNombre = this.settings.getValue(SettingsService.setting_UserName);
   
       var user = {} as User;
       user.login = this.settings.getValue(SettingsService.setting_User);
@@ -57,8 +59,29 @@ export class AppComponent {
 
     });
   }
+
+  irServicio() {
+    this.router.navigateByUrl('tabs/servicio');//Guardia
+ }
+  irHistorico() {
+    this.router.navigateByUrl('tabs/historico');//Guardia
+ }
+ irGuardia() {
+    this.router.navigateByUrl('tabs/guardia');//Guardia
+ }
+
+
   async irClima() {
     let parurl = "https://www.smn.gob.ar/pronostico"
+    if (parurl.includes("////") || parurl.includes("\\\\")) {
+
+      parurl = parurl.replace("////", "//").replace("\\\\", "\\")
+    }
+
+    await Browser.open({ 'url': parurl });
+  }
+  async irAlturaHoraria() {
+    let parurl = "http://www.hidro.gov.ar/oceanografia/alturashorarias.asp"
     if (parurl.includes("////") || parurl.includes("\\\\")) {
 
       parurl = parurl.replace("////", "//").replace("\\\\", "\\")
@@ -86,5 +109,7 @@ this.router.navigateByUrl('login');
 
   }
   // initializeApp() {
-  // }
+  // } 
 }
+
+

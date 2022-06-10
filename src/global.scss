@@ -302,7 +302,20 @@ ion-card {
     margin-bottom: 10px;
     border-bottom: 1px solid rgb(151, 151, 151);
 }
-ion-popover.dateTimePopover {
-    --width: auto;
-    --offset-y: -100px;
+// ion-popover.dateTimePopover {
+//     --width: auto;
+//     --offset-y: -100px;
+// }
+                                                                            ////////  MENU \\\\\\\\\
+.menu-hola {
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: 400;
+}
+.menu-hola-linea2 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: 700;
 }

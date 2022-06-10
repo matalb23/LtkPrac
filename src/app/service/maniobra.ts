@@ -10,4 +10,5 @@ export class Maniobra {
     idInterno:number;
     tipoDescripcion: string;
     transfirio?: number;
+    eliminado?: number;
 }
