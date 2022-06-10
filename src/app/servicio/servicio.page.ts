@@ -44,9 +44,9 @@ export class ServicioPage implements OnInit {
   fechaInicioTemp;
   FechaInicioNavegacionTemp;
   fechaABordoTemp;
-  firmomaster: Boolean=false;
-  firmopractico1: Boolean=false;
-  firmopractico2: Boolean=false;
+  firmomaster: Boolean = false;
+  firmopractico1: Boolean = false;
+  firmopractico2: Boolean = false;
 
   ServicioCodigo;
   ngOnInit() {
@@ -131,25 +131,22 @@ export class ServicioPage implements OnInit {
 
     let firmados = 0;
     let firmas = 0;
-    this.firmomaster=false;
-    this.firmopractico1=false;
-    this.firmopractico2=false;
+    this.firmomaster = false;
+    this.firmopractico1 = false;
+    this.firmopractico2 = false;
     this.db.fetchFirmas().subscribe(res => {
       res.forEach(firma => {
         firmas++;
-        if (firma.tipo=='Master' && firma.blob!=null)
-        {
-          this.firmomaster=true;
+        if (firma.tipo == 'Master' && firma.blob != null) {
+          this.firmomaster = true;
           console.log("FIRMO MASTER")
         }
-        if (firma.tipo=='Practico1' && firma.blob!=null)
-        {
-          this.firmopractico1=true;
+        if (firma.tipo == 'Practico1' && firma.blob != null) {
+          this.firmopractico1 = true;
           console.log("FIRMO Practico1")
         }
-        if (firma.tipo=='Practico2' && firma.blob!=null)
-        {
-          this.firmopractico2=true;
+        if (firma.tipo == 'Practico2' && firma.blob != null) {
+          this.firmopractico2 = true;
           console.log("FIRMO Practico2")
         }
 
@@ -171,59 +168,59 @@ export class ServicioPage implements OnInit {
 
     this.db.fetchServicios().subscribe(item => {
       s = <Servicio>item[0];
-     
-    if (s != null) {
-      let propietario = s.propietario == null ? this.settings.getValue(SettingsService.setting_User) : s.propietario
 
-      console.log("Propietario", propietario, "usario", this.settings.getValue(SettingsService.setting_User))
-      this.cargarPropietario(s.propietario);
+      if (s != null) {
+        let propietario = s.propietario == null ? this.settings.getValue(SettingsService.setting_User) : s.propietario
+
+        console.log("Propietario", propietario, "usario", this.settings.getValue(SettingsService.setting_User))
+        this.cargarPropietario(s.propietario);
 
 
-      this.fechaFinTemp = s.fechaFin;
-      this.fechaABordoTemp = s.fechaABordo;
-      this.FechaInicioNavegacionTemp = s.fechaInicioNavegacion;
+        this.fechaFinTemp = s.fechaFin;
+        this.fechaABordoTemp = s.fechaABordo;
+        this.FechaInicioNavegacionTemp = s.fechaInicioNavegacion;
 
-      this.fechaInicioTemp = s.fechaInicio;
-      this.ServicioCodigo = s.codigo;
-      console.log("s.fechaFin;", s.fechaFin)
-      console.log("s.fechaInicio;", s.fechaInicio)
+        this.fechaInicioTemp = s.fechaInicio;
+        this.ServicioCodigo = s.codigo;
+        console.log("s.fechaFin;", s.fechaFin)
+        console.log("s.fechaInicio;", s.fechaInicio)
 
-      this.mainForm.setValue({
-        codigo: s.codigo,
-        cliente: s.cliente,
-        clienteRazonSocial: s.clienteRazonSocial,
-        fechaPedido: s.fechaPedido,
-        buqueNombre: s.buqueNombre,
-        buqueCoeficiente: s.buqueCoeficiente,
-        buqueEslora: s.buqueEslora,
-        buqueManga: s.buqueManga,
-        buquePuntal: s.buquePuntal,
-        buqueSenial: s.buqueSenial,
-        buqueBandera: s.buqueBandera,
-        practico1: s.practico1,
-        practico1Nombre: s.practico1Nombre,
-        practico2: s.practico2,
-        practico2Nombre: s.practico2Nombre,
-        lugarDesde: s.lugarDesde,
-        lugarHasta: s.lugarHasta,
-        lugarKilometros: s.lugarKilometros,
-        fechaInicio: s.fechaInicio,
-        fechaFin: s.fechaFin,
-        calado_Proa: s.calado_Proa,
-        calado_Popa: s.calado_Popa,
-        cabotaje: s.cabotaje,
-        observacion: s.observacion,
-        taraBruta: s.taraBruta,
-        taraNeta: s.taraNeta,
-        canal: s.canal,
-        propietario: propietario,
-        FechaInicioNavegacion: s.fechaInicioNavegacion,
-        fechaABordo: s.fechaABordo,
+        this.mainForm.setValue({
+          codigo: s.codigo,
+          cliente: s.cliente,
+          clienteRazonSocial: s.clienteRazonSocial,
+          fechaPedido: s.fechaPedido,
+          buqueNombre: s.buqueNombre,
+          buqueCoeficiente: s.buqueCoeficiente,
+          buqueEslora: s.buqueEslora,
+          buqueManga: s.buqueManga,
+          buquePuntal: s.buquePuntal,
+          buqueSenial: s.buqueSenial,
+          buqueBandera: s.buqueBandera,
+          practico1: s.practico1,
+          practico1Nombre: s.practico1Nombre,
+          practico2: s.practico2,
+          practico2Nombre: s.practico2Nombre,
+          lugarDesde: s.lugarDesde,
+          lugarHasta: s.lugarHasta,
+          lugarKilometros: s.lugarKilometros,
+          fechaInicio: s.fechaInicio,
+          fechaFin: s.fechaFin,
+          calado_Proa: s.calado_Proa,
+          calado_Popa: s.calado_Popa,
+          cabotaje: s.cabotaje,
+          observacion: s.observacion,
+          taraBruta: s.taraBruta,
+          taraNeta: s.taraNeta,
+          canal: s.canal,
+          propietario: propietario,
+          FechaInicioNavegacion: s.fechaInicioNavegacion,
+          fechaABordo: s.fechaABordo,
 
-      })
-     // this.cargarPropietario(s.propietario);
-     this.buscarSinfirmar();
-    }
+        })
+        // this.cargarPropietario(s.propietario);
+        this.buscarSinfirmar();
+      }
 
     });
 
@@ -263,17 +260,17 @@ export class ServicioPage implements OnInit {
     this.db.updateServicio(this.serviciodesdeApi)
       .then((res) => {
         //let sincronizo:boolean=false;
-       
-      this.EnviarAlaApi(this.serviciodesdeApi)//.then((sincronizo) => {
-        
+
+        this.EnviarAlaApi(this.serviciodesdeApi)//.then((sincronizo) => {
+
         //   if (sincronizo)
         //   this.settings.Toast_presentSuccess("Guardo y Sincronizó con exito");
         // else
         //   this.settings.Toast_presentWarnig("Guardo con éxito");
 
-      //  });
-      
-        
+        //  });
+
+
       })
       .catch(e => {
         console.log("error this.db.updateServicio", e);
@@ -282,7 +279,7 @@ export class ServicioPage implements OnInit {
 
 
   }
-   EnviarAlaApi(serviciodesdeApi: Servicio) {
+  EnviarAlaApi(serviciodesdeApi: Servicio) {
     //guardo en la api
     let postData = new FormData();
     let demorasnuevas: Demora[] = [];
@@ -295,9 +292,9 @@ export class ServicioPage implements OnInit {
         res.forEach(firma => {
           if (firma.firma != null && firma.blob != null) {
 
-            const filename = "S" + firma.codigo + "_T" + firma.tipo + ".png"            
-            const imageBlob= this.dataURItoBlob(firma.blob)
-            console.log(firma.tipo,"blob",firma.blob,firma.blob.text)
+            const filename = "S" + firma.codigo + "_T" + firma.tipo + ".png"
+            const imageBlob = this.dataURItoBlob(firma.blob)
+            console.log(firma.tipo, "blob", firma.blob, firma.blob.text)
             const imageFile = new File([imageBlob], filename, { type: 'image/png' });
             postData.append(filename, imageFile);
           }
@@ -336,9 +333,9 @@ export class ServicioPage implements OnInit {
     postData.append('servicio', JSON.stringify(serviciodesdeApi));
     console.log("postData:", postData)
     console.log("json a la api:", JSON.stringify(serviciodesdeApi))
-      this.api.post("api/servicio/upload", postData).subscribe( (result) => {
-      serviciodesdeApi.transfirio=1;
-       this.db.servicioTransferido(serviciodesdeApi).then(() => {
+    this.api.post("api/servicio/upload", postData).subscribe((result) => {
+      serviciodesdeApi.transfirio = 1;
+      this.db.servicioTransferido(serviciodesdeApi).then(() => {
       })
         .catch(e => {
           console.log("error this.db.servicioTransferido", e);
@@ -350,54 +347,55 @@ export class ServicioPage implements OnInit {
       maniobrasnuevas.forEach(maniobra => {
         this.db.maniobraTransferido(maniobra.idInterno)
       })
-console.log(" sincronizo true");
-//return true;
-let s: Servicio[];//servicio en la bd
+      console.log(" sincronizo true");
+      //return true;
+      let s: Servicio[];//servicio en la bd
 
-this.db.fetchServicios().subscribe(item => {//s solo para saber si esta en la bd
-  s = item;
-})
-    this.getApi(s);
-   });
-   
-  //  return false;
- //   return test;
-  
+      this.db.fetchServicios().subscribe(item => {//s solo para saber si esta en la bd
+        s = item;
+      })
+      this.getApi(s);
+    });
+
+    //  return false;
+    //   return test;
+
   }
 
   cargarDatos() {
-    let s: Servicio[];//servicio en la bd
+    let s: Servicio[];//servicio en la bd//
     let transfirio: boolean = true;
     let NuevoServicio: boolean = false;
     this.db.fetchServicios().subscribe(item => {//s solo para saber si esta en la bd
       s = item;
-      if (item.length > 0 && !isNaN(item[0].transfirio)) {
-
-        if (item[0].transfirio == 0) {
-          transfirio = false;
-   
+      if (item.length > 0) {
+        if (!isNaN(item[0].transfirio)) {
+          this.serviciodesdeApi = <Servicio><unknown>s[0];
+          this.setform();
+          if (item[0].transfirio == 0) {
+            transfirio = false;
+          }
         }
-   
+
       }
     })
     if (!transfirio) {
       console.log("this.EnviarAlaApi(s[0]),, va a transferir", transfirio)
-      
+
       this.settings.setValue(SettingsService.setting_Interceptor_ShowToast, '0');
       this.EnviarAlaApi(s[0])//hace getpi
-        this.settings.setValue(SettingsService.setting_Interceptor_ShowToast, '1');
-        console.log("transfirio y hace get", transfirio)
-       
+      this.settings.setValue(SettingsService.setting_Interceptor_ShowToast, '1');
+      console.log("transfirio y hace get", transfirio)
+
       //})
 
     }
     else
-        this.getApi(s);
+      this.getApi(s);
 
-  
+
   }
-  getApi(s: Servicio[])
-  {
+  getApi(s: Servicio[]) {
     let NuevoServicio: boolean = false;
     this.api.get("api/servicio?login=" + this.settings.getValue(SettingsService.setting_User)).subscribe((data) => {
       console.log("Busca servicio y actualiza bd local:", data)
@@ -407,25 +405,25 @@ this.db.fetchServicios().subscribe(item => {//s solo para saber si esta en la bd
         this.serviciodesdeApi.transfirio = 1;
         this.cargarPropietario(this.serviciodesdeApi.propietario);
         if (s.length == 0)
-            NuevoServicio=true
-          else 
-              if ( s[0].codigo!=this.serviciodesdeApi.codigo)
-                NuevoServicio=true
-              else 
-                NuevoServicio=false
+          NuevoServicio = true
+        else
+          if (s[0].codigo != this.serviciodesdeApi.codigo)
+            NuevoServicio = true
+          else
+            NuevoServicio = false
 
         if (NuevoServicio) {
-          console.log("agrega",s)
+          console.log("agrega", s)
           this.db.deleteServicio().then(res => {
             this.db.addServicio(this.serviciodesdeApi).then(res => { })
-            .catch(e => {
-              console.log("error this.db.addServicio", e);
-            });
-           });;
-          
+              .catch(e => {
+                console.log("error this.db.addServicio", e);
+              });
+          });;
+
         }
         else {
-          console.log("modifica",s)
+          console.log("modifica", s)
           this.db.updateServicio(this.serviciodesdeApi).then(res => { }).catch(e => {
             console.log("error this.db.updateServicio", e);
           });
@@ -461,7 +459,7 @@ this.db.fetchServicios().subscribe(item => {//s solo para saber si esta en la bd
 
   }
   Firmar(tipo) {
-    
+
     this.router.navigate(['/firma', { firmanteTipo: tipo }]);
   }
   LimpiarFirmas() {
@@ -510,6 +508,5 @@ this.db.fetchServicios().subscribe(item => {//s solo para saber si esta en la bd
     });
 
   }
-  ionViewWillEnter ()
-  { console.log("*** ionViewWillEnter");}
+  ionViewWillEnter() { console.log("*** ionViewWillEnter"); }
 }

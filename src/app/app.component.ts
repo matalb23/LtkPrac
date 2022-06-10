@@ -30,9 +30,9 @@ export class AppComponent {
 
     //   console.log("Servicios.length;",Servicios.length)
     // })
-
+    this.UsuarioNombre = this.settings.getValue(SettingsService.setting_UserName);
     this.platform.ready().then(() => {
-      this.UsuarioNombre = this.settings.getValue(SettingsService.setting_UserName);
+     
   
       var user = {} as User;
       user.login = this.settings.getValue(SettingsService.setting_User);
@@ -107,6 +107,8 @@ export class AppComponent {
 */
 this.router.navigateByUrl('login');
 
+  }
+  ionViewDidEnter() {
   }
   // initializeApp() {
   // } 
