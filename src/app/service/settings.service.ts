@@ -37,6 +37,8 @@ export class SettingsService  {constructor(
   getValue(key: string) {
      return localStorage.getItem(key);
   }
+  getUrlGuardia()
+  { return "http://ltkprac.riopar.com.ar/autologin?login=guardia&password=Multi2021$"}
 
 
 

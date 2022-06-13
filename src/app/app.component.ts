@@ -65,9 +65,11 @@ export class AppComponent {
  }
   irHistorico() {
     this.router.navigateByUrl('tabs/historico');//Guardia
+
  }
- irGuardia() {
-    this.router.navigateByUrl('tabs/guardia');//Guardia
+ async  irGuardia() {
+//    this.router.navigateByUrl('tabs/guardia');//Guardia
+    await Browser.open({ 'url': this.settings.getUrlGuardia() });
  }
 
 

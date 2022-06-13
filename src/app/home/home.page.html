@@ -44,8 +44,10 @@
       </ng-template>
       <div class="botones-home">  <!--class="botones-home"-->
         <!-- <button class="bot-right" [navPush]="guardia"> GUARDIA </button> -->
-        <ion-button expand="block"  class="" routerLink="/tabs/guardia" routerDirection="root" style="margin-bottom: 10px;">GUARDIA</ion-button>
         <!-- <button class="bot-right"(click)="irLink()"> HISTÓRICO </button> -->
+
+        <!-- <ion-button expand="block"  class="" routerLink="/tabs/guardia" routerDirection="root" style="margin-bottom: 10px;">GUARDIA</ion-button>         -->
+        <ion-button expand="block"  class="" (click)="irGuardia()" routerDirection="root" style="margin-bottom: 10px;">GUARDIA</ion-button>        
         <ion-button expand="block"  class="" routerLink="/tabs/historico" routerDirection="root">SERVICIOS HISTÓRICOS</ion-button>
       </div>
 

@@ -85,6 +85,9 @@ this.mensajeSinServicio="";
 
   
 
+  async irGuardia() {
+    await Browser.open({ 'url': this.settings.getUrlGuardia() });
+  }
   async irLink() {
     let parurl = "http://infobae.com/"
     if (parurl.includes("////") || parurl.includes("\\\\")) {
