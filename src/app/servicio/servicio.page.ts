@@ -310,7 +310,7 @@ export class ServicioPage implements OnInit {
 
       if (res.length) {
         res.forEach(demora => {
-          if (demora.id == this.db.TransferidoNOValor) {
+          if (demora.id == this.db.TransferidoNOValor || demora.eliminado==1) {
             demorasnuevas.push(demora);
           }
         })
@@ -322,7 +322,7 @@ export class ServicioPage implements OnInit {
 
       if (res.length) {
         res.forEach(maniobra => {
-          if (maniobra.id == this.db.TransferidoNOValor) {
+          if (maniobra.id == this.db.TransferidoNOValor  || maniobra.eliminado==1) {
             maniobrasnuevas.push(maniobra);
           }
         })

@@ -8,6 +8,9 @@ import { SettingsService } from '../service/settings.service';
 import { ApiService } from '../service/api.service';
 import { ModalController } from '@ionic/angular';
 import { Demora } from '../service/demora';
+
+import { AlertController } from '@ionic/angular';
+
 @Component({
   selector: 'app-servicio-demoras',
   templateUrl: './servicio-demoras.page.html',
@@ -16,7 +19,8 @@ import { Demora } from '../service/demora';
 export class ServicioDemorasPage implements OnInit {
   public currentTipo: number;
   
-  demoras: any
+  //demoras: any
+  demoras:Demora[];
   mainForm: FormGroup;
   tipos: any;
   fechaTemp;
@@ -32,6 +36,7 @@ export class ServicioDemorasPage implements OnInit {
     private settings: SettingsService,
     private api: ApiService,
     public modalCtrl: ModalController,
+    public alertController: AlertController
 
   ) { }
 
@@ -129,8 +134,33 @@ export class ServicioDemorasPage implements OnInit {
     });
 
   }
-  eliminar(id,idInterno){//idInterno
-    this.db.demoraBajaLogica(id,idInterno).then(res=>{});
+  async eliminar(id,idInterno){//idInterno
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirme!',
+      message: '<strong>¿Esta seguro de eliminar la demora?</strong>',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+           //codigo en el cancel
+          }
+        }, {
+          text: 'Eliminar',
+          id: 'confirm-button',
+          handler: () => {
+          //codigo en el ok
+          this.db.demoraBajaLogica(id,idInterno).then(res=>{});
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+   
   }
 
 
@@ -138,7 +168,7 @@ export class ServicioDemorasPage implements OnInit {
     this.api.get("api/Demora?login=" + this.settings.getValue(SettingsService.setting_User) + "&Servicio=" + this.codigoservicio).subscribe((data) => {
       console.log("Busca Demora y actualiza bd local:", data)
 
-      this.demoras = data;
+      this.demoras =  <Demora[]><unknown>data;
 
       if (data !== null) {//tengo que actualizar         
 
@@ -159,7 +189,15 @@ export class ServicioDemorasPage implements OnInit {
       }
     });
     this.db.fetchDemoras().subscribe(res => {
-      this.demoras = res
+      this.demoras =[];
+      if (res.length) {
+        res.forEach(demora => {
+          if (demora.eliminado == 0) {
+          this.demoras.push(demora);
+          }
+        })
+      }
+    //  this.demoras = res
       console.log("Demoras  bd local:", res)
     })
   }

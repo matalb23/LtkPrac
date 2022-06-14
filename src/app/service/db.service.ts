@@ -186,7 +186,8 @@ export class DbService {
     });
   }
   getDemoras() {
-    return this.storage.executeSql('SELECT * FROM demoras where eliminado=0', []).then(res => {
+    //where eliminado=0
+    return this.storage.executeSql('SELECT * FROM demoras ', []).then(res => {
       let items: Demora[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) {
@@ -208,7 +209,8 @@ export class DbService {
     });
   }
   getManiobras() {
-    return this.storage.executeSql('SELECT * FROM maniobras where eliminado=0', []).then(res => {
+    //where eliminado=0
+    return this.storage.executeSql('SELECT * FROM maniobras ', []).then(res => {
       let items: Maniobra[] = [];
       if (res.rows.length > 0) {
         for (var i = 0; i < res.rows.length; i++) {

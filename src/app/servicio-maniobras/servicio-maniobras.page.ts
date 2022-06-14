@@ -9,6 +9,7 @@ import { ApiService } from '../service/api.service';
 import { ModalController } from '@ionic/angular';
 import { Maniobra } from '../service/maniobra';
 
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-servicio-maniobras',
   templateUrl: './servicio-maniobras.page.html',
@@ -18,7 +19,7 @@ export class ServicioManiobrasPage implements OnInit {
 
   public currentTipo: number;
   
-  maniobras: any
+  maniobras: Maniobra[]
   mainForm: FormGroup;
   tipos: any;
   fechaTemp;
@@ -34,7 +35,7 @@ export class ServicioManiobrasPage implements OnInit {
     private settings: SettingsService,
     private api: ApiService,
     public modalCtrl: ModalController,
-
+    public alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -115,8 +116,33 @@ export class ServicioManiobrasPage implements OnInit {
     })
     
   }
-  eliminar(id,idInterno){
-    this.db.maniobraBajaLogica(id,idInterno).then(res=>{});
+ async eliminar(id,idInterno){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirme!',
+      message: '<strong>¿Esta seguro de eliminar la maniobra?</strong>',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+           //codigo en el cancel
+          }
+        }, {
+          text: 'Eliminar',
+          id: 'confirm-button',
+          handler: () => {
+          //codigo en el ok
+          this.db.maniobraBajaLogica(id,idInterno).then(res=>{});
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
   }
   selectChanged(tipo) {
     this.selectedtipo = tipo;
@@ -139,7 +165,7 @@ export class ServicioManiobrasPage implements OnInit {
     this.api.get("api/Maniobra?login=" + this.settings.getValue(SettingsService.setting_User) + "&Servicio=" + this.codigoservicio).subscribe((data) => {
       console.log("Busca Maniobra y actualiza bd local:", data)
 
-      this.maniobras = data;
+      this.maniobras =<Maniobra[]><unknown> data;
 
       if (data !== null) {//tengo que actualizar         
 
@@ -160,7 +186,14 @@ export class ServicioManiobrasPage implements OnInit {
       }
     });
     this.db.fetchManiobras().subscribe(res => {
-      this.maniobras = res
+      this.maniobras =[];
+      if (res.length) {
+        res.forEach(maniobra => {
+          if (maniobra.eliminado == 0) {
+          this.maniobras.push(maniobra);
+          }
+        })
+      }
       console.log("Maniobras  bd local:", res)
     })
   }

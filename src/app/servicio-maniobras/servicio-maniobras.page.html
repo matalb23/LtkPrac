@@ -77,10 +77,11 @@
             Fecha <span class="card-notificaciones-det-user"> {{ maniobra.fecha | date: 'dd/MM/yyyy H:mm' }}</span>
           </div>
 
-          <!-- <ion-label class="card-notificaciones-tit">Eliminado</ion-label>
-          <div class="card-notificaciones-txt card-notificaciones-div-footer" (click)="eliminar(maniobra.id,maniobra.idInterno)" >
+          <ion-label class="card-notificaciones-tit">Eliminar</ion-label>
+          <!-- <div class="card-notificaciones-txt card-notificaciones-div-footer" (click)="eliminar(maniobra.id,maniobra.idInterno)" >
             {{ maniobra.idInterno}}                
           </div> -->
+          <ion-icon name="close-circle-sharp" (click)="eliminar(maniobra.id,maniobra.idInterno)"></ion-icon>
 
         </ion-card-content>
       </ion-card>

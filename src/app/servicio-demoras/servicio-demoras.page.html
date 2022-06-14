@@ -84,10 +84,11 @@
               Fecha <span class="card-notificaciones-det-user"> {{ demora.fecha | date: 'dd/MM/yyyy H:mm' }}</span>
             </div>
 
-            <!-- <ion-label class="card-notificaciones-tit">Eliminado</ion-label>
-            <div class="card-notificaciones-txt card-notificaciones-div-footer" (click)="eliminar(demora.id,demora.idInterno)" >
+            <ion-label class="card-notificaciones-tit">Eliminar</ion-label>
+            <!-- <div class="card-notificaciones-txt card-notificaciones-div-footer" (click)="eliminar(demora.id,demora.idInterno)" >
               {{ demora.idInterno}}                
-            </div> -->
+            </div>  -->
+            <ion-icon name="close-circle-sharp" (click)="eliminar(demora.id,demora.idInterno)"></ion-icon>
 
           </ion-card-content>
         </ion-card>
