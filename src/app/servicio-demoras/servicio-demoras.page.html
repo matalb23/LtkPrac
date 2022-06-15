@@ -66,16 +66,27 @@
         <ion-col>
         <ion-card>
           <ion-card-content>
-            <ion-label class="card-notificaciones-tit">Tipo de Demora</ion-label>
-            <div class="card-notificaciones-txt card-notificaciones-div-footer" >
-              {{ demora.tipoDescripcion}}              
-            </div>
-            <ion-label class="card-notificaciones-tit">Nota</ion-label>
-            <div class="card-notificaciones-txt card-notificaciones-div-footer" >
+
+            <ion-grid style="padding: 0px;">
+              <ion-row style="padding: 0px; border-bottom: 1px solid grey; margin-bottom: 5px;">
+                <ion-col size="10">
+                  <ion-label class="card-notificaciones-txt">Tipo de Demora</ion-label>
+                  <div class="card-notificaciones-tit" >
+                    {{ demora.tipoDescripcion}}              
+                  </div>
+                </ion-col>
+                <ion-col size="2">
+                 <ion-icon name="trash-outline" (click)="eliminar(demora.id,demora.idInterno)" style="color:red;font-size: 32px; position: relative;top: 10px;right: 0px; float: right;"></ion-icon>  
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+            <ion-label class="card-notificaciones-txt">Nota</ion-label>
+            <div class="card-notificaciones-tit card-notificaciones-div-footer" >
               {{ demora.nota}}              
             </div>
-            <ion-label class="card-notificaciones-tit">Horas</ion-label>
-            <div class="card-notificaciones-txt card-notificaciones-div-footer" >
+            <ion-label class="card-notificaciones-txt">Horas</ion-label>
+            <div class="card-notificaciones-tit card-notificaciones-div-footer" >
               {{ demora.horasDeDemora}}          
                   
             </div>
@@ -84,12 +95,12 @@
               Fecha <span class="card-notificaciones-det-user"> {{ demora.fecha | date: 'dd/MM/yyyy H:mm' }}</span>
             </div>
 
-            <ion-label class="card-notificaciones-tit">Eliminar</ion-label>
+            <!-- <ion-label class="card-notificaciones-tit">Eliminar</ion-label> -->
             <!-- <div class="card-notificaciones-txt card-notificaciones-div-footer" (click)="eliminar(demora.id,demora.idInterno)" >
               {{ demora.idInterno}}                
             </div>  -->
-            <ion-icon name="close-circle-sharp" (click)="eliminar(demora.id,demora.idInterno)"></ion-icon>
-
+            <!-- <ion-icon name="trash-outline" (click)="eliminar(demora.id,demora.idInterno)" position="first" style="color:red;font-size: 32px;"></ion-icon> -->
+            <!-- <ion-label class="card-notificaciones-tit" (click)="eliminar(demora.id,demora.idInterno)">Eliminar</ion-label> -->
           </ion-card-content>
         </ion-card>
       </ion-col>

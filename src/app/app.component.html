@@ -38,7 +38,7 @@
        <ion-menu-toggle auto-hide="true">       
              
           <ion-item>
-            <ion-icon style="margin-left: 10px;" (click)="irServicio()" name="boat-outline" color="Primary" slot="start"></ion-icon>
+            <ion-icon style="margin-left: 10px;" (click)="irServicio()" name="navigate-outline" color="Primary" slot="start"></ion-icon>
             <ion-label style="font-size: 12px;" (click)="irServicio()">Servicio Asignado</ion-label>
           </ion-item>
 
@@ -70,6 +70,10 @@
             <ion-icon style="margin-left: 10px;" name="analytics-outline" slot="start"></ion-icon>
             <ion-label style="font-size: 12px;" (click)="irAlturaHoraria()">Horarios Mareas</ion-label>
           </ion-item>
+          <ion-item>
+            <ion-icon style="margin-left: 10px;" name="boat-outline" slot="start"></ion-icon>
+            <ion-label style="font-size: 12px;" (click)="irAIS()">AIS PNA</ion-label>
+          </ion-item>
       </ion-menu-toggle>
      
       <div style="padding:5px 0px 5px 20px; font-size: 10px; background: #ebebeb;"> PROXIMAMENTE </div>
@@ -92,7 +96,7 @@
 
       </ion-list>
       <div style="position: absolute; bottom: 0px;" class="version">
-        Versión 2.0.4
+        Versión 2.0.5
       </div>
     </ion-content>
   </ion-menu>

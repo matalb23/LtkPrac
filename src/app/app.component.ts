@@ -91,6 +91,15 @@ export class AppComponent {
 
     await Browser.open({ 'url': parurl });
   }
+  async irAIS() {
+    let parurl = "https://ais.prefecturanaval.gob.ar"
+    if (parurl.includes("////") || parurl.includes("\\\\")) {
+
+      parurl = parurl.replace("////", "//").replace("\\\\", "\\")
+    }
+
+    await Browser.open({ 'url': parurl });
+  }
   NoImplementado() {
     this.settings.Toast_presentWarnig("Metodo no Implementado.");
 

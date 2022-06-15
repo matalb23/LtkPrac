@@ -60,16 +60,27 @@
       <ion-col>
       <ion-card>
         <ion-card-content>
-          <ion-label class="card-notificaciones-tit">Tipo de Maniobra</ion-label>
-          <div class="card-notificaciones-txt card-notificaciones-div-footer" >
-            {{ maniobra.tipoDescripcion}}              
-          </div>
-          <ion-label class="card-notificaciones-tit">Nota</ion-label>
-          <div class="card-notificaciones-txt card-notificaciones-div-footer" >
+
+          <ion-grid style="padding: 0px;">
+            <ion-row style="padding: 0px; border-bottom: 1px solid grey; margin-bottom: 5px;">
+              <ion-col size="10">
+                <ion-label class="card-notificaciones-txt">Tipo de Maniobra</ion-label>
+                <div class="card-notificaciones-tit" >
+                  {{ maniobra.tipoDescripcion}}             
+                </div>
+              </ion-col>
+              <ion-col size="2">
+               <ion-icon name="trash-outline" (click)="eliminar(maniobra.id,maniobra.idInterno)" style="color:red;font-size: 32px; position: relative;top: 10px;right: 0px; float: right;"></ion-icon>  
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-label class="card-notificaciones-txt">Nota</ion-label>
+          <div class="card-notificaciones-tit card-notificaciones-div-footer" >
             {{ maniobra.nota}}              
           </div>
-          <ion-label class="card-notificaciones-tit">Cantidad</ion-label>
-          <div class="card-notificaciones-txt card-notificaciones-div-footer" >
+          <ion-label class="card-notificaciones-txt">Cantidad</ion-label>
+          <div class="card-notificaciones-tit card-notificaciones-div-footer" >
             {{ maniobra.cantidad}}                
           </div>
 
@@ -77,11 +88,11 @@
             Fecha <span class="card-notificaciones-det-user"> {{ maniobra.fecha | date: 'dd/MM/yyyy H:mm' }}</span>
           </div>
 
-          <ion-label class="card-notificaciones-tit">Eliminar</ion-label>
+          <!-- <ion-label class="card-notificaciones-tit">Eliminar</ion-label> -->
           <!-- <div class="card-notificaciones-txt card-notificaciones-div-footer" (click)="eliminar(maniobra.id,maniobra.idInterno)" >
             {{ maniobra.idInterno}}                
           </div> -->
-          <ion-icon name="close-circle-sharp" (click)="eliminar(maniobra.id,maniobra.idInterno)"></ion-icon>
+          <!-- <ion-icon name="close-circle-sharp" (click)="eliminar(maniobra.id,maniobra.idInterno)"></ion-icon> -->
 
         </ion-card-content>
       </ion-card>
