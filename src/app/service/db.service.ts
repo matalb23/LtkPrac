@@ -9,6 +9,7 @@ import { Maniobra } from './maniobra';
 import { tipoDemora } from './tipoDemora';
 import { tipoManiobra } from './tipoManiobra';
 import { Demora } from './demora';
+import { Practico } from './practico';
 import { Firma } from './firma';
 import { SettingsService } from '../service/settings.service';
 
@@ -24,6 +25,7 @@ export class DbService {
   demorasList = new BehaviorSubject([]);
   maniobrasList = new BehaviorSubject([]);
   tipoDemoraList = new BehaviorSubject([]);
+  practicoList = new BehaviorSubject([]);
   tipoManiobraList = new BehaviorSubject([]);
   firmasList = new BehaviorSubject([]);
     private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -84,6 +86,10 @@ export class DbService {
   fetchTipoDemora(): Observable<tipoDemora[]> {
     return this.tipoDemoraList.asObservable();
   }
+  
+  fetchPractico(): Observable<Practico[]> {
+    return this.practicoList.asObservable();
+  }
   fetchTipoManiobra(): Observable<tipoManiobra[]> {
     return this.tipoManiobraList.asObservable();
   }
@@ -102,6 +108,7 @@ export class DbService {
         .then(_ => {
           this.getServicios().then(res => { });;
           this.getTipoDemora().then(res => { });;
+          this.getPractico().then(res => { });;
           this.getTipoManiobra().then(res => { });;
           this.getDemoras().then(res => { });;
           this.getManiobras().then(res => { });;
@@ -201,7 +208,10 @@ export class DbService {
             tipoDescripcion: res.rows.item(i).tipoDescripcion,
             idInterno: res.rows.item(i).idInterno,
             transfirio: res.rows.item(i).transfirio,
-            eliminado: res.rows.item(i).eliminado
+            eliminado: res.rows.item(i).eliminado,
+            practicoAfectado: res.rows.item(i).practicoAfectado,
+            practicoAfectadoDescripcion: res.rows.item(i).practicoAfectadoDescripcion
+
           });
         }
       }
@@ -249,6 +259,23 @@ export class DbService {
       this.tipoManiobraList.next(items);
     });
   }
+  
+  getPractico() {
+
+    return this.storage.executeSql('SELECT * FROM practico', []).then(res => {
+      console.log("select practico", res)
+      let items: Practico[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          items.push({
+            id: res.rows.item(i).id,
+            nombre: res.rows.item(i).nombre
+          });
+        }
+      }
+      this.practicoList.next(items);
+    });
+  }
   getTipoDemora() {
     return this.storage.executeSql('SELECT * FROM tipoDemora', []).then(res => {
       let items: tipoDemora[] = [];
@@ -275,6 +302,19 @@ export class DbService {
       });
 
   }
+  addPractico(p: Practico) {
+
+    let data = [p.id, p.nombre];//,s.idInterno
+    console.log("addPractico", data)
+    return this.storage.executeSql('INSERT OR REPLACE INTO  practico (id,nombre) VALUES (?,?)', data)
+      .then(res => {
+        console.log("practico SUCCESS s:", p)
+        this.getPractico().then(res => { });
+        //return s;
+      });
+
+  }
+
 
   addTipoManiobra(s: tipoManiobra) {
 
@@ -323,6 +363,18 @@ export class DbService {
       });;
 
   }
+  
+  deleteAllPractico() {
+
+    return this.storage.executeSql("DELETE FROM practico;", [])
+      .then(xx => {
+        console.log("DELETE FROM practico", xx)
+        this.getTipoDemora();
+      }).catch(e => {
+        console.log("error deleteAllPractico", e);
+      });;
+
+  }
   deleteAllTipoManiobra() {
 
     return this.storage.executeSql("DELETE FROM tipoManiobra;", [])
@@ -337,9 +389,9 @@ export class DbService {
 
   addDemora(s: Demora) {
 
-    let data = [s.id, s.servicio, s.fecha, s.tipo, s.nota, s.horasDeDemora, s.tipoDescripcion, s.transfirio,0];//eliminado=0
+    let data = [s.id, s.servicio, s.fecha, s.tipo, s.nota, s.horasDeDemora, s.tipoDescripcion, s.transfirio,0,s.practicoAfectado,s.practicoAfectadoDescripcion];//eliminado=0
     console.log("addDemora", data)
-    return this.storage.executeSql('INSERT OR REPLACE INTO  demoras (Id,Servicio,Fecha,Tipo,Nota,HorasDeDemora,tipoDescripcion,transfirio,eliminado) VALUES (?,?,?,?,?,?,?,?,?)', data)
+    return this.storage.executeSql('INSERT OR REPLACE INTO  demoras (Id,Servicio,Fecha,Tipo,Nota,HorasDeDemora,tipoDescripcion,transfirio,eliminado,practicoAfectado,practicoAfectadoDescripcion) VALUES (?,?,?,?,?,?,?,?,?,?,?)', data)
       .then(res => {
         this.storage.executeSql('select last_insert_rowid() as id', []).then(res => {
           s.idInterno = res.rows.item(0).id;
@@ -486,6 +538,20 @@ console.log("updateServicio",s);
       })
     })
   }
+
+  CambiarPropietario(propietario,propietarioNombre) {
+
+    let sql: string = "";
+    let data = [propietario,propietarioNombre]
+    sql += "UPDATE servicios SET propietarioNombre=?,propietario=? "
+    
+    return this.storage.executeSql(sql,data).then(data => {
+      
+       this.getServicios().then((res) => {
+      })
+    })
+  }
+
 
   updateFirma(f: Firma) {
 

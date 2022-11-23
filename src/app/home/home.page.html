@@ -22,6 +22,11 @@
       <div style="width: 100%;">
         <p class="volanta">Editor de Servicio</p>
         <p class="nombre-editor">{{PropietarioNombre}}</p>
+
+        <ion-button *ngIf="cambiarPropietario" (click)="cambiarPropietario();" class="bot-full">
+          Cambiar Propietario
+        </ion-button>
+
       </div>
 
       <div style="width: 100%; margin-bottom: -10px;">

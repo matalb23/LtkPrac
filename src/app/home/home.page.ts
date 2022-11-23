@@ -118,5 +118,27 @@ this.mensajeSinServicio="";
 
   }
 
+  cambiarPropietario(){
+
+    
+    var data = '{ "login": "'+this.settings.getValue(SettingsService.setting_User) +'", "servicio": "'+ this.serviciodesdeApi.codigo + '"}';
+    console.log("cambiarPropietario",data)
+        this.api.post2("api/servicio/cambiarPropietario", data).subscribe((result) => {
+
+          var respuesta = JSON.parse(JSON.stringify(result));
+          this.db.CambiarPropietario(respuesta.respuesta.login,respuesta.respuesta.name).then(res=>{})
+          console.log("respuesta",respuesta.respuesta.login,respuesta.respuesta.name)
+        });
+     // })
+/*  
+      this.mostrarEliminarFirmas = false;
+      this.db.updateFirmasLimpiar().then(res => {
+        this.buscarSinfirmar();
+      }).catch(e => {
+        console.log("error updateFirmasLimpiar", e);
+      });
+  */
+    
+  }
   
 }

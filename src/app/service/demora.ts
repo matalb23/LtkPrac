@@ -10,4 +10,6 @@ export class Demora {
     idInterno:number;
     transfirio?: number;
     eliminado?: number;
+    practicoAfectado: number; 
+    practicoAfectadoDescripcion: string;
 }

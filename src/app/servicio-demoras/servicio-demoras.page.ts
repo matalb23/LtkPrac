@@ -10,6 +10,7 @@ import { ModalController } from '@ionic/angular';
 import { Demora } from '../service/demora';
 
 import { AlertController } from '@ionic/angular';
+import { Practico } from '../service/practico';
 
 @Component({
   selector: 'app-servicio-demoras',
@@ -18,13 +19,16 @@ import { AlertController } from '@ionic/angular';
 })
 export class ServicioDemorasPage implements OnInit {
   public currentTipo: number;
+  public currentPractico: number;
   
   //demoras: any
   demoras:Demora[];
   mainForm: FormGroup;
   tipos: any;
+  practicos: any;
   fechaTemp;
   selectedtipo: string;
+  selectedPractico:string;
   mensajeSinDemora: string
 
   @Input() codigoservicio: string;
@@ -46,6 +50,7 @@ export class ServicioDemorasPage implements OnInit {
 
       if (res) {
         this.getTipos();
+        this.getPracticosAfectado();
       }
     });
 
@@ -61,7 +66,8 @@ export class ServicioDemorasPage implements OnInit {
       fecha: [''],
       tipo: [''],
       nota: [''],
-      horasDeDemora: ['']
+      horasDeDemora: [''],
+      practicoAfectado: ['']
     })
 
 
@@ -71,8 +77,8 @@ export class ServicioDemorasPage implements OnInit {
       fecha: '',
       tipo: '',
       nota: '',
-      horasDeDemora: ''
-
+      horasDeDemora: '',
+      practicoAfectado: ''
     }
 
     )
@@ -80,12 +86,13 @@ export class ServicioDemorasPage implements OnInit {
   storeData() {
     let demora = <Demora><unknown>this.mainForm.value;
     var tipo = this.selectedtipo.split('-/-');
+    var practicoAfectado = this.selectedPractico.split('-/-');
     demora.fecha = this.fechaTemp.replace("T", " ");
     demora.id = this.db.TransferidoNOValor; //para que se elimine cuando venga de la api
     demora.transfirio = 0;
     demora.tipo = Number(tipo[0]);
     demora.tipoDescripcion = tipo[1];
-
+    demora.practicoAfectado = Number(practicoAfectado[0]);
     this.db.addDemora(demora)
       .then((res) => {
         console.log("demora luedo de graba", demora)
@@ -115,9 +122,23 @@ export class ServicioDemorasPage implements OnInit {
     this.db.fetchTipoDemora().subscribe(res => {
       this.tipos = res;
       console.log("fetchTipoDemora  bd local:", res)
-    })
-    
+    })    
   }
+  getPracticosAfectado() {
+    this.db.fetchPractico().subscribe(res => {
+      this.practicos = res;
+      let pAmbos= new Practico
+      pAmbos.id=3//1=practico1;2=Practico2; 3 Ambos
+      pAmbos.nombre="AMBOS"      
+      this.practicos.push(pAmbos);
+      console.log("getPracticosAfectado  bd local:", res)
+    })    
+  }
+  selectChangedPractico(practico) {
+    this.selectedPractico = practico;
+    console.log("selectChangedPractico:" + practico);
+
+  };
   selectChanged(tipo) {
     this.selectedtipo = tipo;
     console.log("selectedgrupo:" + tipo);

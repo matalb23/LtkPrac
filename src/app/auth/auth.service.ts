@@ -103,6 +103,8 @@ export class AuthService {
           }
         })//elimino previante los ue vinieon de la api y los vuelvo a poner  
 
+        
+
 
           this.db.deleteAllTipoManiobra().then(res => {    
             console.log( "data.tipoManiobra",data.tipoManiobra)

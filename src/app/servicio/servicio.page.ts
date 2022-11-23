@@ -402,6 +402,20 @@ export class ServicioPage implements OnInit {
       this.serviciodesdeApi = <Servicio><unknown>data;
 
       if (data !== null) {//tengo que actualizar         
+
+        this.db.deleteAllPractico().then(res => {            
+          for (let practico of  this.serviciodesdeApi.practicos) {
+           console.log( "data.tipoDemora",this.serviciodesdeApi.practicos)
+              this.db.addPractico(practico).then(res => { })
+                .catch(e => {
+                  console.log("error this.db.addPractico", e);
+                })           
+              .catch(e => {
+                console.log("error this.db.deleteAllPractico", e);
+              });  
+          }
+        })
+
         this.serviciodesdeApi.transfirio = 1;
         this.cargarPropietario(this.serviciodesdeApi.propietario);
         if (s.length == 0)
@@ -444,6 +458,8 @@ export class ServicioPage implements OnInit {
           });
         this.mensajeSinServicio = "No posee servicios asignados.";
       }
+
+      
     }
       ,
       (err: any) => {
@@ -509,4 +525,8 @@ export class ServicioPage implements OnInit {
 
   }
   ionViewWillEnter() { console.log("*** ionViewWillEnter"); }
+  isReadonly() {
+    return true;  //return true/false 
+  }
+
 }

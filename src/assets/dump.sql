@@ -56,7 +56,9 @@ CREATE TABLE IF NOT EXISTS demoras(
     tipoDescripcion text null,
     idInterno INTEGER PRIMARY KEY AutoIncrement,
     transfirio bit,
-    eliminado bit
+    eliminado bit,
+    practicoAfectado int null,
+    practicoAfectadoDescripcion text null
     
 );
 
@@ -83,4 +85,8 @@ CREATE TABLE IF NOT EXISTS tipoManiobra(
 CREATE TABLE IF NOT EXISTS tipoDemora(
     id integer null ,        
     descripcion text null
+);
+CREATE TABLE IF NOT EXISTS practico(
+    id integer null ,        
+    nombre text null
 );

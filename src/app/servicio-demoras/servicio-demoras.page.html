@@ -11,7 +11,7 @@
        <!-- <ion-item button="true" id="open-date-input-Fecha">
           <ion-label>Fecha </ion-label>
           <ion-text slot="end">{{ fechaTemp }}</ion-text>
-          <ion-popover trigger="open-date-input-Fecha" show-backdrop="false">
+          <ion-popover trigger="open-date-input-Fecha" show-backdrop="false">--
             <ng-template>
               <ion-datetime  formControlName="fecha"  locale="es-AR" #popoverDatetimefechaInicioTemp presentation="time-date"
                 (ionChange)="fechaTemp = popoverDatetimefechaInicioTemp.value; popoverDatetimefechaInicioTemp.confirm(true);">
@@ -38,6 +38,13 @@
           <ion-select cancelText="CANCELAR" interface="action-sheet" #mySelect required [(ngModel)]="currentTipo" (ionChange)="selectChanged(mySelect.value)" name="tipo" formControlName="tipo">                  
                          <ion-select-option *ngFor="let Item of tipos"  [value]="Item.id+'-/-'+Item.descripcion"  >
                            <span>{{Item.descripcion}}</span></ion-select-option>                                 
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Practico Afectado</ion-label>
+          <ion-select cancelText="CANCELAR" interface="action-sheet" #mySelectpractico required [(ngModel)]="currentPractico" (ionChange)="selectChangedPractico(mySelectpractico.value)" name="practicoAfectado" formControlName="practicoAfectado">                  
+                         <ion-select-option *ngFor="let Item of practicos"  [value]="Item.id+'-/-'+Item.nombre"  >
+                           <span>{{Item.nombre}}</span></ion-select-option>                                 
           </ion-select>
         </ion-item>
 
@@ -85,6 +92,11 @@
             <div class="card-notificaciones-tit card-notificaciones-div-footer" >
               {{ demora.nota}}              
             </div>
+            <ion-label class="card-notificaciones-txt">Practico Afectado</ion-label>
+            <div class="card-notificaciones-tit card-notificaciones-div-footer" >
+              {{ demora.practicoAfectadoDescripcion}}              
+            </div>
+
             <ion-label class="card-notificaciones-txt">Horas</ion-label>
             <div class="card-notificaciones-tit card-notificaciones-div-footer" >
               {{ demora.horasDeDemora}}          
@@ -95,6 +107,8 @@
               Fecha <span class="card-notificaciones-det-user"> {{ demora.fecha | date: 'dd/MM/yyyy H:mm' }}</span>
             </div>
 
+
+            
             <!-- <ion-label class="card-notificaciones-tit">Eliminar</ion-label> -->
             <!-- <div class="card-notificaciones-txt card-notificaciones-div-footer" (click)="eliminar(demora.id,demora.idInterno)" >
               {{ demora.idInterno}}                

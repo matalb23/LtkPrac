@@ -1,6 +1,7 @@
 import { Demora } from "./demora";
 import { Firma } from "./firma";
 import { Maniobra } from "./maniobra";
+import { Practico } from "./practico";
 
 export class Servicio {
     codigo: number;
@@ -38,4 +39,5 @@ export class Servicio {
     maniobrasnuevas?:Maniobra[];
     fechaInicioNavegacion: string;
     fechaABordo: string;
+    practicos?:Practico[];
 }
