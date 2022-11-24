@@ -13,6 +13,67 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <form [formGroup]="mainForm" (ngSubmit)="cargarDatos()" style="padding-top: 50px;">
+
+    <!-- // OPEN CARD \\ -->
+    <div id="card-servicio-interna">
+      <p class="labels">Servicio</p>
+      <p class="card-info-interna">
+        <ion-input formControlName="servicio" type="number" readonly='false'>
+        </ion-input>
+      </p>
+      <p class="labels">Buque</p>
+      <p class="card-buque-interna">
+        <ion-input formControlName="buque" type="text" readonly='false'></ion-input>
+      </p>
+      <p class="labels">Bandera</p>
+      <p class="card-info-interna">
+        <ion-input formControlName="buqueBandera" type="text" readonly='false'>
+        </ion-input>
+      </p>
+      <ion-item button="true" id="open-date-input">
+        <ion-label>fechainicio</ion-label>
+        <ion-text slot="end">{{ fechainicio | date: 'dd/MM/yyyy HH:mm'   }}</ion-text>
+        <ion-popover trigger="open-date-input" show-backdrop="false">
+          <ng-template>
+            <ion-datetime   displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=trues 
+            cancelText="cancelar" doneText="aceptar" locale="es-AR"
+              #popoverDatetime
+              presentation="date"
+              (ionChange)="fechainicio = popoverDatetime.value; popoverDatetime.confirm(true);"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
+       </ion-item>
+       <ion-item button="true" id="open-date-inputfin">
+        <ion-label>fechafin</ion-label>
+        <ion-text slot="end">{{ fechafin | date: 'dd/MM/yyyy HH:mm'   }}</ion-text>
+        <ion-popover trigger="open-date-inputfin" show-backdrop="false">
+          <ng-template>
+            <ion-datetime   displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=trues 
+            cancelText="cancelar" doneText="aceptar" locale="es-AR"
+              #popoverDatetimefin
+              presentation="date"
+              (ionChange)="fechafin = popoverDatetimefin.value; popoverDatetimefin.confirm(true);"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
+       </ion-item>
+
+
+
+    </div>
+      
+    <ion-button type="submit" class="bot-full" color="success">
+     actualizar
+    </ion-button>
+    
+    <ion-button (click)="inicializarForm();" class="bot-full">
+      Limpiar 
+    </ion-button>
+
+</form>
   <!-- \\ CLOSE CABECERA // -->
 
 <!-- // OPEN SPACER \\ -->
