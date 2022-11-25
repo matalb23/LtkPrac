@@ -9,9 +9,9 @@ import { SettingsService } from './settings.service'
 })
 export class ApiService {
 
-   url: string = "http://10.0.0.33:45455"; //desarrollo
+ //  url: string = "http://10.0.0.33:45455"; //desarrollo
   //url: string = "https://constancias.riopar.com.ar";//multipar real
- //url: string = "http://docu.latikait.com.ar:45460"; //desarrollo publico
+ url: string = "http://docu.latikait.com.ar:45460"; //desarrollo publico
   
 
   constructor(public http: HttpClient, public settings: SettingsService) { }
