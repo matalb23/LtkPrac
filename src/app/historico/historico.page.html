@@ -14,26 +14,27 @@
     </ion-row>
   </ion-grid>
 
-  <form [formGroup]="mainForm" (ngSubmit)="cargarDatos()" style="padding-top: 50px;">
+  <form [formGroup]="mainForm" (ngSubmit)="cargarDatos()" style="position: relative; width: 100%;background: #e6e6e6;padding: 5%;top: 73px;">
 
-    <!-- // OPEN CARD \\ -->
-    <div id="card-servicio-interna">
-      <p class="labels">Servicio</p>
-      <p class="card-info-interna">
+    
+    <div>
+      <p class="labels" style="padding-bottom: 10px;font-weight: 700;">FILTROS PARA BUSCAR SERVICIOS HISTÓRICOS</p>
+      <p class="labels" style="margin-left: 18px;">Servicio</p>
+      <p class="card-info-interna" style="background: #fff; height: 41px; padding-left: 10px; font-size: 14px; padding-top: 7px;">
         <ion-input formControlName="servicio" type="number" readonly='false'>
         </ion-input>
       </p>
-      <p class="labels">Buque</p>
-      <p class="card-buque-interna">
+      <p class="labels" style="margin-left: 18px;margin-top:16px;">Buque</p>
+      <p class="card-buque-interna" style="background: #fff; height: 41px; padding-left: 10px; font-size: 14px; padding-top: 7px;width: 100%;">
         <ion-input formControlName="buque" type="text" readonly='false'></ion-input>
       </p>
-      <p class="labels">Bandera</p>
-      <p class="card-info-interna">
+      <p class="labels" style="margin-left: 18px;margin-top:16px;">Bandera</p>
+      <p class="card-info-interna" style="background: #fff; height: 41px; padding-left: 10px; font-size: 14px; padding-top: 7px;">
         <ion-input formControlName="buqueBandera" type="text" readonly='false'>
         </ion-input>
       </p>
-      <ion-item button="true" id="open-date-input">
-        <ion-label>fechainicio</ion-label>
+      <ion-item button="true" id="open-date-input" style="background: #cfcfcf; height: 41px; font-size: 14px; padding-top: 0px;margin-top: 7px;">
+        <ion-label class="labels" style="font-family: 'Raleway', sans-serif;  font-size: 11px;  color: #7D7D7D;">Fecha de Inicio</ion-label>
         <ion-text slot="end">{{ fechainicio | date: 'dd/MM/yyyy HH:mm'   }}</ion-text>
         <ion-popover trigger="open-date-input" show-backdrop="false">
           <ng-template>
@@ -46,8 +47,8 @@
           </ng-template>
         </ion-popover>
        </ion-item>
-       <ion-item button="true" id="open-date-inputfin">
-        <ion-label>fechafin</ion-label>
+       <ion-item button="true" id="open-date-inputfin" style="background: #cfcfcf; height: 41px; font-size: 14px; padding-top: 0px;margin-top: 7px;">
+        <ion-label class="labels" style="font-family: 'Raleway', sans-serif;  font-size: 11px;  color: #7D7D7D;">Fecha de Fin</ion-label>
         <ion-text slot="end">{{ fechafin | date: 'dd/MM/yyyy HH:mm'   }}</ion-text>
         <ion-popover trigger="open-date-inputfin" show-backdrop="false">
           <ng-template>
@@ -60,18 +61,17 @@
           </ng-template>
         </ion-popover>
        </ion-item>
-
-
-
     </div>
-      
-    <ion-button type="submit" class="bot-full" color="success">
-     actualizar
+   
+    <ion-button (click)="inicializarForm();" class="bot-full" style="width: 43% !important; font-size: 15px;">
+      Limpiar Filtros
+    </ion-button>
+
+    <ion-button type="submit" class="bot-full" color="success" style="width: 43% !important; font-size: 15px;">
+     Filtrar
     </ion-button>
     
-    <ion-button (click)="inicializarForm();" class="bot-full">
-      Limpiar 
-    </ion-button>
+   
 
 </form>
   <!-- \\ CLOSE CABECERA // -->

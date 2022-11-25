@@ -127,10 +127,10 @@ export class ServicioDemorasPage implements OnInit {
   getPracticosAfectado() {
     this.db.fetchPractico().subscribe(res => {
       this.practicos = res;
-      let pAmbos= new Practico
-      pAmbos.id=3//1=practico1;2=Practico2; 3 Ambos
-      pAmbos.nombre="AMBOS"      
-      this.practicos.push(pAmbos);
+      // let pAmbos= new Practico
+      // pAmbos.id=3//1=practico1;2=Practico2; 3 Ambos
+      // pAmbos.nombre="AMBOS"      
+      // this.practicos.push(pAmbos);
       console.log("getPracticosAfectado  bd local:", res)
     })    
   }
