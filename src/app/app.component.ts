@@ -16,6 +16,7 @@ import { Browser } from '@capacitor/browser';
 export class AppComponent {
 
   UsuarioNombre;
+  FechaUltimaConexionConApi;
 
   constructor(
     private platform: Platform,
@@ -26,11 +27,14 @@ export class AppComponent {
     private db: DbService
   ) {
 
-    // this.db.fetchServicios().subscribe(Servicios => {//s solo para saber si esta en la bd
+    this.settings.fetchUserNameGet().subscribe(res=>{
+      this.UsuarioNombre=res
+    })
 
-    //   console.log("Servicios.length;",Servicios.length)
-    // })
-    this.UsuarioNombre = this.settings.getValue(SettingsService.setting_UserName);
+    this.settings.fetchUltimaConexionApiGet().subscribe(res=>{
+      this.FechaUltimaConexionConApi=res
+    })
+    //this.FechaUltimaConexionConApi=this.settings.getValue(SettingsService.setting_UltimaConexionApi);
     this.platform.ready().then(() => {
      
   
@@ -91,6 +95,24 @@ export class AppComponent {
 
     await Browser.open({ 'url': parurl });
   }
+  async irPronosticoMareologico() {
+    let parurl = "http://www.hidro.gob.ar/oceanografia/pronostico.asp"
+    if (parurl.includes("////") || parurl.includes("\\\\")) {
+
+      parurl = parurl.replace("////", "//").replace("\\\\", "\\")
+    }
+
+    await Browser.open({ 'url': parurl });
+  }
+  async irProfundidadesMinimas() {
+    let parurl = "https://www.argentina.gob.ar/puertos-vias-navegables-y-marina-mercante/planilla-de-determinantes"
+    if (parurl.includes("////") || parurl.includes("\\\\")) {
+
+      parurl = parurl.replace("////", "//").replace("\\\\", "\\")
+    }
+
+    await Browser.open({ 'url': parurl });
+  }
   async irAIS() {
     let parurl = "https://ais.prefecturanaval.gob.ar"
     if (parurl.includes("////") || parurl.includes("\\\\")) {
@@ -107,6 +129,15 @@ export class AppComponent {
   cerrarSesion() {
     this.settings.setValue(SettingsService.setting_User, null);
     this.settings.setValue(SettingsService.setting_UserPass, null);
+    this.settings.setValue(SettingsService.setting_Token, null);
+    this.settings.setValue(SettingsService.setting_TokenExpiresIn, null);
+    this.settings.setValue(SettingsService.setting_UserPracticoId, null);
+   
+    
+    this.settings.fetchUltimaConexionApiSet(null);
+    this.settings.fetchUserNameSet(null);
+    
+
 //hago lo siguiente para que la apk reconstruya la bd si es que hubo cambios en la bd
     this.db.deleteDatabase();/*.then(res => {
       console.log("dropTable  res",res)

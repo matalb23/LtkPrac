@@ -23,16 +23,18 @@
       <img src="assets/img/app-indicator.svg">
       <!--<ion-label>Mensajes</ion-label>-->
     </ion-tab-button>
-    <div *ngIf="NetworkStatus!=null">
-      <div *ngIf="NetworkStatus.connected"> 
-      <!-- PONER ICONO ACA TIENE CONEXION-->
-      C:SI
-    </div>
-    <div *ngIf="!NetworkStatus.connected"> 
-      <!-- PONER ICONO ACA NO TIENE CONEXION-->
-      C:NO
-    </div>
-  </div>
+
+    <ion-tab-button> 
+      <div *ngIf="NetworkStatus!=null">
+        <div *ngIf="NetworkStatus.connected">    <!-- PONER ICONO ACA TIENE CONEXION-->
+          <img src="assets/img/Conectado.svg">
+        </div>
+        <div *ngIf="!NetworkStatus.connected"> <!-- PONER ICONO ACA NO TIENE CONEXION-->
+          <img src="assets/img/Desconectado.svg">
+        </div>
+      </div>
+    </ion-tab-button>
+    
   </ion-tab-bar>
 
 </ion-tabs>

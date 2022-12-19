@@ -41,6 +41,12 @@ export class HttpConfigInterceptor implements HttpInterceptor {
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
 
+        
+          
+          
+        //  this.settings.fetchUltimaConexionApiSet(new Date().toISOString().replace("T", " "));
+          this.settings.fetchUltimaConexionApiSet(new Date().toLocaleString());
+
           if (this.isUpload && this.settings.getValue(SettingsService.setting_Interceptor_ShowToast) == '1')
             this.settings.Toast_presentSuccess("Guardo y Sincronizó con exito");
 

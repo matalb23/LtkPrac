@@ -2,7 +2,7 @@
   <!--<ion-router-outlet></ion-router-outlet>-->
 
   <ion-menu type="overlay" side="start" menuId="first" contentId="main"> 
-    <ion-header>
+    <ion-header style="margin-bottom:-8px">
       <ion-toolbar color="primary">
         <ion-grid>    
           <ion-row>
@@ -13,7 +13,8 @@
             <div style="width: 100%;">              
               <span class="menu-hola" width="100%">Hola {{UsuarioNombre}}</span> 
               <br>
-              <span class="menu-hola-linea2">Bienvenido a LTKPrac</span>
+              <span class="menu-hola-linea2">Bienvenido a LTKPrac</span>           
+              <!-- {{ FechaUltimaConexionConApi | date: 'dd/MM/yyyy HH:mm' }}  -->
             </div>
           </ion-col>
           <ion-col size="12">
@@ -35,7 +36,10 @@
     <ion-content>
       
       <ion-list>
-       <ion-menu-toggle auto-hide="true">       
+      
+      <div style="padding:5px 0px 5px 20px; font-size: 10px; background: #96db9a; color:#000"> {{ FechaUltimaConexionConApi | date: 'dd/MM/yyyy HH:mm'   }} </div>
+      
+      <ion-menu-toggle auto-hide="true">       
              
           <ion-item>
             <ion-icon style="margin-left: 10px;" (click)="irServicio()" name="navigate-outline" color="Primary" slot="start"></ion-icon>
@@ -62,6 +66,14 @@
         <div style="padding:5px 0px 5px 20px; font-size: 10px; background: #ebebeb;"> LINKS DE INTERÉS </div>
       
       <ion-menu-toggle auto-hide="true">          
+          <ion-item style="border-bottom: 0px;">
+            <ion-icon style="margin-left: 10px;" src="assets/img/mareas.svg" slot="start"></ion-icon>
+            <ion-label style="font-size: 12px;border-bottom: 1px;" (click)="irPronosticoMareologico()">Pronóstico Mareológico</ion-label>
+          </ion-item>
+          <ion-item style="border-bottom: 0px;">
+            <ion-icon style="margin-left: 10px;" src="assets/img/profundidadesminimas.svg" slot="start"></ion-icon>
+            <ion-label style="font-size: 12px;border-bottom: 1px;" (click)="irProfundidadesMinimas()">Profundidades Mínimas</ion-label>
+          </ion-item>
           <ion-item>
             <ion-icon style="margin-left: 10px;" name="partly-sunny-outline" slot="start"></ion-icon>
             <ion-label style="font-size: 12px;" (click)="irClima()">Clima</ion-label>
@@ -70,10 +82,10 @@
             <ion-icon style="margin-left: 10px;" name="analytics-outline" slot="start"></ion-icon>
             <ion-label style="font-size: 12px;" (click)="irAlturaHoraria()">Horarios Mareas</ion-label>
           </ion-item>
-          <ion-item>
+          <!--<ion-item>
             <ion-icon style="margin-left: 10px;" name="boat-outline" slot="start"></ion-icon>
             <ion-label style="font-size: 12px;" (click)="irAIS()">AIS PNA</ion-label>
-          </ion-item>
+          </ion-item>-->
       </ion-menu-toggle>
      
       <div style="padding:5px 0px 5px 20px; font-size: 10px; background: #ebebeb;"> PROXIMAMENTE </div>
@@ -96,8 +108,9 @@
 
       </ion-list>
       <div style="position: absolute; bottom: 0px;" class="version">
-        Versión 2.0.5
+        Versión 2.0.7.1
       </div>
+
     </ion-content>
   </ion-menu>
 

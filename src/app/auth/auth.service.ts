@@ -88,7 +88,8 @@ export class AuthService {
 
         this.api.get("api/usuario?login=" + this.settings.getValue(SettingsService.setting_User)).subscribe(( data:any) => {
           console.log("datos del usuario",data)
-          this.settings.setValue(SettingsService.setting_UserName, data.name);
+         
+          this.settings.fetchUserNameSet(data.name);
           this.settings.setValue(SettingsService.setting_UserPracticoId, data.practicoId);     
           this.db.deleteAllTipoDemora().then(res => {            
           for (let tipo of data.tipoDemora) {

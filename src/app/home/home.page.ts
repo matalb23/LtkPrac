@@ -79,7 +79,10 @@ this.mensajeSinServicio="";
       }
     });
     
-     this.UsuarioNombre = this.settings.getValue(SettingsService.setting_UserName);
+     
+     this.settings.fetchUserNameGet().subscribe(res=>{
+      this.UsuarioNombre=res
+    })
 
   }
 

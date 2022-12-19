@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ToastController  } from '@ionic/angular';
+import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsService  {constructor(
   private toastCtrl: ToastController,
-) {}
+) {
+
+  
+ 
+
+}
+UltimaConexionApi = new BehaviorSubject([]);
+UserName = new BehaviorSubject([]);
 
   public static setting_Token="ACCESS_TOKEN";
   public static setting_TokenExpiresIn="EXPIRES_IN";
   public static setting_User="USER";
-  public static setting_UserName="USERNAME";
+  //public static setting_UserName="USERNAME";
   public static setting_UserPracticoId="USER_PRACTICOID";
   public static setting_UserPass="pass";
   public static setting_TokenFCM="setting_TokenFCM";
@@ -20,6 +28,7 @@ export class SettingsService  {constructor(
   public static setting_PracticoConServicio="0";
   public static setting_ServiciosCantidad="0";
   public static setting_NetworkConnected="setting_NetworkConnected";
+  //public static setting_UltimaConexionApi="setting_UltimaConexion";
   // public  templateForm :any;
  
   logout()
@@ -83,5 +92,20 @@ async Toast_presentSuccess(msg) {
   });
   toast.present();                     
 }  
+fetchUltimaConexionApiGet(): Observable<any> {
+  return this.UltimaConexionApi.asObservable();
+}
+fetchUltimaConexionApiSet( fecha) {
+  //if(fecha!=null)
+  
+
+  this.UltimaConexionApi.next(fecha);
+}
+fetchUserNameGet(): Observable<any> {
+  return this.UserName.asObservable();
+}
+fetchUserNameSet(name) {
+  this.UserName.next(name);
+}
 
 }

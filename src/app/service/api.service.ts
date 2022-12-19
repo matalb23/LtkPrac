@@ -10,8 +10,8 @@ import { SettingsService } from './settings.service'
 export class ApiService {
 
  //  url: string = "http://10.0.0.33:45455"; //desarrollo
-  //url: string = "https://constancias.riopar.com.ar";//multipar real
- url: string = "http://docu.latikait.com.ar:45460"; //desarrollo publico
+  url: string = "https://constancias.riopar.com.ar";//multipar real
+ //url: string = "http://docu.latikait.com.ar:45460"; //desarrollo publico
   
 
   constructor(public http: HttpClient, public settings: SettingsService) { }
@@ -43,7 +43,7 @@ export class ApiService {
     }
     else {
       console.log("GET no tiene red",endpoint)
-      this.settings.Toast_presentWarnig("No posee red para poder traer la informacion del servidor")
+      this.settings.Toast_presentWarnig("No está conectado a internet para poder traer la información del servidor")
       return EMPTY;
     }
 
@@ -61,7 +61,7 @@ export class ApiService {
     }
     else {
       console.log("Post no tiene red")
-      this.settings.Toast_presentWarnig("No posee red para poder enviar la informacion al servidor")
+      this.settings.Toast_presentWarnig("No está conectado a internet para poder traer la información del servidor")
       return EMPTY;
     }
   }
