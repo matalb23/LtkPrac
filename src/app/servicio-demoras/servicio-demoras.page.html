@@ -1,13 +1,13 @@
 <ion-content>
-  
-    <ion-list lines="full" style="padding: 10px 10px 10px 10px; background-color: rgb(46, 46, 46);">
-      <form [formGroup]="mainForm" (ngSubmit)="storeData()">        
+
+    <ion-list class="ios-demoras-maniobras" lines="full" style="padding: 10px 10px 10px 10px; background-color: rgb(46, 46, 46);">
+      <form [formGroup]="mainForm" (ngSubmit)="storeData()">
         <ion-item>
           <p class="cab-line1">Demora para Servicio: </p>
         <p class="cab-line2-servicio" style="margin-left: 10px;">  {{codigoservicio}}</p>
-        <ion-button (click)="close()" style="position: absolute; right: 5px;"><ion-icon name="close-outline"></ion-icon></ion-button>          
+        <ion-button (click)="close()" style="position: absolute; right: 5px;"><ion-icon name="close-outline"></ion-icon></ion-button>
         </ion-item>
-        
+
        <!-- <ion-item button="true" id="open-date-input-Fecha">
           <ion-label>Fecha </ion-label>
           <ion-text slot="end">{{ fechaTemp }}</ion-text>
@@ -24,7 +24,7 @@
           <ion-text slot="end">{{ fechaTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
           <ion-popover trigger="open-date-input-fechaTemp" show-backdrop="false" class="dateTimePopover" side="top" alignment="start" size="cover" >
             <ng-template>
-              <ion-datetime displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true 
+              <ion-datetime displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true
                cancelText="cancelar" doneText="aceptar" locale="es-AR"
                 #popoverDatetimefechaTemp presentation="time-date"
                 (ionChange)="fechaTemp = popoverDatetimefechaTemp.value;"></ion-datetime>
@@ -35,16 +35,16 @@
 
         <ion-item>
           <ion-label>Tipo</ion-label>
-          <ion-select cancelText="CANCELAR" interface="action-sheet" #mySelect required [(ngModel)]="currentTipo" (ionChange)="selectChanged(mySelect.value)" name="tipo" formControlName="tipo">                  
+          <ion-select cancelText="CANCELAR" interface="action-sheet" #mySelect required [(ngModel)]="currentTipo" (ionChange)="selectChanged(mySelect.value)" name="tipo" formControlName="tipo">
                          <ion-select-option *ngFor="let Item of tipos"  [value]="Item.id+'-/-'+Item.descripcion"  >
-                           <span>{{Item.descripcion}}</span></ion-select-option>                                 
+                           <span>{{Item.descripcion}}</span></ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
           <ion-label>Practico Afectado</ion-label>
-          <ion-select cancelText="CANCELAR" interface="action-sheet" #mySelectpractico required [(ngModel)]="currentPractico" (ionChange)="selectChangedPractico(mySelectpractico.value)" name="practicoAfectado" formControlName="practicoAfectado">                  
+          <ion-select cancelText="CANCELAR" interface="action-sheet" #mySelectpractico required [(ngModel)]="currentPractico" (ionChange)="selectChangedPractico(mySelectpractico.value)" name="practicoAfectado" formControlName="practicoAfectado">
                          <ion-select-option *ngFor="let Item of practicos"  [value]="Item.id+'-/-'+Item.nombre"  >
-                           <span>{{Item.nombre}}</span></ion-select-option>                                 
+                           <span>{{Item.nombre}}</span></ion-select-option>
           </ion-select>
         </ion-item>
 
@@ -58,7 +58,7 @@
           <ion-input formControlName="horasDeDemora" type="number" required class="info-grid"></ion-input>
         </ion-item>
 
-  
+
 
 
         <ion-button type="submit" expand="full">
@@ -79,28 +79,28 @@
                 <ion-col size="10">
                   <ion-label class="card-notificaciones-txt">Tipo de Demora</ion-label>
                   <div class="card-notificaciones-tit" >
-                    {{ demora.tipoDescripcion}}              
+                    {{ demora.tipoDescripcion}}
                   </div>
                 </ion-col>
                 <ion-col size="2">
-                 <ion-icon name="trash-outline" (click)="eliminar(demora.id,demora.idInterno)" style="color:red;font-size: 32px; position: relative;top: 10px;right: 0px; float: right;"></ion-icon>  
+                 <ion-icon name="trash-outline" (click)="eliminar(demora.id,demora.idInterno)" style="color:red;font-size: 32px; position: relative;top: 10px;right: 0px; float: right;"></ion-icon>
                 </ion-col>
               </ion-row>
             </ion-grid>
 
             <ion-label class="card-notificaciones-txt">Nota</ion-label>
             <div class="card-notificaciones-tit card-notificaciones-div-footer" >
-              {{ demora.nota}}              
+              {{ demora.nota}}
             </div>
             <ion-label class="card-notificaciones-txt">Practico Afectado</ion-label>
             <div class="card-notificaciones-tit card-notificaciones-div-footer" >
-              {{ demora.practicoAfectadoDescripcion}}              
+              {{ demora.practicoAfectadoDescripcion}}
             </div>
 
             <ion-label class="card-notificaciones-txt">Horas</ion-label>
             <div class="card-notificaciones-tit card-notificaciones-div-footer" >
-              {{ demora.horasDeDemora}}          
-                  
+              {{ demora.horasDeDemora}}
+
             </div>
 
             <div class="card-notificaciones-det">
@@ -108,17 +108,17 @@
             </div>
 
 
-            
+
             <!-- <ion-label class="card-notificaciones-tit">Eliminar</ion-label> -->
             <!-- <div class="card-notificaciones-txt card-notificaciones-div-footer" (click)="eliminar(demora.id,demora.idInterno)" >
-              {{ demora.idInterno}}                
+              {{ demora.idInterno}}
             </div>  -->
             <!-- <ion-icon name="trash-outline" (click)="eliminar(demora.id,demora.idInterno)" position="first" style="color:red;font-size: 32px;"></ion-icon> -->
             <!-- <ion-label class="card-notificaciones-tit" (click)="eliminar(demora.id,demora.idInterno)">Eliminar</ion-label> -->
           </ion-card-content>
         </ion-card>
       </ion-col>
-     
+
       </ion-row>
     </ion-grid>
     <ion-button (click)="close()" class="bot-full" >cerrar</ion-button>

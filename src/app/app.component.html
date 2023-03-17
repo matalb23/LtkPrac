@@ -1,19 +1,19 @@
 <ion-app>
   <!--<ion-router-outlet></ion-router-outlet>-->
 
-  <ion-menu type="overlay" side="start" menuId="first" contentId="main"> 
+  <ion-menu type="overlay" side="start" menuId="first" contentId="main">
     <ion-header style="margin-bottom:-8px">
       <ion-toolbar color="primary">
-        <ion-grid>    
+        <ion-grid>
           <ion-row>
             <ion-col size="2">
               <ion-icon name="person-circle-outline" style="color:#fff; font-size: 40px;"></ion-icon>
             </ion-col>
             <ion-col size="10">
-            <div style="width: 100%;">              
-              <span class="menu-hola" width="100%">Hola {{UsuarioNombre}}</span> 
+            <div style="width: 100%;">
+              <span class="menu-hola" width="100%">Hola {{UsuarioNombre}}</span>
               <br>
-              <span class="menu-hola-linea2">Bienvenido a LTKPrac</span>           
+              <span class="menu-hola-linea2">Bienvenido a LTKPrac</span>
               <!-- {{ FechaUltimaConexionConApi | date: 'dd/MM/yyyy HH:mm' }}  -->
             </div>
           </ion-col>
@@ -22,11 +22,11 @@
             <ion-menu-toggle auto-hide="true">
               <ion-item style="border-radius: 50px;height: 30px;" color="tertiary">
                 <ion-icon style="color: #fff; font-size: 16px;margin: 0px 10px 0px 0px;position: relative;top: -9px;" (click)="cerrarSesion()" name="exit-outline" slot="start"></ion-icon>
-                <ion-label  style="font-size: 10px;color: #fff;text-transform: uppercase;margin: 0px;position: relative;top: -8px;" (click)="cerrarSesion()">Cerrar Sesión</ion-label>  
+                <ion-label  style="font-size: 10px;color: #fff;text-transform: uppercase;margin: 0px;position: relative;top: -8px;" (click)="cerrarSesion()">Cerrar Sesión</ion-label>
               </ion-item>
             </ion-menu-toggle>
           <!-- </ion-list> -->
-            
+
           </ion-col>
           </ion-row>
         </ion-grid>
@@ -34,13 +34,13 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      
+
       <ion-list>
-      
+
       <div style="padding:5px 0px 5px 20px; font-size: 10px; background: #96db9a; color:#000"> {{ FechaUltimaConexionConApi | date: 'dd/MM/yyyy HH:mm'   }} </div>
-      
-      <ion-menu-toggle auto-hide="true">       
-             
+
+      <ion-menu-toggle auto-hide="true">
+
           <ion-item>
             <ion-icon style="margin-left: 10px;" (click)="irServicio()" name="navigate-outline" color="Primary" slot="start"></ion-icon>
             <ion-label style="font-size: 12px;" (click)="irServicio()">Servicio Asignado</ion-label>
@@ -61,11 +61,11 @@
             <ion-label  style="font-size: 12px;" (click)="cerrarSesion()">Cerrar Sesión</ion-label>
           </ion-item> -->
 
-      </ion-menu-toggle> 
+      </ion-menu-toggle>
 
         <div style="padding:5px 0px 5px 20px; font-size: 10px; background: #ebebeb;"> LINKS DE INTERÉS </div>
-      
-      <ion-menu-toggle auto-hide="true">          
+
+      <ion-menu-toggle auto-hide="true">
           <ion-item style="border-bottom: 0px;">
             <ion-icon style="margin-left: 10px;" src="assets/img/mareas.svg" slot="start"></ion-icon>
             <ion-label style="font-size: 12px;border-bottom: 1px;" (click)="irPronosticoMareologico()">Pronóstico Mareológico</ion-label>
@@ -87,28 +87,28 @@
             <ion-label style="font-size: 12px;" (click)="irAIS()">AIS PNA</ion-label>
           </ion-item>-->
       </ion-menu-toggle>
-     
+
       <div style="padding:5px 0px 5px 20px; font-size: 10px; background: #ebebeb;"> PROXIMAMENTE </div>
-     
+
       <ion-menu-toggle auto-hide="true">
           <ion-item>
             <ion-icon name="locate-outline" style="margin-left: 10px;color: rgb(177, 177, 177)" slot="start"></ion-icon>
             <ion-label (click)="NoImplementado()" style="font-size: 12px;color: rgb(177, 177, 177)">Enviar Geolocalización</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="true">          
+        <ion-menu-toggle auto-hide="true">
           <ion-item>
             <ion-icon  name="notifications-outline" style="margin-left: 10px;color: rgb(177, 177, 177)" slot="start"></ion-icon>
             <ion-label  (click)="NoImplementado()" style="font-size: 12px;color: rgb(177, 177, 177)">Configurar Notificaciones</ion-label>
           </ion-item>
       </ion-menu-toggle>
-       
+
 
 
 
       </ion-list>
       <div style="position: absolute; bottom: 0px;" class="version">
-        Versión 2.0.7.2
+        Versión 2.0.8.4
       </div>
 
     </ion-content>

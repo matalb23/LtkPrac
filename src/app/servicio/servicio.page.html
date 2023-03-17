@@ -118,42 +118,42 @@
         <ion-item button="true" id="open-date-input-fechaABordo">
           <ion-label>Práctico A Bordo</ion-label>
           <ion-text slot="end">{{ fechaABordoTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
-          <ion-popover trigger="open-date-input-fechaABordo" show-backdrop="true" class="dateTimePopover" side="top"  
+          <ion-popover trigger="open-date-input-fechaABordo" show-backdrop="true" class="dateTimePopover" side="top"
           style="background: #00000059;" > <!-- side="top" alignment="start" -->
             <ng-template>
-              <ion-datetime    displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true  
-              cancelText="cancelar" doneText="aceptar" locale="es-AR" 
+              <ion-datetime    displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true
+              cancelText="cancelar" doneText="aceptar" locale="es-AR"
               #popoverDatetimefechaABordoTemp presentation="time-date"
                 (ionChange)="fechaABordoTemp = popoverDatetimefechaABordoTemp.value;" ></ion-datetime>
             </ng-template>
           </ion-popover>
         </ion-item>
 
-        
+
 
       <ion-item button="true" id="open-date-input-FechaInicioNavegacionTemp">
         <ion-label>Inicio de Navegación</ion-label>
         <ion-text slot="end">{{ FechaInicioNavegacionTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
-        <ion-popover trigger="open-date-input-FechaInicioNavegacionTemp" show-backdrop="false" class="dateTimePopover" side="top" 
+        <ion-popover trigger="open-date-input-FechaInicioNavegacionTemp" show-backdrop="false" class="dateTimePopover" side="top"
         alignment="start" style="background: #00000059;" >
           <ng-template>
-            <ion-datetime    displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true 
+            <ion-datetime    displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true
              cancelText="cancelar" doneText="aceptar" locale="es-AR"
               #popoverDatetimeFechaInicioNavegacionTemp presentation="time-date"
               (ionChange)="FechaInicioNavegacionTemp = popoverDatetimeFechaInicioNavegacionTemp.value;"></ion-datetime>
           </ng-template>
         </ion-popover>
       </ion-item>
-      
 
-    
+
+
         <ion-item button="true" id="open-date-input-fechaFinTemp">
           <ion-label>Fecha de Fin</ion-label>
           <ion-text slot="end">{{ fechaFinTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
-          <ion-popover trigger="open-date-input-fechaFinTemp"  class="dateTimePopover" side="top" alignment="start"  
+          <ion-popover trigger="open-date-input-fechaFinTemp"  class="dateTimePopover" side="top" alignment="start"
           show-backdrop="false" style="background: #00000059;">
             <ng-template>
-              <ion-datetime displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true  
+              <ion-datetime displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true
                cancelText="cancelar" doneText="aceptar" locale="es-AR"
                 #popoverDatetimefechaFinTemp presentation="time-date"
                 (ionChange)="fechaFinTemp = popoverDatetimefechaFinTemp.value;"></ion-datetime>
@@ -162,53 +162,53 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating" class="labels">Proa</ion-label>
+          <ion-label position="stacked" class="labels">Proa</ion-label>
           <ion-input formControlName="calado_Proa" type="number" required class="info-grid">
           </ion-input>
         </ion-item>
 
-        <ion-item> 
-          <ion-label position="floating" class="labels">Popa</ion-label>
+        <ion-item>
+          <ion-label position="stacked" class="labels">Popa</ion-label>
           <ion-input formControlName="calado_Popa" type="number" required class="info-grid">
           </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating" class="labels">Cabotaje</ion-label>
+          <ion-label position="stacked" class="labels">Cabotaje</ion-label>
           <!-- <ion-input formControlName="cabotaje" type="text" required>
         </ion-input> -->
-          <ion-checkbox formControlName="cabotaje"></ion-checkbox>
-          Tildar solo si es un Servicio Nacional
+          <i style="font-size:12px">Tildar solo si es un Servicio Nacional</i>
+          <ion-checkbox formControlName="cabotaje"> </ion-checkbox>
           <br>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating" class="labels">Observación</ion-label>
-          <ion-input formControlName="observacion" type="text" required class="info-grid">
-          </ion-input>
+          <ion-label position="stacked" class="labels">Observación</ion-label>
+          <ion-textarea formControlName="observacion" type="text" required class="info-grid">
+          </ion-textarea>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating" class="labels">Tara Bruta</ion-label>
+          <ion-label position="stacked" class="labels">Tara Bruta</ion-label>
           <ion-input formControlName="taraBruta" type="number" required class="info-grid">
           </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating" class="labels">Tara Neta</ion-label>
+          <ion-label position="stacked" class="labels">Tara Neta</ion-label>
           <ion-input formControlName="taraNeta" type="number" required class="info-grid">
           </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating" class="labels">Canal</ion-label>
+          <ion-label position="stacked" class="labels">Canal</ion-label>
           <ion-input formControlName="canal" type="text" required class="info-grid">
           </ion-input>
         </ion-item>
         <ion-input type="hidden" formControlName="propietario"></ion-input>
         <ion-input type="hidden" formControlName="practico1"></ion-input>
         <ion-input type="hidden" formControlName="practico2"></ion-input>
-        
+
         <ion-grid>
         <ion-row *ngIf="EsPropietario">
             <ion-col>
@@ -222,18 +222,18 @@
               <div id="container">
                 <ion-button (click)="abrirManiobra()" color="primary" class="bot-alt" size="full" style="" >Maniobras</ion-button>
                 <br>
-                <p *ngIf="maniobraDataResponse">{{maniobraDataResponse}}</p>         
+                <p *ngIf="maniobraDataResponse">{{maniobraDataResponse}}</p>
               </div>
             </ion-col>
 
-        </ion-row>    
-        </ion-grid>    
-        <ion-grid>          
+        </ion-row>
+        </ion-grid>
+        <ion-grid>
         <ion-row *ngIf="EsPropietario">
 
           <ion-col>
-      
-            
+
+
             <ion-button *ngIf="!mostrarEliminarFirmas"  (click)="Firmar('Master');"  class="bot-full"  [color]="firmomaster?'medium':'primary'"  >
               Firma Master
             </ion-button>
@@ -253,8 +253,8 @@
             </ion-button>
           </ion-col>
         </ion-row>
-  
-        </ion-grid>  
+
+        </ion-grid>
       </form>
 
     </ion-list>

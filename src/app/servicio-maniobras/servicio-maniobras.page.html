@@ -1,13 +1,13 @@
 <ion-content>
-  
-  <ion-list lines="full" style="padding: 10px 10px 10px 10px; background-color: rgb(46, 46, 46);">
-    <form [formGroup]="mainForm" (ngSubmit)="storeData()">        
+
+  <ion-list class="ios-demoras-maniobras" lines="full" style="padding: 10px 10px 10px 10px; background-color: rgb(46, 46, 46);">
+    <form [formGroup]="mainForm" (ngSubmit)="storeData()">
       <ion-item>
         <p class="cab-line1">Maniobra para Servicio: </p>
       <p class="cab-line2-servicio" style="margin-left: 10px;">  {{codigoservicio}}</p>
-      <ion-button (click)="close()" style="position: absolute; right: 5px;"><ion-icon name="close-outline"></ion-icon></ion-button>          
+      <ion-button (click)="close()" style="position: absolute; right: 5px;"><ion-icon name="close-outline"></ion-icon></ion-button>
       </ion-item>
-      
+
      <!-- <ion-item button="true" id="open-date-input-Fecha">
         <ion-label>Fecha </ion-label>
         <ion-text slot="end">{{ fechaTemp }}</ion-text>
@@ -24,7 +24,7 @@
         <ion-text slot="end">{{ fechaTemp | date: 'dd/MM/yyyy HH:mm'  }}</ion-text>
         <ion-popover trigger="open-date-input-fechaTemp" show-backdrop="false" class="dateTimePopover" side="top" alignment="start" size="cover" >
           <ng-template>
-            <ion-datetime displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true 
+            <ion-datetime displayFormat="DD/MM/YYYY HH:mm" showDefaultButtons=true
              cancelText="cancelar" doneText="aceptar" tlocale="es-AR"
               #popoverDatetimefechaTemp presentation="time-date"
               (ionChange)="fechaTemp = popoverDatetimefechaTemp.value;"></ion-datetime>
@@ -33,9 +33,9 @@
       </ion-item>
       <ion-item>
         <ion-label>Tipo</ion-label>
-        <ion-select cancelText="CANCELAR" interface="action-sheet" #mySelect required [(ngModel)]="currentTipo" (ionChange)="selectChanged(mySelect.value)" name="tipo" formControlName="tipo">                  
+        <ion-select cancelText="CANCELAR" interface="action-sheet" #mySelect required [(ngModel)]="currentTipo" (ionChange)="selectChanged(mySelect.value)" name="tipo" formControlName="tipo">
                        <ion-select-option *ngFor="let Item of tipos"  [value]="Item.id+'-/-'+Item.descripcion"  >
-                         {{Item.descripcion}}</ion-select-option>                                 
+                         {{Item.descripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
 
@@ -66,22 +66,22 @@
               <ion-col size="10">
                 <ion-label class="card-notificaciones-txt">Tipo de Maniobra</ion-label>
                 <div class="card-notificaciones-tit" >
-                  {{ maniobra.tipoDescripcion}}             
+                  {{ maniobra.tipoDescripcion}}
                 </div>
               </ion-col>
               <ion-col size="2">
-               <ion-icon name="trash-outline" (click)="eliminar(maniobra.id,maniobra.idInterno)" style="color:red;font-size: 32px; position: relative;top: 10px;right: 0px; float: right;"></ion-icon>  
+               <ion-icon name="trash-outline" (click)="eliminar(maniobra.id,maniobra.idInterno)" style="color:red;font-size: 32px; position: relative;top: 10px;right: 0px; float: right;"></ion-icon>
               </ion-col>
             </ion-row>
           </ion-grid>
 
           <ion-label class="card-notificaciones-txt">Nota</ion-label>
           <div class="card-notificaciones-tit card-notificaciones-div-footer" >
-            {{ maniobra.nota}}              
+            {{ maniobra.nota}}
           </div>
           <ion-label class="card-notificaciones-txt">Cantidad</ion-label>
           <div class="card-notificaciones-tit card-notificaciones-div-footer" >
-            {{ maniobra.cantidad}}                
+            {{ maniobra.cantidad}}
           </div>
 
           <div class="card-notificaciones-det">
@@ -90,14 +90,14 @@
 
           <!-- <ion-label class="card-notificaciones-tit">Eliminar</ion-label> -->
           <!-- <div class="card-notificaciones-txt card-notificaciones-div-footer" (click)="eliminar(maniobra.id,maniobra.idInterno)" >
-            {{ maniobra.idInterno}}                
+            {{ maniobra.idInterno}}
           </div> -->
           <!-- <ion-icon name="close-circle-sharp" (click)="eliminar(maniobra.id,maniobra.idInterno)"></ion-icon> -->
 
         </ion-card-content>
       </ion-card>
     </ion-col>
-   
+
     </ion-row>
   </ion-grid>
   <ion-button (click)="close()" class="bot-full" >cerrar</ion-button>

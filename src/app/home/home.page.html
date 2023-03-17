@@ -8,8 +8,8 @@
 
 <ion-content>
   <ion-grid>
-    
-    <ion-row>
+
+    <ion-row class="home-margin-top">
 
       <div style="width: 100%;">
         <p class="volanta">Bienvenido</p>
@@ -18,7 +18,7 @@
 
    <div *ngIf="mensajeSinServicio!='';then mensajeContent else formContent">muestra el mensaje de no tiene servicio</div>
   <ng-template #mensajeContent> <p style="background-color:rgb(224, 224, 224); padding:20px; border-radius: 20px; text-align: center; width: 100%;">{{mensajeSinServicio}}</p></ng-template>
-  <ng-template #formContent> 
+  <ng-template #formContent>
       <div style="width: 100%;">
         <p class="volanta">Editor de Servicio</p>
         <p class="nombre-editor">{{PropietarioNombre}}</p>
@@ -30,7 +30,7 @@
       </div>
 
       <div style="width: 100%; margin-bottom: -10px;">
-        <p class="volanta">Servicio Asignado</p>        
+        <p class="volanta">Servicio Asignado</p>
         <button routerLink="/tabs/servicio" routerDirection="root" style="background: none;">
           <p class="numero-servicio">{{serviciodesdeApi.codigo}}</p>
         </button>
@@ -52,7 +52,7 @@
         <!-- <button class="bot-right"(click)="irLink()"> HISTÓRICO </button> -->
 
         <!-- <ion-button expand="block"  class="" routerLink="/tabs/guardia" routerDirection="root" style="margin-bottom: 10px;">GUARDIA</ion-button>         -->
-        <ion-button expand="block"  class="" (click)="irGuardia()" routerDirection="root" style="margin-bottom: 10px;">GUARDIA</ion-button>        
+        <ion-button expand="block"  class="" (click)="irGuardia()" routerDirection="root" style="margin-bottom: 10px;">GUARDIA</ion-button>
         <ion-button expand="block"  class="" routerLink="/tabs/historico" routerDirection="root">SERVICIOS HISTÓRICOS</ion-button>
       </div>
 
